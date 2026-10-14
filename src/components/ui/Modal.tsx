@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,8 @@ export interface ModalProps {
   size?: "sm" | "md" | "lg" | "xl" | "full";
 }
 
+const emptySubscribe = () => () => {};
+
 export function Modal({
   isOpen,
   onClose,
@@ -24,12 +26,12 @@ export function Modal({
   className,
   size = "md",
 }: ModalProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!isOpen) return;

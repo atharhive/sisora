@@ -181,7 +181,7 @@ export function DomainFilters({
     (selectedCategory ? selectedCategory !== "" : currentCategoryList.length > 0) ||
     currentPriceRanges.length > 0;
 
-  const FilterPanelContent = () => (
+  const renderFilterContent = () => (
     <div className="space-y-6 text-neutral-900 text-left">
       {/* Header */}
       <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200">
@@ -367,7 +367,7 @@ export function DomainFilters({
 
       {/* Desktop Panel */}
       <div className={cn("w-full", className)}>
-        <FilterPanelContent />
+        {renderFilterContent()}
       </div>
 
       {/* Mobile Drawer */}
@@ -396,7 +396,7 @@ export function DomainFilters({
             </div>
 
             <div className="flex-1 overflow-y-auto py-4 pr-1">
-              <FilterPanelContent />
+              {renderFilterContent()}
             </div>
 
             <div className="pt-4 border-t border-neutral-200">

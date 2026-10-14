@@ -6,7 +6,6 @@ import {
   ChevronDown,
   ChevronsUpDown,
   Inbox,
-  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +28,7 @@ export interface DataTableProps<T> {
   className?: string;
 }
 
-export function DataTable<T extends Record<string, any>>({
+export function DataTable<T extends Record<string, unknown>>({
   columns,
   data,
   loading = false,
