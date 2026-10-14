@@ -10,7 +10,7 @@ import {
   X,
   Sparkles,
 } from "lucide-react";
-import { SAMPLE_DOMAINS, getAllCategories } from "@/lib/data/sample-domains";
+import { DOMAINS } from "@/lib/data";
 import { DomainGrid } from "@/components/domains/DomainGrid";
 import { DomainFilters } from "@/components/domains/DomainFilters";
 import { Button } from "@/components/ui/Button";
@@ -45,11 +45,17 @@ function BuyDomainsContent() {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  const categories = useMemo(() => getAllCategories(), []);
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    DOMAINS.forEach((d) => {
+      if (d.category) set.add(d.category);
+    });
+    return Array.from(set);
+  }, []);
 
   // Filter and sort domains
   const filteredDomains = useMemo(() => {
-    return SAMPLE_DOMAINS.filter((d) => {
+    return DOMAINS.filter((d) => {
       // Search filter
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase().trim();
@@ -94,7 +100,10 @@ function BuyDomainsContent() {
         return pB - pA;
       }
       if (sortBy === "newest") {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        if (a.createdAt && b.createdAt) {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        }
+        return b.id.localeCompare(a.id);
       }
       // default: featured first, then price desc
       if (a.featured && !b.featured) return -1;

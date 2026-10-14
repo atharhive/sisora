@@ -4,16 +4,15 @@ import { StatsBar } from "@/components/sections/StatsBar";
 import { FeaturedDomains } from "@/components/sections/FeaturedDomains";
 import { BuyerSellerCTA } from "@/components/sections/BuyerSellerCTA";
 import { HowItWorks } from "@/components/sections/HowItWorks";
-import { SAMPLE_DOMAINS } from "@/lib/data/sample-domains";
+import { getFeaturedDomains, SITE_CONFIG } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "SISORA | Premium .SI Domain Brokerage",
-  description:
-    "Acquire and sell high-value .SI domains. Professional brokerage, secure escrow transfers, and confidential portfolio acquisitions.",
+  title: SITE_CONFIG.site.title,
+  description: SITE_CONFIG.site.description,
 };
 
 export default function HomePage() {
-  const featured = SAMPLE_DOMAINS.filter((d) => d.featured);
+  const featured = getFeaturedDomains();
 
   return (
     <div className="flex flex-col w-full">

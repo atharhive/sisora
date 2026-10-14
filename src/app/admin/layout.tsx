@@ -1,7 +1,6 @@
 import React from "react";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
 import { AdminShell } from "@/components/admin/AdminShell";
 
 export const metadata = {
@@ -14,13 +13,15 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
+  const cookieStore = await cookies();
+  const isAuthenticated =
+    cookieStore.get("sisora_admin_session")?.value === "authenticated";
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
   const isLoginPage = pathname === "/admin/login";
 
   // If not authenticated and not on login page, redirect to login
-  if (!session?.user) {
+  if (!isAuthenticated) {
     if (!isLoginPage) {
       redirect("/admin/login");
     }
@@ -32,5 +33,9 @@ export default async function AdminLayout({
     redirect("/admin");
   }
 
-  return <AdminShell user={session.user}>{children}</AdminShell>;
+  return (
+    <AdminShell user={{ name: "Administrator", email: "admin@sisora.si" }}>
+      {children}
+    </AdminShell>
+  );
 }

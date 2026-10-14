@@ -14,7 +14,6 @@ import {
   X,
   ExternalLink,
 } from "lucide-react";
-import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { useAdmin } from "./AdminContext";
 
@@ -32,25 +31,7 @@ const navItems = [
     exact: false,
   },
   {
-    name: "Inquiries",
-    href: "/admin/inquiries",
-    icon: MessageSquare,
-    exact: false,
-  },
-  {
-    name: "Sell Submissions",
-    href: "/admin/sell-submissions",
-    icon: Send,
-    exact: false,
-  },
-  {
-    name: "Pages",
-    href: "/admin/pages",
-    icon: FileText,
-    exact: false,
-  },
-  {
-    name: "Settings",
+    name: "Site Settings",
     href: "/admin/settings",
     icon: Settings,
     exact: false,
@@ -62,7 +43,8 @@ export function Sidebar() {
   const { sidebarOpen, setSidebarOpen } = useAdmin();
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/admin/login" });
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.href = "/admin/login";
   };
 
   const isItemActive = (href: string, exact: boolean) => {

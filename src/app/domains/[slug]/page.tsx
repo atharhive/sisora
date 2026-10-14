@@ -15,7 +15,7 @@ import {
   ChevronRight,
   Sparkles,
 } from "lucide-react";
-import { getDomainBySlug, SAMPLE_DOMAINS } from "@/lib/data/sample-domains";
+import { getDomainBySlug, DOMAINS } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { Badge } from "@/components/ui/Badge";
@@ -40,9 +40,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// Generate static params for common sample domains
+// Generate static params for all domains in domains.json
 export async function generateStaticParams() {
-  return SAMPLE_DOMAINS.map((d) => ({
+  return DOMAINS.map((d) => ({
     slug: d.slug,
   }));
 }

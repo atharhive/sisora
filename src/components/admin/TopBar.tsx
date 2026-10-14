@@ -3,7 +3,6 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { Menu, LogOut, User as UserIcon } from "lucide-react";
-import { signOut } from "next-auth/react";
 import { getInitials } from "@/lib/utils";
 import { useAdmin } from "./AdminContext";
 
@@ -28,7 +27,8 @@ export function TopBar() {
   const pageTitle = getPageTitle(pathname);
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/admin/login" });
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.href = "/admin/login";
   };
 
   const displayName = user?.name || "Admin";

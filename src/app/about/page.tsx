@@ -69,33 +69,33 @@ const approachPillars = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-neutral-900">
       {/* Header section */}
-      <section className="border-b border-zinc-900 bg-zinc-950/40 py-16 md:py-24">
+      <section className="border-b border-neutral-200 bg-neutral-50 py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-3">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-600 mb-3">
             <span>Specialized Domain Advisory</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-neutral-950 tracking-tight">
             About SISORA
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-zinc-400 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed">
             The dedicated private brokerage for premium .SI digital real estate. Connecting visionary founders, multinational enterprises, and domain investors.
           </p>
         </div>
       </section>
 
       {/* Company Description */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 border-b border-zinc-900">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 border-b border-neutral-200">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-950 tracking-tight">
               Elevating Digital Asset Brokerage for Central Europe and Beyond
             </h2>
-            <p className="text-base text-zinc-300 leading-relaxed">
+            <p className="text-base text-neutral-700 leading-relaxed">
               SISORA was founded on a singular premise: premium country-code top-level domains (ccTLDs) are the most undervalued commercial assets on the modern internet. As brands increasingly prioritize authority, memorability, and regional compliance, high-value .SI domains provide category-defining legitimacy.
             </p>
-            <p className="text-base text-zinc-400 leading-relaxed">
+            <p className="text-base text-neutral-600 leading-relaxed">
               Headquartered with global reach, SISORA serves as the primary gateway for acquiring and monetizing .SI domains. Whether representing multinational enterprises securing their trademark footprint or facilitating private liquidity for domain investors, our team delivers seamless, institutional-grade executions.
             </p>
             <div className="pt-2 flex flex-wrap gap-4">
@@ -106,7 +106,7 @@ export default function AboutPage() {
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button variant="outline" size="md">
+                <Button variant="secondary" size="md">
                   Schedule an Executive Call
                 </Button>
               </Link>
@@ -114,22 +114,22 @@ export default function AboutPage() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative rounded-2xl border border-zinc-800 bg-zinc-950 p-8 space-y-6 shadow-2xl">
-              <h3 className="text-xl font-bold text-white">Our Core Mission</h3>
-              <p className="text-sm text-zinc-400 leading-relaxed">
+            <div className="relative rounded-2xl border border-neutral-200 bg-neutral-50 p-8 space-y-6 shadow-sm">
+              <h3 className="text-xl font-bold text-neutral-950">Our Core Mission</h3>
+              <p className="text-sm text-neutral-600 leading-relaxed">
                 To build a frictionless, transparent, and secure exchange ecosystem that unlocks the true intrinsic value of .SI domains for businesses, developers, and asset managers worldwide.
               </p>
-              <div className="pt-4 border-t border-zinc-900 space-y-3 text-xs text-zinc-300">
+              <div className="pt-4 border-t border-neutral-200 space-y-3 text-xs text-neutral-700">
                 <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                   <span>Licensed Third-Party Escrow Security</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                   <span>Official Arnes Registry Compliance</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                   <span>Zero Public Identity Disclosure</span>
                 </div>
               </div>
@@ -139,15 +139,15 @@ export default function AboutPage() {
       </section>
 
       {/* Why .SI Domains Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-b border-zinc-900">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 border-b border-neutral-200">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2">
             Strategic Value Proposition
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-950 tracking-tight">
             Why High-Value .SI Domains?
           </h2>
-          <p className="mt-3 text-base text-zinc-400">
+          <p className="mt-3 text-base text-neutral-600">
             Four key pillars that make .SI digital assets a powerful addition to any corporate brand or alternative investment balance sheet.
           </p>
         </div>
@@ -158,16 +158,16 @@ export default function AboutPage() {
             return (
               <div
                 key={idx}
-                className="p-6 rounded-2xl border border-zinc-850 bg-zinc-950 flex flex-col justify-between hover:border-zinc-700 transition-colors"
+                className="p-6 rounded-2xl border border-neutral-200 bg-white flex flex-col justify-between hover:border-neutral-400 hover:shadow-xs transition-all"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400 mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-900 mb-5">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">
+                  <h3 className="text-lg font-bold text-neutral-900 mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -178,15 +178,15 @@ export default function AboutPage() {
       </section>
 
       {/* Our Approach Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2">
             Professional Standards
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-950 tracking-tight">
             Our Brokerage Methodology
           </h2>
-          <p className="mt-3 text-base text-zinc-400">
+          <p className="mt-3 text-base text-neutral-600">
             A disciplined, client-first approach built on trust, discretion, and transactional excellence.
           </p>
         </div>
@@ -197,13 +197,13 @@ export default function AboutPage() {
             return (
               <div
                 key={idx}
-                className="p-8 rounded-2xl border border-zinc-850 bg-zinc-950 hover:border-zinc-700 transition-colors"
+                className="p-8 rounded-2xl border border-neutral-200 bg-white hover:border-neutral-400 hover:shadow-xs transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-white mb-6">
+                <div className="w-12 h-12 rounded-xl bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-900 mb-6">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{p.title}</h3>
-                <p className="text-sm text-zinc-400 leading-relaxed">
+                <h3 className="text-xl font-bold text-neutral-900 mb-3">{p.title}</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">
                   {p.description}
                 </p>
               </div>

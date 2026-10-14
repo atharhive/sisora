@@ -1,0 +1,38 @@
+{
+  "site": {
+    "name": "SISORA",
+    "subtitle": "A .SI BROKERAGE FIRM",
+    "title": "SISORA | Premium .SI Domain Brokerage",
+    "description": "Connecting .SI domain investors through professional brokerage, targeted buyer outreach, and secure transactions.",
+    "url": "https://sisora.si"
+  },
+  "contact": {
+    "email": "deals@sisora.si",
+    "phone": "+91 98765 43210",
+    "phoneRaw": "+919876543210",
+    "whatsapp": "+91 98765 43210",
+    "whatsappRaw": "919876543210",
+    "telegram": "sisora_brokerage",
+    "location": "India (Global Clients)",
+    "address": "Bangalore / Global Escrow Coverage"
+  },
+  "social": {
+    "twitter": "https://x.com/sisora_si",
+    "linkedin": "https://linkedin.com/company/sisora",
+    "whatsapp": "https://wa.me/919876543210"
+  },
+  "stats": [
+    { "highlight": "100+", "label": "INVESTOR NETWORK" },
+    { "highlight": "PREMIUM", "label": ".SI DOMAIN FOCUS" },
+    { "highlight": "END-TO-END", "label": "BROKERAGE SUPPORT" },
+    { "highlight": "SECURE", "label": "TRANSACTIONS" }
+  ],
+  "hero": {
+    "badge": "PREMIUM .SI DOMAIN BROKERAGE",
+    "headline": "A Dedicated Brokerage for .SI Domains",
+    "subheadline": "Connecting .SI domain investors through professional brokerage, targeted buyer outreach, and secure transactions.",
+    "taglineSmall": "SMALL EXTENSION.",
+    "taglineBig": "BIG OPPORTUNITIES.",
+    "taglineDescription": "Official ccTLD of Slovenia. Highly recognized across the European Union for technology, finance, and short brandable naming."
+  }
+}

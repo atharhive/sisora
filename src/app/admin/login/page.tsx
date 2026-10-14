@@ -1,52 +1,24 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
-import { Lock, Mail, AlertCircle, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Lock, AlertCircle, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/admin";
 
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Rate limiting attempts state
-  const [failedAttempts, setFailedAttempts] = useState(0);
-  const [cooldownSeconds, setCooldownSeconds] = useState(0);
-
-  // Handle countdown timer for rate limit
-  useEffect(() => {
-    if (cooldownSeconds <= 0) return;
-    const interval = setInterval(() => {
-      setCooldownSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [cooldownSeconds]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (cooldownSeconds > 0) {
-      setError(
-        `Too many failed attempts. Please wait ${cooldownSeconds}s before trying again.`
-      );
-      return;
-    }
-
-    if (!email.trim() || !password) {
-      setError("Please fill in both email and password.");
+    if (!password) {
+      setError("Please enter the admin password.");
       return;
     }
 
@@ -54,38 +26,27 @@ function LoginForm() {
     setError(null);
 
     try {
-      const res = await signIn("credentials", {
-        email: email.trim(),
-        password,
-        redirect: false,
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
       });
 
-      if (!res || res.error) {
-        const nextAttempts = failedAttempts + 1;
-        setFailedAttempts(nextAttempts);
+      const data = await res.json().catch(() => ({}));
 
-        if (nextAttempts >= 5) {
-          setCooldownSeconds(60);
-          setError(
-            "Too many failed login attempts. Please wait 60 seconds before trying again."
-          );
-        } else {
-          setError("Invalid email or password. Please try again.");
-        }
+      if (!res.ok) {
+        setError(data.error || "Invalid password. Please try again.");
         setLoading(false);
         return;
       }
 
-      // Success
       router.push(callbackUrl);
       router.refresh();
-    } catch (err: any) {
-      setError(err?.message || "An unexpected error occurred. Please try again.");
+    } catch {
+      setError("An unexpected error occurred. Please try again.");
       setLoading(false);
     }
   };
-
-  const isRateLimited = cooldownSeconds > 0;
 
   return (
     <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-neutral-200 overflow-hidden">
@@ -114,38 +75,11 @@ function LoginForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
-              htmlFor="email"
+              htmlFor="password"
               className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5"
             >
-              Email Address
+              Admin Master Password
             </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
-                <Mail className="w-4 h-4" />
-              </div>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                disabled={loading || isRateLimited}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@sisora.si"
-                className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:bg-white transition-all disabled:opacity-60"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label
-                htmlFor="password"
-                className="block text-xs font-semibold uppercase tracking-wider text-neutral-700"
-              >
-                Password
-              </label>
-            </div>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
                 <Lock className="w-4 h-4" />
@@ -155,10 +89,10 @@ function LoginForm() {
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 required
-                disabled={loading || isRateLimited}
+                disabled={loading}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
+                placeholder="Enter password..."
                 className="w-full pl-10 pr-10 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:bg-white transition-all disabled:opacity-60"
               />
               <button
@@ -175,18 +109,15 @@ function LoginForm() {
                 )}
               </button>
             </div>
-          </div>
-
-          {isRateLimited && (
-            <p className="text-center text-xs font-medium text-amber-600 bg-amber-50 p-2 rounded-lg border border-amber-200">
-              Rate limited. Retry in {cooldownSeconds}s
+            <p className="mt-1.5 text-[11px] text-neutral-500">
+              Default password: <code className="bg-neutral-100 px-1 py-0.5 rounded text-neutral-700">admin123</code> (configurable via ADMIN_PASSWORD)
             </p>
-          )}
+          </div>
 
           <button
             type="submit"
-            disabled={loading || isRateLimited}
-            className="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold text-white bg-neutral-900 hover:bg-black active:scale-[0.99] transition-all shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
+            disabled={loading}
+            className="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold text-white bg-neutral-900 hover:bg-black active:scale-[0.99] transition-all shadow-sm disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
           >
             {loading ? (
               <>
@@ -195,7 +126,7 @@ function LoginForm() {
               </>
             ) : (
               <>
-                <span>Sign In</span>
+                <span>Enter Admin Panel</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}

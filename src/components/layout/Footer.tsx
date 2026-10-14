@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
+import { SITE_CONFIG } from "@/lib/data";
 
 // Inline social icons for sharp rendering
 function TwitterIcon({ className }: { className?: string }) {
@@ -49,7 +50,7 @@ export function Footer() {
             </p>
             <div className="flex items-center space-x-3 pt-2">
               <a
-                href="https://x.com/sisora_si"
+                href={SITE_CONFIG.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X (formerly Twitter)"
@@ -58,7 +59,7 @@ export function Footer() {
                 <TwitterIcon className="h-4 w-4" />
               </a>
               <a
-                href="https://linkedin.com/company/sisora"
+                href={SITE_CONFIG.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -67,7 +68,7 @@ export function Footer() {
                 <LinkedInIcon className="h-4 w-4" />
               </a>
               <a
-                href="https://wa.me/919876543210"
+                href={SITE_CONFIG.social.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -76,7 +77,7 @@ export function Footer() {
                 <WhatsAppIcon className="h-4 w-4" />
               </a>
               <a
-                href="mailto:deals@sisora.si"
+                href={`mailto:${SITE_CONFIG.contact.email}`}
                 aria-label="Email"
                 className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white transition-colors"
               >
@@ -199,37 +200,37 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-neutral-400">
               <li>
                 <a
-                  href="tel:+919876543210"
+                  href={`tel:${SITE_CONFIG.contact.phoneRaw}`}
                   className="flex items-center gap-2.5 hover:text-white transition-colors"
                 >
                   <Phone className="h-4 w-4 shrink-0 text-neutral-500" />
-                  <span>+91 98765 43210</span>
+                  <span>{SITE_CONFIG.contact.phone}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:deals@sisora.si"
+                  href={`mailto:${SITE_CONFIG.contact.email}`}
                   className="flex items-center gap-2.5 hover:text-white transition-colors"
                 >
                   <Mail className="h-4 w-4 shrink-0 text-neutral-500" />
-                  <span>deals@sisora.si</span>
+                  <span>{SITE_CONFIG.contact.email}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="https://linkedin.com/in/yourprofile"
+                  href={SITE_CONFIG.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2.5 hover:text-white transition-colors"
                 >
                   <LinkedInIcon className="h-4 w-4 shrink-0 text-neutral-500" />
-                  <span>linkedin.com/in/yourprofile</span>
+                  <span>LinkedIn Profile</span>
                 </a>
               </li>
               <li>
                 <div className="flex items-center gap-2.5 text-neutral-400">
                   <MapPin className="h-4 w-4 shrink-0 text-neutral-500" />
-                  <span>India (Global Clients)</span>
+                  <span>{SITE_CONFIG.contact.location}</span>
                 </div>
               </li>
             </ul>

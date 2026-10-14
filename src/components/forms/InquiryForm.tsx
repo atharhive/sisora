@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2, ShieldCheck } from "lucide-react";
+import { Send, CheckCircle2, ShieldCheck, Mail, MessageSquare } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { inquiryFormSchema } from "@/lib/validators";
+import { SITE_CONFIG } from "@/lib/data";
 
 export interface InquiryFormProps {
   domainName?: string;
@@ -35,7 +36,6 @@ export function InquiryForm({
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validate = () => {
@@ -63,50 +63,53 @@ export function InquiryForm({
     return true;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const getMailtoLink = () => {
+    const targetDomain = formData.domainName || "SISORA Domain";
+    const subject = `[Domain Inquiry] ${targetDomain} - from ${formData.name}`;
+    const body = `Hello SISORA Brokerage Team,
+
+I am interested in inquiring about the domain: ${targetDomain}
+
+--- Inquirer Details ---
+Name: ${formData.name}
+Email: ${formData.email}
+Phone / WhatsApp: ${formData.phone || "Not provided"}
+Inquiry Type: ${formData.type.toUpperCase()}
+
+--- Message / Offer ---
+${formData.message || "Please provide pricing and acquisition details."}
+
+---
+Sent via SISORA Brokerage Portal (sisora.si)`;
+
+    return `mailto:${SITE_CONFIG.contact.email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
+  const getWhatsAppLink = () => {
+    const targetDomain = formData.domainName || "a .SI domain";
+    const text = `Hello SISORA, I'm inquiring about ${targetDomain}. My name is ${formData.name} (${formData.email}). ${formData.message || "Please provide acquisition details."}`;
+    return `https://wa.me/${SITE_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(text)}`;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-
-    try {
-      const res = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          domainName: formData.domainName.trim(),
-          domainId: domainId || undefined,
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone.trim() || undefined,
-          message: formData.message.trim() || undefined,
-          type: formData.type,
-        }),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to submit domain inquiry.");
-      }
-
-      setIsSubmitted(true);
-      success(
-        `Inquiry for ${formData.domainName} submitted. Our brokerage desk will respond within 24 hours.`,
-        "Inquiry Received"
-      );
-      onSuccess?.();
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : "An unexpected error occurred. Please try again or email deals@sisora.si";
-      error(message, "Submission Error");
-    } finally {
-      setIsSubmitting(false);
+    if (!validate()) {
+      error("Please fill in required fields correctly.", "Validation Error");
+      return;
     }
+
+    // Open email client with pre-filled content
+    const mailto = getMailtoLink();
+    window.open(mailto, "_blank");
+
+    setIsSubmitted(true);
+    success(
+      `Opening email to ${SITE_CONFIG.contact.email}. Please review and hit send!`,
+      "Email Ready"
+    );
+    onSuccess?.();
   };
 
   if (isSubmitted) {
@@ -115,32 +118,38 @@ export function InquiryForm({
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-black text-white">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h4 className="text-xl font-bold text-neutral-950">Inquiry Confirmed</h4>
+        <h4 className="text-xl font-bold text-neutral-950">Inquiry Prepared</h4>
         <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
-          Thank you for reaching out regarding{" "}
-          <span className="font-semibold text-black">{formData.domainName}</span>.
-          A dedicated broker from SISORA will review your requirements and respond
-          confidentially via email.
+          Your inquiry for{" "}
+          <span className="font-semibold text-black">{formData.domainName}</span>{" "}
+          has been generated. If your email app didn&apos;t open automatically, you can send it directly or chat on WhatsApp:
         </p>
-        <div className="pt-2">
-          <Button
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href={getMailtoLink()}
+            className="inline-flex items-center gap-2 rounded-lg bg-black px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors"
+          >
+            <Mail className="h-4 w-4" />
+            <span>Open Email Client</span>
+          </a>
+          <a
+            href={getWhatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
+          >
+            <MessageSquare className="h-4 w-4 text-emerald-600" />
+            <span>Send via WhatsApp</span>
+          </a>
+        </div>
+        <div className="pt-4 border-t border-neutral-200">
+          <button
             type="button"
-            variant="secondary"
-            size="sm"
-            onClick={() => {
-              setIsSubmitted(false);
-              setFormData({
-                domainName: initialDomainName,
-                name: "",
-                email: "",
-                phone: "",
-                message: "",
-                type: initialType,
-              });
-            }}
+            onClick={() => setIsSubmitted(false)}
+            className="text-xs font-semibold text-neutral-500 hover:text-black underline cursor-pointer"
           >
             Submit Another Request
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -214,7 +223,7 @@ export function InquiryForm({
 
       <div className="flex items-center gap-2 text-xs text-neutral-500 py-1">
         <ShieldCheck className="h-4 w-4 text-neutral-700 shrink-0" />
-        <span>Strict confidentiality guaranteed. We never disclose buyer identities without consent.</span>
+        <span>Submitting prepares an instant email to {SITE_CONFIG.contact.email} with strict confidentiality.</span>
       </div>
 
       <Button
@@ -222,10 +231,9 @@ export function InquiryForm({
         variant="primary"
         size="lg"
         className="w-full justify-center font-bold"
-        isLoading={isSubmitting}
       >
         <Send className="h-4 w-4 mr-2" />
-        Submit Confidential Inquiry
+        Send Inquiry via Email
       </Button>
     </form>
   );

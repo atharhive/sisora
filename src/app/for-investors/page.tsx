@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Users2, SearchCheck, Layers, EyeOff, ShieldCheck, Sparkles, Building2 } from "lucide-react";
+import { Users2, SearchCheck, Layers, EyeOff, ShieldCheck, Building2 } from "lucide-react";
 import { BuyingRequestForm } from "@/components/forms/BuyingRequestForm";
 
 export const metadata: Metadata = {
@@ -45,92 +45,90 @@ const services = [
 
 export default function ForInvestorsPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-neutral-900">
       {/* Header section */}
-      <section className="border-b border-zinc-900 bg-zinc-950/40 py-16 md:py-24">
+      <section className="border-b border-neutral-200 bg-neutral-50 py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-3">
-            <Building2 className="w-4 h-4" />
-            <span>Institutional & Family Office Advisory</span>
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-600 mb-3">
+            <Building2 className="w-4 h-4 text-neutral-900" />
+            <span>Institutional &amp; Investor Desk</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-neutral-950 tracking-tight">
             For .SI Domain Investors
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-zinc-400 leading-relaxed">
-            Private capital advisory, confidential stealth acquisitions, and portfolio management engineered specifically for professional domain investors and alternative asset funds.
+          <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed">
+            A dedicated platform for .si domain investors. Connect, acquire, and sell premium .si domains through professional brokerage.
           </p>
         </div>
       </section>
 
-      {/* Services Grid (4 Cards) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            Specialized Investor Solutions
-          </h2>
-          <p className="mt-2 text-sm text-zinc-400">
-            Engineered to maximize return on capital and secure rare category-defining assets.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((svc) => {
-            const Icon = svc.icon;
-            return (
-              <div
-                key={svc.id}
-                id={svc.id}
-                className="relative rounded-2xl border border-zinc-850 bg-zinc-950 p-8 flex flex-col justify-between hover:border-zinc-700 transition-colors"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-semibold text-zinc-400 bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-full">
-                      {svc.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {svc.title}
-                  </h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">
-                    {svc.description}
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-zinc-900 flex items-center gap-2 text-xs text-emerald-400 font-medium">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>Confidential Execution Under NDA</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Buying Request Form Section */}
-      <section className="border-t border-zinc-900 bg-zinc-950/60 py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2">
-              <Sparkles className="w-4 h-4" />
-              <span>Private Mandates</span>
+      {/* Main Content Area */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Column: Services list */}
+          <div className="lg:col-span-5 space-y-6">
+            <div>
+              <h2 className="text-xl font-bold text-neutral-950">
+                Brokerage Services for Investors
+              </h2>
+              <p className="mt-1 text-sm text-neutral-500">
+                Tailored transaction execution designed to protect capital and maximize portfolio yields.
+              </p>
             </div>
-            <h2 className="text-3xl font-extrabold text-white tracking-tight">
-              Submit an Acquisition Request
-            </h2>
-            <p className="mt-2 text-sm text-zinc-400 max-w-xl mx-auto">
-              Tell us what domains or portfolio criteria you are targeting. Our brokerage team will initiate confidential discovery and deal structuring.
-            </p>
+
+            <div className="space-y-4">
+              {services.map((svc) => {
+                const Icon = svc.icon;
+                return (
+                  <div
+                    key={svc.id}
+                    className="p-5 rounded-2xl border border-neutral-200 bg-white hover:border-black hover:shadow-md transition-all group"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="w-9 h-9 rounded-xl bg-neutral-100 flex items-center justify-center text-black group-hover:scale-105 transition-transform">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span className="text-[11px] font-semibold text-neutral-600 bg-neutral-100 border border-neutral-200/80 px-2.5 py-0.5 rounded-full">
+                        {svc.badge}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-neutral-900 mt-2">
+                      {svc.title}
+                    </h3>
+                    <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+                      {svc.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Escrow note */}
+            <div className="p-5 rounded-2xl border border-neutral-200 bg-neutral-50 flex items-start gap-3 text-xs text-neutral-600 leading-relaxed">
+              <ShieldCheck className="w-5 h-5 text-neutral-900 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-bold text-neutral-900 block mb-0.5">
+                  Institutional Confidentiality
+                </span>
+                All private acquisitions and portfolio movements are handled under strict non-disclosure terms.
+              </div>
+            </div>
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 sm:p-10 shadow-2xl">
-            <BuyingRequestForm />
+          {/* Right Column: Buying Request Form */}
+          <div className="lg:col-span-7">
+            <div className="p-6 sm:p-8 rounded-3xl border border-neutral-200 bg-white shadow-xs">
+              <h2 className="text-xl font-bold text-neutral-950 mb-1">
+                Submit a Buying Request
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-500 mb-6">
+                Tell us what you&apos;re looking for and we&apos;ll notify you when matching assets become available.
+              </p>
+              <BuyingRequestForm />
+            </div>
           </div>
         </div>
-      </section>
+      </main>
     </div>
   );
 }

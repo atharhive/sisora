@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Shield, ArrowRight } from "lucide-react";
+import { CheckCircle2, Shield, ArrowRight, Mail, MessageSquare } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { buyingRequestSchema } from "@/lib/validators";
+import { SITE_CONFIG } from "@/lib/data";
 
 export interface BuyingRequestFormProps {
   onSuccess?: () => void;
@@ -25,7 +26,6 @@ export function BuyingRequestForm({ onSuccess, className }: BuyingRequestFormPro
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validate = () => {
@@ -54,51 +54,50 @@ export function BuyingRequestForm({ onSuccess, className }: BuyingRequestFormPro
     return true;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const getMailtoLink = () => {
+    const subject = `[Acquisition Mandate] ${formData.budget ? `Budget: ${formData.budget}` : "New Request"} - from ${formData.name}`;
+    const body = `Hello SISORA Private Brokerage Desk,
+
+I would like to initiate a confidential domain acquisition request:
+
+--- Investor Details ---
+Name: ${formData.name}
+Email: ${formData.email}
+Phone / WhatsApp: ${formData.phone || "Not provided"}
+Estimated Budget: ${formData.budget || "Open / flexible"}
+
+--- Acquisition Mandate & Target Requirements ---
+${formData.requirements}
+
+---
+Submitted via SISORA Investor Portal (sisora.si)`;
+
+    return `mailto:${SITE_CONFIG.contact.email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
+  const getWhatsAppLink = () => {
+    const text = `Hello SISORA, I'd like to initiate an acquisition request. Name: ${formData.name} (${formData.email}), Budget: ${formData.budget || "Flexible"}. Requirements: ${formData.requirements}`;
+    return `https://wa.me/${SITE_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(text)}`;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-
-    try {
-      const res = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          domainName: formData.budget
-            ? `Acquisition Mandate (${formData.budget})`
-            : "Acquisition Mandate Request",
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone.trim() || undefined,
-          message: `[Budget: ${formData.budget.trim() || "Not specified"}]\n\nRequirements:\n${formData.requirements.trim()}`,
-          type: "buy",
-        }),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to submit acquisition request.");
-      }
-
-      setIsSubmitted(true);
-      success(
-        "Acquisition mandate submitted. Our senior broker will follow up under strict NDA.",
-        "Request Logged"
-      );
-      onSuccess?.();
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : "Failed to submit request. Please try again or email deals@sisora.si.";
-      error(message, "Submission Error");
-    } finally {
-      setIsSubmitting(false);
+    if (!validate()) {
+      error("Please check the form fields.", "Validation Error");
+      return;
     }
+
+    const mailto = getMailtoLink();
+    window.open(mailto, "_blank");
+
+    setIsSubmitted(true);
+    success(
+      `Opening email client to ${SITE_CONFIG.contact.email}. Please review and hit send!`,
+      "Email Ready"
+    );
+    onSuccess?.();
   };
 
   if (isSubmitted) {
@@ -107,29 +106,37 @@ export function BuyingRequestForm({ onSuccess, className }: BuyingRequestFormPro
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-black text-white">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h4 className="text-xl font-bold text-neutral-950">Acquisition Mandate Active</h4>
+        <h4 className="text-xl font-bold text-neutral-950">Acquisition Request Ready</h4>
         <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
-          Your domain acquisition criteria has been logged directly with our private mandate desk.
-          We will analyze registry records and contact unlisted owners confidentially.
+          Your confidential acquisition criteria has been formatted for{" "}
+          <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>.
         </p>
-        <div className="pt-2">
-          <Button
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href={getMailtoLink()}
+            className="inline-flex items-center gap-2 rounded-lg bg-black px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors"
+          >
+            <Mail className="h-4 w-4" />
+            <span>Open Email Client</span>
+          </a>
+          <a
+            href={getWhatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
+          >
+            <MessageSquare className="h-4 w-4 text-emerald-600" />
+            <span>Submit via WhatsApp</span>
+          </a>
+        </div>
+        <div className="pt-4 border-t border-neutral-200">
+          <button
             type="button"
-            variant="secondary"
-            size="sm"
-            onClick={() => {
-              setIsSubmitted(false);
-              setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                budget: "",
-                requirements: "",
-              });
-            }}
+            onClick={() => setIsSubmitted(false)}
+            className="text-xs font-semibold text-neutral-500 hover:text-black underline cursor-pointer"
           >
             Submit Another Mandate
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -187,7 +194,7 @@ export function BuyingRequestForm({ onSuccess, className }: BuyingRequestFormPro
       <div className="rounded-xl bg-neutral-100 border border-neutral-200/80 p-3.5 flex items-start gap-2.5 text-xs text-neutral-600">
         <Shield className="h-4 w-4 text-black shrink-0 mt-0.5" />
         <span>
-          Buyer identity remains 100% confidential. We initiate discreet, anonymized negotiations to prevent seller price inflation.
+          Buyer identity remains 100% confidential. Submitting directly opens your email client addressed to {SITE_CONFIG.contact.email}.
         </span>
       </div>
 
@@ -196,9 +203,8 @@ export function BuyingRequestForm({ onSuccess, className }: BuyingRequestFormPro
         variant="primary"
         size="lg"
         className="w-full justify-center font-bold"
-        isLoading={isSubmitting}
       >
-        <span>Initiate Stealth Acquisition Request</span>
+        <span>Send Acquisition Request via Email</span>
         <ArrowRight className="h-4 w-4 ml-2" />
       </Button>
     </form>

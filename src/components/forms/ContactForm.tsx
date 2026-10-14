@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, Mail, MessageSquare } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { contactFormSchema } from "@/lib/validators";
+import { SITE_CONFIG } from "@/lib/data";
 
 const SUBJECT_OPTIONS = [
   { value: "Domain Acquisition Inquiry", label: "Domain Acquisition Inquiry" },
@@ -35,7 +36,6 @@ export function ContactForm({ onSuccess, className }: ContactFormProps) {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validate = () => {
@@ -61,45 +61,49 @@ export function ContactForm({ onSuccess, className }: ContactFormProps) {
     return true;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const getMailtoLink = () => {
+    const subject = `[SISORA Contact] ${formData.subject} - from ${formData.name}`;
+    const body = `Hello SISORA Team,
+
+Subject: ${formData.subject}
+
+--- Contact Details ---
+Name: ${formData.name}
+Email: ${formData.email}
+Phone / WhatsApp: ${formData.phone || "Not provided"}
+
+--- Message ---
+${formData.message}
+
+---
+Sent via SISORA Contact Form (sisora.si)`;
+
+    return `mailto:${SITE_CONFIG.contact.email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
+  const getWhatsAppLink = () => {
+    const text = `Hello SISORA, I'm reaching out regarding "${formData.subject}". My name is ${formData.name} (${formData.email}).\n\n${formData.message}`;
+    return `https://wa.me/${SITE_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(text)}`;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone.trim() || undefined,
-          subject: formData.subject,
-          message: formData.message.trim(),
-        }),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to deliver contact message.");
-      }
-
-      setIsSubmitted(true);
-      success("Your message has been received by our brokerage desk.", "Message Delivered");
-      onSuccess?.();
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : "Failed to deliver message. Please contact deals@sisora.si directly.";
-      error(message, "Error");
-    } finally {
-      setIsSubmitting(false);
+    if (!validate()) {
+      error("Please check the form fields.", "Validation Error");
+      return;
     }
+
+    const mailto = getMailtoLink();
+    window.open(mailto, "_blank");
+
+    setIsSubmitted(true);
+    success(
+      `Opening email client to ${SITE_CONFIG.contact.email}. Please review and hit send!`,
+      "Email Ready"
+    );
+    onSuccess?.();
   };
 
   if (isSubmitted) {
@@ -108,29 +112,38 @@ export function ContactForm({ onSuccess, className }: ContactFormProps) {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-black text-white">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h4 className="text-xl font-bold text-neutral-950">Message Delivered</h4>
+        <h4 className="text-xl font-bold text-neutral-950">Email Prepared</h4>
         <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
-          Thank you for contacting SISORA. A member of our executive brokerage team
-          will review your inquiry and follow up within one business day.
+          Your message has been formatted for{" "}
+          <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>.
+          If your email client didn&apos;t open automatically, send directly or chat on WhatsApp:
         </p>
-        <div className="pt-2">
-          <Button
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href={getMailtoLink()}
+            className="inline-flex items-center gap-2 rounded-lg bg-black px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors"
+          >
+            <Mail className="h-4 w-4" />
+            <span>Open Email Client</span>
+          </a>
+          <a
+            href={getWhatsAppLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
+          >
+            <MessageSquare className="h-4 w-4 text-emerald-600" />
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+        <div className="pt-4 border-t border-neutral-200">
+          <button
             type="button"
-            variant="secondary"
-            size="sm"
-            onClick={() => {
-              setIsSubmitted(false);
-              setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                subject: "Domain Acquisition Inquiry",
-                message: "",
-              });
-            }}
+            onClick={() => setIsSubmitted(false)}
+            className="text-xs font-semibold text-neutral-500 hover:text-black underline cursor-pointer"
           >
             Send Another Message
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -191,10 +204,9 @@ export function ContactForm({ onSuccess, className }: ContactFormProps) {
         variant="primary"
         size="lg"
         className="w-full justify-center font-bold"
-        isLoading={isSubmitting}
       >
         <Send className="h-4 w-4 mr-2" />
-        Send Message
+        Send Message via Email
       </Button>
     </form>
   );
