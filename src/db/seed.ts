@@ -18,6 +18,83 @@ async function main() {
   const sql = neon(databaseUrl);
   const db = drizzle(sql, { schema });
 
+  // ─── 0. Ensure tables exist ───────────────────────────────
+  console.log("📦 Verifying database tables...");
+  await sql`
+    CREATE TABLE IF NOT EXISTS admins (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      email VARCHAR(255) NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS domains (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      name VARCHAR(255) NOT NULL,
+      slug VARCHAR(255) NOT NULL UNIQUE,
+      extension VARCHAR(10) NOT NULL DEFAULT '.si',
+      description TEXT,
+      category VARCHAR(255),
+      tags JSONB DEFAULT '[]'::jsonb,
+      price INTEGER,
+      price_type VARCHAR(50) NOT NULL DEFAULT 'make_offer',
+      featured BOOLEAN DEFAULT FALSE,
+      status VARCHAR(50) NOT NULL DEFAULT 'active',
+      total_visitors INTEGER DEFAULT 0,
+      created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS inquiries (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      domain_id UUID REFERENCES domains(id) ON DELETE SET NULL,
+      domain_name VARCHAR(255),
+      name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      phone VARCHAR(50),
+      message TEXT,
+      type VARCHAR(50) NOT NULL DEFAULT 'general',
+      status VARCHAR(50) NOT NULL DEFAULT 'new',
+      created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS sell_submissions (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      domain_name VARCHAR(255) NOT NULL,
+      owner_name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      phone VARCHAR(50),
+      asking_price VARCHAR(100),
+      description TEXT,
+      status VARCHAR(50) NOT NULL DEFAULT 'pending',
+      created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS pages (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      slug VARCHAR(100) NOT NULL UNIQUE,
+      title VARCHAR(255) NOT NULL,
+      content JSONB DEFAULT '{}'::jsonb,
+      meta_title VARCHAR(255),
+      meta_description TEXT,
+      updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS site_settings (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      key VARCHAR(100) NOT NULL UNIQUE,
+      value TEXT NOT NULL,
+      "group" VARCHAR(50) NOT NULL DEFAULT 'general'
+    );
+  `;
+  console.log("   ✅ Database tables verified.");
+
   // ─── 1. Admin Account ─────────────────────────────────────
   const adminEmail = process.env.ADMIN_EMAIL || "admin@sisora.si";
   const adminPassword = process.env.ADMIN_PASSWORD || "Admin123!Sisora";
