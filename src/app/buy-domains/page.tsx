@@ -112,18 +112,18 @@ function BuyDomainsContent() {
   return (
     <div className="min-h-screen bg-[#f4f5f7] text-[#090a0c]">
       {/* Header section with exact PDF text */}
-      <section className="border-b border-neutral-200/90 bg-[#ebedf0]/60 py-12 sm:py-20">
+      <section className="border-b border-neutral-200/90 bg-[#ebedf0]/60 py-8 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div className="max-w-3xl space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-neutral-700 shadow-2xs">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8">
+            <div className="max-w-3xl space-y-3 sm:space-y-4">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-neutral-300 bg-white px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-700 shadow-2xs">
                 <Sparkles className="h-3 w-3 text-neutral-900" />
                 <span>Primary .SI Acquisition Desk</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-950 tracking-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-950 tracking-tight">
                 Buy .SI Domains
               </h1>
-              <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
+              <p className="text-xs sm:text-base lg:text-lg text-neutral-600 leading-relaxed">
                 Explore verified, premium SI (Super Intelligence) and generic keyword digital real estate. All assets ready for instant acquisition through licensed <span className="font-semibold text-neutral-900">Escrow.com</span> and <span className="font-semibold text-neutral-900">Atom.com</span>.
               </p>
             </div>
@@ -133,7 +133,7 @@ function BuyDomainsContent() {
               <button
                 type="button"
                 onClick={() => setBuyingModalOpen(true)}
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-950 px-7 py-4 text-sm font-bold text-white shadow-sm hover:bg-neutral-800 transition-all active:scale-95 cursor-pointer"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-950 px-5 py-3 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-neutral-800 transition-all active:scale-95 cursor-pointer"
               >
                 <span>Submit a Buying Request</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -143,9 +143,9 @@ function BuyDomainsContent() {
         </div>
       </section>
 
-      {/* Featured Highlight: Domains For Sale (Page 2 of PDF) */}
+      {/* Featured Highlight: Domains For Sale (Page 2 of PDF) - Visible on large screens */}
       {!hasActiveFilters && (
-        <section className="border-b border-neutral-200/90 bg-white py-12">
+        <section className="hidden lg:block border-b border-neutral-200/90 bg-white py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <div>
@@ -176,7 +176,7 @@ function BuyDomainsContent() {
       )}
 
       {/* Main Catalog with Sticky Filter Sidebar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
           {/* Desktop Filter Sidebar - Sticky while domains scroll */}
           <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 lg:self-start rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs">

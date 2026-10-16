@@ -94,18 +94,18 @@ export default async function DomainDetailPage({ params }: PageProps) {
       </div>
 
       {/* Main Two-Column Listing Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 xl:gap-14 items-start">
           {/* ================= LEFT COLUMN ================= */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             {/* Status badge */}
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                VERIFIED .SI ASSET FOR ACQUISITION
+                VERIFIED .SI ASSET
               </span>
               {domain.category && (
-                <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-800 border border-neutral-200/60">
+                <span className="rounded-full bg-neutral-100 px-3 py-1 text-[11px] sm:text-xs font-semibold text-neutral-800 border border-neutral-200/60">
                   {domain.category}
                 </span>
               )}
@@ -113,26 +113,26 @@ export default async function DomainDetailPage({ params }: PageProps) {
 
             {/* Domain name large */}
             <div>
-              <h1 className="text-4xl sm:text-6xl xl:text-7xl font-black tracking-tight text-neutral-950 font-sans break-words">
+              <h1 className="text-3xl sm:text-6xl xl:text-7xl font-black tracking-tight text-neutral-950 font-sans break-words">
                 {domain.name}
               </h1>
               {domain.description && (
-                <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl">
+                <p className="mt-2.5 sm:mt-4 text-sm sm:text-lg text-neutral-600 leading-relaxed max-w-2xl">
                   {domain.description}
                 </p>
               )}
             </div>
 
             {/* Showcase Card */}
-            <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50/70 p-8 sm:p-12 text-center flex flex-col items-center justify-center min-h-[220px] shadow-xs">
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-200 bg-neutral-50/70 p-6 sm:p-12 text-center flex flex-col items-center justify-center min-h-[160px] sm:min-h-[220px] shadow-xs">
               <div className="relative z-10 flex flex-col items-center">
-                <div className="w-16 h-16 rounded-2xl bg-neutral-950 text-white flex items-center justify-center font-bold text-2xl shadow-md mb-4">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-neutral-950 text-white flex items-center justify-center font-bold text-xl sm:text-2xl shadow-md mb-3 sm:mb-4">
                   {domain.name.charAt(0).toUpperCase()}
                 </div>
-                <div className="text-3xl sm:text-5xl font-black tracking-tight text-neutral-950 mb-2">
+                <div className="text-2xl sm:text-5xl font-black tracking-tight text-neutral-950 mb-1.5 sm:mb-2">
                   {domain.name}
                 </div>
-                <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
+                <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-neutral-500">
                   <span className="text-emerald-600 font-semibold">● Active DNS</span>
                   <span>|</span>
                   <span>Escrow.com &amp; Atom.com Ready</span>
@@ -291,22 +291,22 @@ export default async function DomainDetailPage({ params }: PageProps) {
       </section>
 
       {/* Inquiry Form Section Below */}
-      <section id="inquire" className="border-t border-neutral-200 bg-neutral-50/70 py-16 sm:py-20">
+      <section id="inquire" className="border-t border-neutral-200 bg-neutral-50/70 py-8 sm:py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
+          <div className="text-center mb-6 sm:mb-10">
             <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2">
               <Sparkles className="w-3.5 h-3.5 text-neutral-900" />
               <span>Direct Broker Channel</span>
             </div>
-            <h3 className="text-3xl font-black text-neutral-950 tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-black text-neutral-950 tracking-tight">
               Inquire or Submit Offer for {domain.name}
             </h3>
-            <p className="mt-2 text-sm text-neutral-600 max-w-lg mx-auto">
+            <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-neutral-600 max-w-lg mx-auto">
               Our brokerage desk will verify escrow availability, terms, or transfer procedures immediately upon receipt.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-neutral-200 bg-white p-6 sm:p-10 shadow-lg">
+          <div className="rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white p-5 sm:p-10 shadow-lg">
             <InquiryForm domainName={domain.name} domainId={domain.id} />
           </div>
         </div>

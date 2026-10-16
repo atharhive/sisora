@@ -72,39 +72,39 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[#f4f5f7] text-[#090a0c]">
       {/* Header section with exact PDF text */}
-      <section className="border-b border-neutral-200/90 bg-[#ebedf0]/60 py-14 sm:py-20">
+      <section className="border-b border-neutral-200/90 bg-[#ebedf0]/60 py-8 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-4 shadow-2xs">
-            <MessageSquare className="h-3.5 w-3.5 text-neutral-900" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-neutral-300 bg-white px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-3 sm:mb-4 shadow-2xs">
+            <MessageSquare className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-neutral-900" />
             <span>Contact Us Page For Sisora</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-950 tracking-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-neutral-950 tracking-tight">
             Have a question, domain inquiry, or partnership opportunity?
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-2 sm:mt-4 text-xs sm:text-base lg:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
             We&apos;re here to help. Reach our brokerage desk directly through any of our channels below.
           </p>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
-          {/* Left Column: Direct Contact Cards (Scrolls smoothly) */}
-          <div className="lg:col-span-5 space-y-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-14 items-start">
+          {/* Left Column: Direct Contact Cards (2x2 grid on mobile) */}
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-0.5 sm:mb-1">
                 Direct Touchpoints
               </span>
-              <h2 className="text-2xl font-black text-neutral-950 tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-neutral-950 tracking-tight">
                 Brokerage Contact Channels
               </h2>
-              <p className="mt-1 text-sm text-neutral-500">
+              <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-neutral-500">
                 Direct lines to our principals for confidential deal negotiations and escrow releases.
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-4">
               {contactChannels.map((channel, i) => {
                 const Icon = channel.icon;
                 return (
@@ -113,22 +113,22 @@ export default function ContactPage() {
                     href={channel.href}
                     target={channel.href.startsWith("http") ? "_blank" : undefined}
                     rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="p-5 rounded-2xl border border-neutral-200 bg-white hover:border-neutral-900 hover:shadow-md transition-all flex items-start gap-4 group cursor-pointer"
+                    className="p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-neutral-200 bg-white hover:border-neutral-900 hover:shadow-md transition-all flex flex-col sm:flex-row items-start gap-2.5 sm:gap-4 group cursor-pointer"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-900 shrink-0 group-hover:bg-neutral-950 group-hover:text-white transition-colors">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-900 shrink-0 group-hover:bg-neutral-950 group-hover:text-white transition-colors">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 w-full">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                        <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-400">
                           {channel.title}
                         </h3>
-                        <ExternalLink className="h-3.5 w-3.5 text-neutral-400 group-hover:text-neutral-950 transition-colors" />
+                        <ExternalLink className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-neutral-400 group-hover:text-neutral-950 transition-colors" />
                       </div>
-                      <p className="text-sm sm:text-base font-bold text-neutral-950 truncate mt-0.5">
+                      <p className="text-xs sm:text-base font-bold text-neutral-950 truncate mt-0.5">
                         {channel.value}
                       </p>
-                      <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+                      <p className="hidden sm:block text-xs text-neutral-500 mt-1 leading-relaxed">
                         {channel.subtext}
                       </p>
                     </div>
@@ -138,12 +138,12 @@ export default function ContactPage() {
             </div>
 
             {/* Escrow Guarantee Callout */}
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6 space-y-2 shadow-2xs">
-              <div className="flex items-center gap-2 text-neutral-950 font-bold text-sm">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <div className="rounded-xl sm:rounded-2xl border border-neutral-200 bg-white p-4 sm:p-6 space-y-1.5 sm:space-y-2 shadow-2xs">
+              <div className="flex items-center gap-2 text-neutral-950 font-bold text-xs sm:text-sm">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Escrow.com &amp; Atom.com Guarantee</span>
               </div>
-              <p className="text-xs text-neutral-600 leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-neutral-600 leading-relaxed">
                 All Sisora transactions settle through licensed third-party escrow. Funds are never released until registry transfer and domain control are verified by both parties.
               </p>
             </div>
@@ -151,12 +151,12 @@ export default function ContactPage() {
 
           {/* Right Column: Sticky Form that stays in place while side details scroll */}
           <div className="lg:col-span-7 lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-3xl border border-neutral-200/90 bg-white p-6 sm:p-10 shadow-lg">
-              <div className="mb-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+            <div className="rounded-2xl sm:rounded-3xl border border-neutral-200/90 bg-white p-4 sm:p-10 shadow-lg">
+              <div className="mb-4 sm:mb-6">
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
                   Online Inquiry
                 </span>
-                <h3 className="text-2xl font-black text-neutral-950 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-black text-neutral-950 tracking-tight">
                   Send a Direct Message
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-500 mt-1">

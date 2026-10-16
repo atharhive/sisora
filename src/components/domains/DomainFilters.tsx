@@ -205,19 +205,39 @@ export function DomainFilters({
 
   return (
     <>
-      {/* Mobile Drawer Trigger Button */}
-      <div className="lg:hidden mb-4">
+      {/* Mobile Compact Search & Filter Row */}
+      <div className="lg:hidden mb-4 flex items-center gap-2">
+        <div className="relative flex-1">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-neutral-400" />
+          <input
+            type="text"
+            placeholder="Search .SI domains..."
+            value={searchInput}
+            onChange={handleSearchInputChange}
+            className="w-full rounded-xl border border-neutral-300 bg-white py-2.5 pl-9 pr-8 text-xs text-neutral-900 focus:border-black focus:outline-none shadow-2xs"
+          />
+          {searchInput && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearchInput("");
+                onSearchChange?.("");
+              }}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black cursor-pointer p-0.5"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
         <button
           type="button"
           onClick={() => setMobileOpen(true)}
-          className="flex w-full items-center justify-between rounded-xl border border-neutral-300 bg-white px-4 py-3 text-xs sm:text-sm font-bold text-neutral-900 shadow-xs hover:bg-neutral-50 cursor-pointer"
+          className="flex items-center gap-1.5 rounded-xl border border-neutral-300 bg-white px-3.5 py-2.5 text-xs font-bold text-neutral-900 shadow-2xs shrink-0 cursor-pointer hover:bg-neutral-50 active:scale-95 transition-all"
         >
-          <div className="flex items-center gap-2">
-            <SlidersHorizontal className="h-4 w-4 text-neutral-700" />
-            <span>Filter Domains</span>
-          </div>
+          <SlidersHorizontal className="h-3.5 w-3.5" />
+          <span>Filters</span>
           {isResetVisible && (
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-neutral-950 text-[10px] font-bold text-white">
+            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-neutral-950 text-[10px] font-bold text-white">
               •
             </span>
           )}
@@ -225,7 +245,7 @@ export function DomainFilters({
       </div>
 
       {/* Desktop Panel */}
-      <div className={cn("w-full", className)}>
+      <div className={cn("hidden lg:block w-full", className)}>
         {renderFilterContent()}
       </div>
 

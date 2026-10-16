@@ -20,85 +20,85 @@ const NOTABLE_TRANSACTIONS = [
 
 export function TrackRecordSection() {
   return (
-    <section className="w-full bg-[#f4f5f7] py-16 sm:py-24 border-b border-neutral-200/80">
+    <section className="w-full bg-[#f4f5f7] py-8 sm:py-16 lg:py-24 border-b border-neutral-200/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
           {/* Left Column: Heading, Experience & Narrative */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-neutral-600 shadow-2xs">
-              <Award className="h-3.5 w-3.5 text-neutral-900" />
+          <div className="lg:col-span-6 space-y-3 sm:space-y-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-neutral-600 shadow-2xs">
+              <Award className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-neutral-900" />
               <span>Track Record</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-950 leading-[1.1]">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-950 leading-[1.1]">
               Domain Brokerage Experience
             </h2>
 
-            <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal">
+            <p className="text-xs sm:text-base lg:text-lg text-neutral-600 leading-relaxed font-normal">
               Founded by <span className="font-semibold text-neutral-950">Domingo</span>, Sisora connects domain investors and facilitates professional negotiations in the .si domain market.
             </p>
 
-            <p className="text-sm text-neutral-500 leading-relaxed">
+            <p className="hidden sm:block text-sm text-neutral-500 leading-relaxed">
               With extensive experience closing high-value secondary deals across LLL.coms, CVCV.com, one-word .coms, and .ai assets, Domingo brings deep domain industry relationships and disciplined closing processes to .si domain investors.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-1 sm:pt-2">
               <Link
                 href="/contact?intent=brokerage"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-950 px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-neutral-800 transition-all active:scale-95"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-950 px-5 py-3 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-neutral-800 transition-all active:scale-95 w-full sm:w-auto"
               >
                 <span>Discuss a Brokerage Opportunity</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Notable Transactions Cards */}
-          <div className="lg:col-span-6 space-y-5">
-            <div className="border-b border-neutral-200 pb-3 flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+          {/* Right Column: Notable Transactions Cards - 2 column on mobile */}
+          <div className="lg:col-span-6 space-y-3 sm:space-y-5">
+            <div className="border-b border-neutral-200 pb-2 sm:pb-3 flex items-center justify-between">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-500">
                 Notable Transactions
               </span>
-              <span className="text-xs font-mono font-medium text-neutral-400">
+              <span className="text-[10px] sm:text-xs font-mono font-medium text-neutral-400">
                 Verified Brokerage
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
               {NOTABLE_TRANSACTIONS.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="group p-6 rounded-2xl border border-neutral-200/80 bg-white shadow-xs hover:border-neutral-900 hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
-                  >
+                <div
+                  key={idx}
+                  className="group p-3.5 sm:p-6 rounded-xl sm:rounded-2xl border border-neutral-200/80 bg-white shadow-xs hover:border-neutral-900 hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
+                >
                   <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide">
-                        <CheckCircle2 className="h-3 w-3" />
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="inline-flex items-center gap-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wide">
+                        <CheckCircle2 className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                         {item.tag}
                       </span>
                     </div>
 
-                    <h3 className="text-3xl font-black tracking-tight text-neutral-950 group-hover:text-neutral-700 transition-colors">
+                    <h3 className="text-xl sm:text-3xl font-black tracking-tight text-neutral-950 group-hover:text-neutral-700 transition-colors">
                       {item.domain}
                     </h3>
-                    <p className="text-xs font-bold uppercase tracking-wider text-neutral-400 mt-1">
+                    <p className="text-[9px] sm:text-xs font-bold uppercase tracking-wider text-neutral-400 mt-0.5 sm:mt-1">
                       {item.type}
                     </p>
-                    <p className="text-xs text-neutral-600 mt-2.5 leading-relaxed">
+                    <p className="text-[11px] sm:text-xs text-neutral-600 mt-1.5 sm:mt-2.5 leading-relaxed line-clamp-2 sm:line-clamp-none">
                       {item.description}
                     </p>
                   </div>
 
-                  <div className="mt-5 pt-3 border-t border-neutral-200/60 flex items-center gap-1.5 text-[11px] font-semibold text-neutral-700">
-                    <ShieldCheck className="h-3.5 w-3.5 text-neutral-900" />
-                    <span>Brokered by Domingo</span>
+                  <div className="mt-3 pt-2 sm:mt-5 sm:pt-3 border-t border-neutral-200/60 flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-neutral-700">
+                    <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-neutral-900 shrink-0" />
+                    <span className="truncate">By Domingo</span>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Verbatim footnote from PDF */}
-            <p className="text-xs text-neutral-400 italic pt-2">
+            <p className="text-[10px] sm:text-xs text-neutral-400 italic pt-1">
               These represent Domingo’s previous brokerage transactions. More deals will be added as Sisora grows.
             </p>
           </div>
