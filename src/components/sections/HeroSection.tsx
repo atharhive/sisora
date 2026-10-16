@@ -1,102 +1,144 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, ShieldCheck, Users, Lock, Globe2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, Users, Lock, Zap, Globe2 } from "lucide-react";
+
+const SPECIALIZATIONS = [
+  {
+    title: "Specialized in .si Domains",
+    description: "Exclusive focus and deep liquidity insights within the .si ccTLD and Super Intelligence space.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Investor to Investor Transactions",
+    description: "Connecting verified domain investors and portfolios directly for seamless wholesale and secondary trades.",
+    icon: Users,
+  },
+  {
+    title: "Confidential & Professional Service",
+    description: "Every negotiation is conducted with strict bilateral privacy and seasoned brokerage decorum.",
+    icon: Lock,
+  },
+  {
+    title: "Fast and Secure Transaction",
+    description: "Ironclad settlement coordination via licensed third-party escrow on Escrow.com and Atom.com.",
+    icon: Zap,
+  },
+  {
+    title: "Global Investor or Buyer Network",
+    description: "Direct access to multinational end-users, family offices, and tech syndicates worldwide.",
+    icon: Globe2,
+  },
+];
 
 export function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-white">
-      {/* Background Scenic Landscape with Smooth Gradient Overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <Image
-          src="/images/hero-mountains.jpg"
-          alt="Slovenia Lake Bled Julian Alps"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[70%_center] lg:object-right"
-        />
-        {/* Soft light-to-transparent gradient across the left and bottom */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:via-white/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent lg:hidden" />
-      </div>
+    <section className="relative w-full overflow-hidden bg-[#f4f5f7] border-b border-neutral-200/80">
+      {/* Subtle architectural background texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
-          {/* Left Column: Heading, Subtitle, CTAs, Feature Pills */}
-          <div className="lg:col-span-7 xl:col-span-8 text-left space-y-6">
-            {/* Top Label */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white/90 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-neutral-700 backdrop-blur-xs shadow-xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-neutral-900" />
-              <span>PREMIUM .SI DOMAIN BROKERAGE</span>
-            </div>
+      <div className="relative mx-auto max-w-7xl px-4 pt-16 pb-20 sm:px-6 sm:pt-24 sm:pb-28 lg:px-8">
+        {/* Top Badge */}
+        <div className="flex items-center justify-start mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3.5 py-1 text-[11px] font-bold tracking-wider text-neutral-800 uppercase shadow-2xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>SISORA: A .SI DOMAIN BROKERAGE</span>
+          </div>
+        </div>
 
-            {/* Main Heading */}
-            <h1 className="text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl leading-[1.12]">
-              A Dedicated Brokerage for{" "}
-              <span className="text-neutral-950">.SI Domains</span>
+        {/* Main Content Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+          <div className="lg:col-span-8 space-y-6">
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-neutral-950 leading-[1.05] text-balance">
+              Sisora: A Dedicated Brokerage for <span className="underline decoration-neutral-300 decoration-4 underline-offset-8">.SI Domains</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="max-w-xl text-sm sm:text-base lg:text-lg text-neutral-700 leading-relaxed font-normal">
-              Connecting .SI domain investors through professional brokerage,
-              targeted buyer outreach, and secure transactions.
+            {/* Subtitle verbatim from PDF */}
+            <p className="max-w-2xl text-base sm:text-lg lg:text-xl text-neutral-600 leading-relaxed font-normal">
+              Sisora is a dedicated brokerage connecting .si domain investors to buy and sell domain names. We manage negotiations between buyers and sellers, helping turn opportunities into completed transactions.
             </p>
 
-            {/* Dual CTA Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {/* Dual Primary Buttons verbatim from PDF */}
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <Link
                 href="/buy-domains"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-neutral-800 active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-neutral-950 px-7 py-4 text-sm font-bold text-white shadow-sm transition-all hover:bg-neutral-800 hover:shadow-lg active:scale-95"
               >
                 <span>I&apos;m Looking to Buy</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/sell-domains"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-400 bg-white/90 px-6 py-3 text-sm font-semibold text-neutral-900 backdrop-blur-xs transition-all hover:bg-neutral-100 hover:border-black active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl border border-neutral-300 bg-white px-7 py-4 text-sm font-bold text-neutral-900 transition-all hover:bg-neutral-50 hover:border-neutral-900 active:scale-95"
               >
                 <span>I&apos;m Looking to Sell</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-            </div>
-
-            {/* Feature Pills */}
-            <div className="pt-6 border-t border-neutral-200/80 flex flex-wrap gap-2.5 sm:gap-3">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white/90 px-3 py-1.5 text-xs font-medium text-neutral-800 shadow-2xs backdrop-blur-xs">
-                <ShieldCheck className="h-3.5 w-3.5 text-neutral-900 shrink-0" />
-                <span>Specialized in .si domains</span>
-              </div>
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white/90 px-3 py-1.5 text-xs font-medium text-neutral-800 shadow-2xs backdrop-blur-xs">
-                <Users className="h-3.5 w-3.5 text-neutral-900 shrink-0" />
-                <span>Investor to Investor Transactions</span>
-              </div>
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white/90 px-3 py-1.5 text-xs font-medium text-neutral-800 shadow-2xs backdrop-blur-xs">
-                <Lock className="h-3.5 w-3.5 text-neutral-900 shrink-0" />
-                <span>Confidential &amp; Professional Service</span>
-              </div>
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white/90 px-3 py-1.5 text-xs font-medium text-neutral-800 shadow-2xs backdrop-blur-xs">
-                <Globe2 className="h-3.5 w-3.5 text-neutral-900 shrink-0" />
-                <span>Global Investor Network</span>
-              </div>
             </div>
           </div>
 
-          {/* Right Column: In Image 1, Lake Bled is featured, with .SI badge overlay at the bottom right */}
-          <div className="lg:col-span-5 xl:col-span-4 flex justify-end items-end h-full">
-            <div className="hidden lg:flex items-center gap-3 rounded-2xl border border-white/40 bg-black/40 px-6 py-4 backdrop-blur-md shadow-2xl text-white">
-              <span className="text-5xl font-black tracking-tight text-white drop-shadow-md">
-                .SI
-              </span>
-              <div className="text-left border-l border-white/30 pl-3">
-                <p className="text-[11px] font-black tracking-wider uppercase leading-tight text-white">
-                  SMALL EXTENSION.
-                </p>
-                <p className="text-[11px] font-black tracking-wider uppercase leading-tight text-neutral-200">
-                  BIG OPPORTUNITIES.
+          {/* Right Column Quick Highlight */}
+          <div className="lg:col-span-4 flex flex-col justify-end">
+            <div className="p-6 rounded-2xl bg-neutral-950 text-white border border-neutral-800 shadow-xl space-y-4">
+              <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                  Market Specialization
+                </span>
+                <span className="text-xs font-mono font-bold text-emerald-400">
+                  Active Brokerage
+                </span>
+              </div>
+              <div className="space-y-1">
+                <div className="text-3xl font-black tracking-tight">
+                  .SI DIGITAL ASSETS
+                </div>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Premier Central European ccTLD &amp; global Super Intelligence keyword assets ready for immediate acquisition.
                 </p>
               </div>
+              <div className="pt-2 flex items-center justify-between text-xs text-neutral-300 font-mono">
+                <span>Coordination:</span>
+                <span className="text-white font-bold">Escrow.com &amp; Atom</span>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* OUR SPECIALIZATION (Verbatim from PDF) */}
+        <div className="mt-16 sm:mt-24 pt-12 border-t border-neutral-200">
+          <div className="mb-8">
+            <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+              Core Capabilities
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950">
+              Our Specialization
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            {SPECIALIZATIONS.map((spec, i) => {
+              const Icon = spec.icon;
+              return (
+                <div
+                  key={i}
+                  className="group relative flex flex-col justify-between p-5 rounded-2xl border border-neutral-200/90 bg-white hover:border-neutral-900 hover:shadow-md transition-all duration-200"
+                >
+                  <div>
+                    <div className="h-10 w-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-900 mb-4 group-hover:bg-neutral-950 group-hover:text-white transition-colors">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-sm font-extrabold text-neutral-950 mb-1.5 leading-snug">
+                      {spec.title}
+                    </h3>
+                    <p className="text-xs text-neutral-500 leading-relaxed">
+                      {spec.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

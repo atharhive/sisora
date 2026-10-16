@@ -31,23 +31,46 @@ export interface SiteConfig {
     phoneRaw: string;
     whatsapp: string;
     whatsappRaw: string;
-    telegram: string;
+    whatsappUrl?: string;
+    telegram?: string;
     location: string;
     address: string;
   };
   social: {
+    whatsapp?: string;
     twitter: string;
     linkedin: string;
-    whatsapp: string;
+    telegram?: string;
   };
+  specialization?: string[];
   stats: Array<{ highlight: string; label: string }>;
   hero: {
-    badge: string;
+    badge?: string;
     headline: string;
     subheadline: string;
-    taglineSmall: string;
-    taglineBig: string;
-    taglineDescription: string;
+    primaryCta?: string;
+    secondaryCta?: string;
+    taglineSmall?: string;
+    taglineBig?: string;
+    taglineDescription?: string;
+  };
+  brokerageTerms?: {
+    commission: string;
+    commissionDetail: string;
+    exclusivity: string;
+    exclusivityDetail: string;
+    negotiations: string;
+    negotiationsDetail: string;
+    coordination: string;
+    coordinationDetail: string;
+    footnote: string;
+  };
+  founder?: {
+    name: string;
+    title: string;
+    bio: string;
+    notableDeals: Array<{ domain: string; type: string }>;
+    footnote: string;
   };
 }
 
@@ -56,7 +79,10 @@ export const SITE_CONFIG: SiteConfig = siteConfigData as SiteConfig;
 
 export function getDomainBySlug(slug: string): DomainItem | undefined {
   return DOMAINS.find(
-    (d) => d.slug.toLowerCase() === slug.toLowerCase() || d.name.toLowerCase() === slug.toLowerCase()
+    (d) =>
+      d.slug.toLowerCase() === slug.toLowerCase() ||
+      d.name.toLowerCase() === slug.toLowerCase() ||
+      d.name.toLowerCase() === `${slug.toLowerCase()}.si`
   );
 }
 

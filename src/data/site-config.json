@@ -1,38 +1,65 @@
 {
   "site": {
     "name": "SISORA",
-    "subtitle": "A .SI BROKERAGE FIRM",
-    "title": "SISORA | Premium .SI Domain Brokerage",
-    "description": "Connecting .SI domain investors through professional brokerage, targeted buyer outreach, and secure transactions.",
+    "subtitle": "A .SI DOMAIN BROKERAGE",
+    "title": "SISORA | A Dedicated .SI Domain Brokerage",
+    "description": "Sisora is a dedicated brokerage connecting .si domain investors to buy and sell domain names. We manage negotiations between buyers and sellers, helping turn opportunities into completed transactions.",
     "url": "https://sisora.si"
   },
   "contact": {
-    "email": "deals@sisora.si",
-    "phone": "+91 98765 43210",
-    "phoneRaw": "+919876543210",
-    "whatsapp": "+91 98765 43210",
-    "whatsappRaw": "919876543210",
-    "telegram": "sisora_brokerage",
-    "location": "India (Global Clients)",
-    "address": "Bangalore / Global Escrow Coverage"
+    "email": "sisorasales@gmail.com",
+    "phone": "+91 70041 87030",
+    "phoneRaw": "917004187030",
+    "whatsapp": "+91 70041 87030",
+    "whatsappRaw": "917004187030",
+    "whatsappUrl": "https://wa.me/917004187030",
+    "location": "Global Investor Network",
+    "address": "Licensed Escrow via Escrow.com & Atom.com"
   },
   "social": {
-    "twitter": "https://x.com/sisora_si",
-    "linkedin": "https://linkedin.com/company/sisora",
-    "whatsapp": "https://wa.me/919876543210"
+    "whatsapp": "https://wa.me/917004187030",
+    "twitter": "https://x.com/SisoraBrokerage",
+    "linkedin": "https://www.linkedin.com/showcase/4l-com/"
   },
+  "specialization": [
+    "Specialized in .si Domains",
+    "Investor to Investor Transactions",
+    "Confidential & Professional Service",
+    "Fast and Secure Transaction",
+    "Global Investor or Buyer Network"
+  ],
   "stats": [
-    { "highlight": "100+", "label": "INVESTOR NETWORK" },
-    { "highlight": "PREMIUM", "label": ".SI DOMAIN FOCUS" },
-    { "highlight": "END-TO-END", "label": "BROKERAGE SUPPORT" },
-    { "highlight": "SECURE", "label": "TRANSACTIONS" }
+    { "highlight": "100%", "label": "SPECIALIZED IN .SI DOMAINS" },
+    { "highlight": "B2B", "label": "INVESTOR TO INVESTOR TRANSACTIONS" },
+    { "highlight": "LICENSED", "label": "ESCROW.COM & ATOM.COM ESCROW" },
+    { "highlight": "GLOBAL", "label": "BUYER & INVESTOR NETWORK" }
   ],
   "hero": {
-    "badge": "PREMIUM .SI DOMAIN BROKERAGE",
-    "headline": "A Dedicated Brokerage for .SI Domains",
-    "subheadline": "Connecting .SI domain investors through professional brokerage, targeted buyer outreach, and secure transactions.",
-    "taglineSmall": "SMALL EXTENSION.",
-    "taglineBig": "BIG OPPORTUNITIES.",
-    "taglineDescription": "Official ccTLD of Slovenia. Highly recognized across the European Union for technology, finance, and short brandable naming."
+    "badge": "SISORA: A .SI DOMAIN BROKERAGE",
+    "headline": "Sisora: A Dedicated Brokerage for .SI Domains",
+    "subheadline": "Sisora is a dedicated brokerage connecting .si domain investors to buy and sell domain names. We manage negotiations between buyers and sellers, helping turn opportunities into completed transactions.",
+    "primaryCta": "I'm Looking to Buy",
+    "secondaryCta": "I'm Looking to Sell"
+  },
+  "brokerageTerms": {
+    "commission": "15% Commission",
+    "commissionDetail": "Our standard brokerage commission is 15% of the final sale price, payable according to the agreed brokerage terms.",
+    "exclusivity": "90-Day Exclusive Agreement",
+    "exclusivityDetail": "Each accepted domain is subject to a 90-day exclusive brokerage agreement. During this period, the owner agrees not to independently sell, advertise, promote, or appoint another broker to market the domain, as specified in the signed agreement.",
+    "negotiations": "Professional Negotiations",
+    "negotiationsDetail": "We manage negotiations between buyers and sellers within the authority granted to us.",
+    "coordination": "Transaction Coordination",
+    "coordinationDetail": "We help coordinate payment and domain transfer through Escrow.com or Atom.com, as appropriate and subject to the selected platform's requirements.",
+    "footnote": "The specific commission obligations, exclusivity period, and transaction terms will be documented in the applicable brokerage agreement."
+  },
+  "founder": {
+    "name": "Domingo",
+    "title": "Founder, Sisora",
+    "bio": "He is one of the most active guys in the domain industry, having closed several LLL.com deals and worked with some of the world’s top domain investors on LLL.coms, CVCV.com, One word .coms, LLL.ai, One word .ai names and many more, among many others. Recently, he has also been involved in deals involving .si domains like LM.si, Need.si, and more.",
+    "notableDeals": [
+      { "domain": "LM.si", "type": "2-Letter Premium .SI" },
+      { "domain": "Need.si", "type": "One-Word Dictionary .SI" }
+    ],
+    "footnote": "These represent Domingo’s previous brokerage transactions. More deals will be added as Sisora grows."
   }
 }

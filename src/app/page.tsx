@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { StatsBar } from "@/components/sections/StatsBar";
 import { FeaturedDomains } from "@/components/sections/FeaturedDomains";
-import { BuyerSellerCTA } from "@/components/sections/BuyerSellerCTA";
+import { TrackRecordSection } from "@/components/sections/TrackRecordSection";
+import { EscrowEstimator } from "@/components/sections/EscrowEstimator";
 import { HowItWorks } from "@/components/sections/HowItWorks";
+import { BuyerSellerCTA } from "@/components/sections/BuyerSellerCTA";
 import { getFeaturedDomains, SITE_CONFIG } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: SITE_CONFIG.site.title,
+  title: `${SITE_CONFIG.site.name} | A Dedicated Brokerage for .SI Domains`,
   description: SITE_CONFIG.site.description,
 };
 
@@ -17,10 +18,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col w-full">
       <HeroSection />
-      <StatsBar />
       <FeaturedDomains domains={featured} />
-      <BuyerSellerCTA />
+      <TrackRecordSection />
+      <EscrowEstimator />
       <HowItWorks />
+      <BuyerSellerCTA />
     </div>
   );
 }
