@@ -12,9 +12,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SISORA | Premium .SI Domain Brokerage",
+  title: "SISORA.SI | A Dedicated Brokerage for .SI Domains",
   description:
-    "Acquire and sell high-value .SI domains. Professional brokerage, secure escrow transfers, and confidential portfolio acquisitions.",
+    "Sisora is a dedicated brokerage connecting .si domain investors to buy and sell domain names. We manage negotiations between buyers and sellers, helping turn opportunities into completed transactions.",
   keywords: [
     "SI domains",
     "domain brokerage",
@@ -24,13 +24,22 @@ export const metadata: Metadata = {
     "Slovenia domains",
     "domain investor",
     "stealth domain acquisition",
+    "Super Intelligence",
   ],
   authors: [{ name: "SISORA" }],
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" }
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
-    title: "SISORA | Premium .SI Domain Brokerage",
+    title: "SISORA.SI | A Dedicated Brokerage for .SI Domains",
     description:
-      "Acquire and sell high-value .SI domains. Professional brokerage, secure escrow transfers, and confidential portfolio acquisitions.",
-    siteName: "SISORA",
+      "Sisora is a dedicated brokerage connecting .si domain investors to buy and sell domain names. We manage negotiations between buyers and sellers, helping turn opportunities into completed transactions.",
+    siteName: "SISORA.SI",
     type: "website",
   },
 };
@@ -42,7 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-screen flex flex-col bg-white text-neutral-900 selection:bg-neutral-900 selection:text-white">
+      <body className="min-h-screen flex flex-col bg-[#f4f5f7] text-[#090a0c] selection:bg-neutral-900 selection:text-white">
         <ToastProvider>
           <Header />
           <main className="flex-1">{children}</main>

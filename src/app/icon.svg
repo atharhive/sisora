@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="7" fill="#090a0c" />
+  <rect width="30" height="30" x="1" y="1" rx="6" fill="none" stroke="#27272a" stroke-width="1" />
+  <!-- Stylized Geometric S -->
+  <path
+    d="M20 10.5C20 9.12 18.88 8 17.5 8H12C10.62 8 9.5 9.12 9.5 10.5C9.5 11.88 10.62 13 12 13H18C19.38 13 20.5 14.12 20.5 15.5C20.5 16.88 19.38 18 18 18H12.5C11.12 18 10 16.88 10 15.5"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="2.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Emerald .SI Accent Dot -->
+  <circle cx="22.5" cy="22.5" r="2.2" fill="#10b981" />
+</svg>
