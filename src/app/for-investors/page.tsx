@@ -1,43 +1,44 @@
 import type { Metadata } from "next";
-import { Users2, SearchCheck, Layers, EyeOff, ShieldCheck, Building2 } from "lucide-react";
+import Link from "next/link";
+import { Users2, SearchCheck, Layers, EyeOff, Building2, ArrowRight } from "lucide-react";
 import { BuyingRequestForm } from "@/components/forms/BuyingRequestForm";
 
 export const metadata: Metadata = {
-  title: "For .SI Domain Investors | SISORA Institutional Advisory",
+  title: "For .SI Domain Investors | Sisora Brokerage",
   description:
-    "Institutional services for domain investors: Investor-to-investor brokerage, private stealth acquisitions, bulk portfolio liquidation, and off-market opportunities.",
+    "Founded by Domingo. Built for .SI domain investors. Connect, acquire, and trade premium .si domains through specialized investor-to-investor brokerage.",
 };
 
-const services = [
+const INVESTOR_SERVICES = [
   {
     id: "investor-brokerage",
-    title: "Investor to Investor Brokerage",
+    title: "Investor to Investor Transactions",
     description:
-      "Facilitating high-volume and wholesale secondary transactions between active domainers, funds, and family offices at true market-clearing rates without retail friction.",
+      "Facilitating secondary transactions directly between active domain investors, funds, and family offices at true market-clearing valuations without retail friction.",
     icon: Users2,
     badge: "Direct Liquidity",
   },
   {
     id: "acquisition",
-    title: "Domain Acquisition Requests",
+    title: "Confidential Acquisition Mandates",
     description:
-      "Discreet stealth representation for acquiring registered, unlisted .SI domains. We identify real beneficial owners and execute anonymized outreach to avoid speculative price inflation.",
+      "Stealth representation for acquiring unlisted, registered .si domains. We identify beneficial owners and lead discrete negotiations under strict NDA.",
     icon: SearchCheck,
     badge: "Stealth Mandates",
   },
   {
     id: "liquidation",
-    title: "Portfolio Liquidation",
+    title: "Portfolio Tranche Liquidations",
     description:
-      "Specialized bulk liquidation programs for legacy collectors and holding companies. Structured asset sales, package discounting, and tranche disbursements.",
+      "Structured bulk liquidation programs for legacy collectors and holding portfolios with coordinated escrow settlements.",
     icon: Layers,
     badge: "Bulk Programs",
   },
   {
     id: "private-deals",
-    title: "Private Deal Opportunities",
+    title: "Off-Market Deal Access",
     description:
-      "Exclusive first-look access to high-tier assets, distressed private holdings, and confidential acquisitions prior to public marketplace listing.",
+      "First-look allocation on high-value two-letter, one-word dictionary, and AI/Super Intelligence .si assets prior to public release.",
     icon: EyeOff,
     badge: "VIP Allocation",
   },
@@ -45,85 +46,98 @@ const services = [
 
 export default function ForInvestorsPage() {
   return (
-    <div className="min-h-screen bg-white text-neutral-900">
+    <div className="min-h-screen bg-[#f4f5f7] text-[#090a0c]">
       {/* Header section */}
-      <section className="border-b border-neutral-200 bg-neutral-50 py-14 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-600 mb-3">
-            <Building2 className="w-4 h-4 text-neutral-900" />
-            <span>Institutional &amp; Investor Desk</span>
+      <section className="border-b border-neutral-200/90 bg-[#ebedf0]/60 py-14 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-4 shadow-2xs">
+            <Building2 className="h-3.5 w-3.5 text-neutral-900" />
+            <span>Built for .SI Domain Investors</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-neutral-950 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-950 tracking-tight">
             For .SI Domain Investors
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed">
-            A dedicated platform for .si domain investors. Connect, acquire, and sell premium .si domains through professional brokerage.
+          <p className="mt-4 text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+            Founded by Domingo. Built for .SI domain investors. Connect, acquire, and sell premium .si digital real estate through specialized, discreet brokerage.
           </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href="#mandate-form"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-950 px-7 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-neutral-800 transition-all active:scale-95"
+            >
+              <span>Submit Investor Mandate →</span>
+            </a>
+            <Link
+              href="/track-record"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-7 py-3.5 text-sm font-bold text-neutral-900 hover:bg-neutral-50 hover:border-black transition-all active:scale-95"
+            >
+              <span>View Track Record</span>
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Services list */}
-          <div className="lg:col-span-5 space-y-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
+          {/* Left Column: Services list (Scrolls naturally) */}
+          <div className="lg:col-span-6 space-y-8">
             <div>
-              <h2 className="text-xl font-bold text-neutral-950">
-                Brokerage Services for Investors
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+                Investor Infrastructure
+              </span>
+              <h2 className="text-3xl font-black text-neutral-950 tracking-tight">
+                Specialized Services for Domain Investors
               </h2>
-              <p className="mt-1 text-sm text-neutral-500">
-                Tailored transaction execution designed to protect capital and maximize portfolio yields.
+              <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
+                Whether you are seeking liquidity for high-value .si names or acquiring strategic AI assets for your investment portfolio, our desk provides institutional-grade transaction handling.
               </p>
             </div>
 
             <div className="space-y-4">
-              {services.map((svc) => {
+              {INVESTOR_SERVICES.map((svc) => {
                 const Icon = svc.icon;
                 return (
                   <div
                     key={svc.id}
-                    className="p-5 rounded-2xl border border-neutral-200 bg-white hover:border-black hover:shadow-md transition-all group"
+                    className="p-6 rounded-2xl border border-neutral-200 bg-white hover:border-neutral-900 hover:shadow-md transition-all duration-200 group"
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="w-9 h-9 rounded-xl bg-neutral-100 flex items-center justify-center text-black group-hover:scale-105 transition-transform">
-                        <Icon className="w-4 h-4" />
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="h-10 w-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-900 group-hover:bg-neutral-950 group-hover:text-white transition-colors">
+                        <Icon className="h-5 w-5" />
                       </div>
-                      <span className="text-[11px] font-semibold text-neutral-600 bg-neutral-100 border border-neutral-200/80 px-2.5 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2.5 py-0.5 rounded-md">
                         {svc.badge}
                       </span>
                     </div>
-                    <h3 className="text-base font-bold text-neutral-900 mt-2">
+                    <h3 className="text-lg font-bold text-neutral-950 mb-1.5">
                       {svc.title}
                     </h3>
-                    <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                       {svc.description}
                     </p>
                   </div>
                 );
               })}
             </div>
-
-            {/* Escrow note */}
-            <div className="p-5 rounded-2xl border border-neutral-200 bg-neutral-50 flex items-start gap-3 text-xs text-neutral-600 leading-relaxed">
-              <ShieldCheck className="w-5 h-5 text-neutral-900 shrink-0 mt-0.5" />
-              <div>
-                <span className="font-bold text-neutral-900 block mb-0.5">
-                  Institutional Confidentiality
-                </span>
-                All private acquisitions and portfolio movements are handled under strict non-disclosure terms.
-              </div>
-            </div>
           </div>
 
-          {/* Right Column: Buying Request Form */}
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-3xl border border-neutral-200 bg-white shadow-xs">
-              <h2 className="text-xl font-bold text-neutral-950 mb-1">
-                Submit a Buying Request
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-500 mb-6">
-                Tell us what you&apos;re looking for and we&apos;ll notify you when matching assets become available.
-              </p>
+          {/* Right Column: Sticky Form that stays pinned in viewport */}
+          <div id="mandate-form" className="lg:col-span-6 lg:sticky lg:top-24 lg:self-start">
+            <div className="rounded-3xl border border-neutral-200/90 bg-white p-6 sm:p-10 shadow-lg">
+              <div className="mb-6">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+                  Confidential Desk
+                </span>
+                <h3 className="text-2xl font-black text-neutral-950 tracking-tight">
+                  Submit Acquisition / Selling Mandate
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-500 mt-1">
+                  Connect with Domingo and the Sisora brokerage desk regarding target .SI acquisitions or portfolio liquidation.
+                </p>
+              </div>
+
               <BuyingRequestForm />
             </div>
           </div>

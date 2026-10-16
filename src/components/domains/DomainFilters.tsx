@@ -1,19 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, RotateCcw, SlidersHorizontal, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface FilterState {
-  keyword: string;
-  domainTypes: string[];
-  categories: string[];
-  priceRanges: string[];
-  sortBy: string;
-}
-
 export interface DomainFiltersProps {
-  // Legacy / Direct page props
   categories?: string[];
   selectedCategory?: string;
   onSelectCategory?: (category: string) => void;
@@ -21,177 +12,74 @@ export interface DomainFiltersProps {
   onSearchChange?: (query: string) => void;
   priceType?: string;
   onPriceTypeChange?: (type: string) => void;
+  sortBy?: string;
+  onSortChange?: (sort: string) => void;
   hasActiveFilters?: boolean;
   onReset?: () => void;
-
-  // Structured filter props
-  filters?: FilterState;
-  onChange?: (filters: FilterState) => void;
   totalResults?: number;
   className?: string;
 }
 
-const DEFAULT_DOMAIN_TYPES = [
-  { id: ".si", label: ".si" },
-  { id: ".com", label: ".com" },
-  { id: ".net", label: ".net" },
-  { id: ".org", label: ".org" },
-  { id: ".io", label: ".io" },
-];
-
-const DEFAULT_CATEGORIES = [
-  { id: "one-word", label: "One Word" },
-  { id: "premium", label: "Premium" },
-  { id: "dictionary-word", label: "Dictionary Word" },
-  { id: "brandable", label: "Brandable" },
-  { id: "technology", label: "Technology" },
-  { id: "finance", label: "Finance" },
-];
-
 const PRICE_RANGES = [
-  { id: "under-500", label: "Under $500" },
-  { id: "500-1000", label: "$500 - $1,000" },
-  { id: "1000-5000", label: "$1,000 - $5,000" },
-  { id: "5000-10000", label: "$5,000 - $10,000" },
-  { id: "over-10000", label: "$10,000+" },
+  { id: "all", label: "All Valuations" },
+  { id: "under-25k", label: "Under $25,000" },
+  { id: "25k-50k", label: "$25,000 – $50,000" },
+  { id: "50k-plus", label: "$50,000 and above" },
 ];
 
 const SORT_OPTIONS = [
-  { value: "featured", label: "Featured" },
-  { value: "price-asc", label: "Price: Low to High" },
+  { value: "featured", label: "Featured First" },
   { value: "price-desc", label: "Price: High to Low" },
+  { value: "price-asc", label: "Price: Low to High" },
   { value: "alpha-asc", label: "Name: A to Z" },
-  { value: "newest", label: "Recently Added" },
 ];
 
 export function DomainFilters({
-  categories: passedCategories,
-  selectedCategory,
+  categories = [],
+  selectedCategory = "",
   onSelectCategory,
-  searchQuery,
+  searchQuery = "",
   onSearchChange,
-  priceType,
+  priceType = "all",
   onPriceTypeChange,
-  hasActiveFilters,
+  sortBy = "featured",
+  onSortChange,
+  hasActiveFilters = false,
   onReset,
-  filters: externalFilters,
-  onChange,
   totalResults,
   className,
 }: DomainFiltersProps) {
-  const [internalState, setInternalState] = useState<FilterState>({
-    keyword: searchQuery || "",
-    domainTypes: [".si"],
-    categories: selectedCategory ? [selectedCategory] : [],
-    priceRanges: [],
-    sortBy: "featured",
-  });
-
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState(searchQuery);
 
-  const currentKeyword =
-    typeof searchQuery === "string" ? searchQuery : (externalFilters?.keyword ?? internalState.keyword);
+  useEffect(() => {
+    setSearchInput(searchQuery);
+  }, [searchQuery]);
 
-  const activeCategories = passedCategories && passedCategories.length > 0
-    ? passedCategories.map((c) => ({ id: c.toLowerCase(), label: c }))
-    : DEFAULT_CATEGORIES;
-
-  const currentCategoryList = selectedCategory
-    ? [selectedCategory.toLowerCase()]
-    : (externalFilters?.categories ?? internalState.categories);
-
-  const currentDomainTypes = externalFilters?.domainTypes ?? internalState.domainTypes;
-  const currentPriceRanges = externalFilters?.priceRanges ?? internalState.priceRanges;
-  const currentSortBy = externalFilters?.sortBy ?? internalState.sortBy;
-
-  const handleKeywordChange = (val: string) => {
-    if (onSearchChange) {
-      onSearchChange(val);
-    } else {
-      const next = { ...internalState, keyword: val };
-      setInternalState(next);
-      onChange?.(next);
-    }
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearchChange?.(searchInput);
   };
 
-  const toggleCategory = (catLabel: string) => {
-    if (onSelectCategory) {
-      const isSelected = selectedCategory?.toLowerCase() === catLabel.toLowerCase();
-      onSelectCategory(isSelected ? "" : catLabel);
-    } else {
-      const catId = catLabel.toLowerCase();
-      const exists = currentCategoryList.includes(catId);
-      const nextCategories = exists
-        ? currentCategoryList.filter((c) => c !== catId)
-        : [...currentCategoryList, catId];
-      const next = { ...internalState, categories: nextCategories };
-      setInternalState(next);
-      onChange?.(next);
-    }
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSearchInput(val);
+    onSearchChange?.(val);
   };
 
-  const toggleDomainType = (typeId: string) => {
-    const exists = currentDomainTypes.includes(typeId);
-    const nextTypes = exists
-      ? currentDomainTypes.filter((t) => t !== typeId)
-      : [...currentDomainTypes, typeId];
-    const next = { ...internalState, domainTypes: nextTypes };
-    setInternalState(next);
-    onChange?.(next);
-  };
-
-  const togglePriceRange = (rangeId: string) => {
-    if (onPriceTypeChange) {
-      // Map to priceType if available
-      onPriceTypeChange(priceType === rangeId ? "all" : rangeId);
-    }
-    const exists = currentPriceRanges.includes(rangeId);
-    const nextRanges = exists
-      ? currentPriceRanges.filter((r) => r !== rangeId)
-      : [...currentPriceRanges, rangeId];
-    const next = { ...internalState, priceRanges: nextRanges };
-    setInternalState(next);
-    onChange?.(next);
-  };
-
-  const handleSortChange = (sortBy: string) => {
-    const next = { ...internalState, sortBy };
-    setInternalState(next);
-    onChange?.(next);
-  };
-
-  const handleResetAll = () => {
-    if (onReset) {
-      onReset();
-    }
-    const resetState: FilterState = {
-      keyword: "",
-      domainTypes: [".si"],
-      categories: [],
-      priceRanges: [],
-      sortBy: "featured",
-    };
-    setInternalState(resetState);
-    onChange?.(resetState);
-  };
-
-  const isResetVisible =
-    Boolean(hasActiveFilters) ||
-    Boolean(currentKeyword) ||
-    (selectedCategory ? selectedCategory !== "" : currentCategoryList.length > 0) ||
-    currentPriceRanges.length > 0;
+  const isResetVisible = hasActiveFilters || searchQuery !== "" || selectedCategory !== "" || priceType !== "all";
 
   const renderFilterContent = () => (
-    <div className="space-y-6 text-neutral-900 text-left">
+    <div className="space-y-6 text-[#090a0c] text-left">
       {/* Header */}
       <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200">
         <div>
-          <h2 className="text-base font-bold text-neutral-950">
-            Filter Domains
+          <h2 className="text-base font-extrabold text-neutral-950">
+            Filter Inventory
           </h2>
           {typeof totalResults === "number" && (
             <p className="text-xs text-neutral-500 mt-0.5">
-              {totalResults} {totalResults === 1 ? "result" : "results"}
+              {totalResults} {totalResults === 1 ? "domain available" : "domains available"}
             </p>
           )}
         </div>
@@ -199,8 +87,8 @@ export function DomainFilters({
         {isResetVisible && (
           <button
             type="button"
-            onClick={handleResetAll}
-            className="flex items-center gap-1.5 text-xs font-semibold text-neutral-600 hover:text-black transition-colors cursor-pointer"
+            onClick={onReset}
+            className="flex items-center gap-1.5 text-xs font-bold text-neutral-600 hover:text-black transition-colors cursor-pointer"
           >
             <RotateCcw className="h-3.5 w-3.5" />
             <span>Reset</span>
@@ -216,127 +104,98 @@ export function DomainFilters({
         >
           Keyword Search
         </label>
-        <div className="relative">
+        <form onSubmit={handleSearchSubmit} className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
           <input
             id="filter-search-input"
             type="text"
-            value={currentKeyword}
-            onChange={(e) => handleKeywordChange(e.target.value)}
-            placeholder="Search keywords, letters..."
-            className="w-full rounded-lg border border-neutral-300 bg-white py-2 pl-9 pr-3 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+            value={searchInput}
+            onChange={handleSearchInputChange}
+            placeholder="Search keywords, e.g. pay, ai..."
+            className="w-full rounded-xl border border-neutral-300 bg-white py-2 pl-9 pr-3 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black transition-all"
           />
-        </div>
+          {searchInput && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearchInput("");
+                onSearchChange?.("");
+              }}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black p-0.5"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </form>
       </div>
 
-      {/* Sort By Select Dropdown */}
-      <div className="space-y-2">
-        <label
-          htmlFor="filter-sort-select"
-          className="block text-xs font-bold uppercase tracking-wider text-neutral-600"
-        >
-          Sort By
-        </label>
-        <div className="relative">
-          <select
-            id="filter-sort-select"
-            value={currentSortBy}
-            onChange={(e) => handleSortChange(e.target.value)}
-            className="w-full appearance-none rounded-lg border border-neutral-300 bg-white py-2 pl-3 pr-8 text-xs sm:text-sm text-neutral-900 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
-          >
-            {SORT_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
-        </div>
-      </div>
+      {/* Categories */}
+      {categories.length > 0 && (
+        <div className="space-y-2.5">
+          <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
+            Category
+          </label>
+          <div className="flex flex-col gap-1.5 max-h-60 overflow-y-auto pr-1">
+            <button
+              type="button"
+              onClick={() => onSelectCategory?.("")}
+              className={cn(
+                "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors text-left cursor-pointer",
+                selectedCategory === ""
+                  ? "bg-neutral-950 text-white"
+                  : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
+              )}
+            >
+              <span>All Categories</span>
+              {selectedCategory === "" && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+            </button>
 
-      {/* Domain Type Checkboxes */}
+            {categories.map((cat) => {
+              const isSelected = selectedCategory.toLowerCase() === cat.toLowerCase();
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => onSelectCategory?.(isSelected ? "" : cat)}
+                  className={cn(
+                    "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors text-left cursor-pointer",
+                    isSelected
+                      ? "bg-neutral-950 text-white"
+                      : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
+                  )}
+                >
+                  <span className="truncate">{cat}</span>
+                  {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Price Range Filter */}
       <div className="space-y-2.5">
         <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
-          Domain Type
+          Valuation Range
         </label>
-        <div className="space-y-2">
-          {DEFAULT_DOMAIN_TYPES.map((type) => {
-            const checked = currentDomainTypes.includes(type.id);
-            return (
-              <label
-                key={type.id}
-                className="flex items-center gap-2.5 text-xs sm:text-sm text-neutral-700 hover:text-black cursor-pointer select-none"
-              >
-                <input
-                  type="checkbox"
-                  checked={checked}
-                  onChange={() => toggleDomainType(type.id)}
-                  className="h-4 w-4 rounded border-neutral-300 text-black focus:ring-black accent-black"
-                />
-                <span className={cn(checked && "font-semibold text-black")}>
-                  {type.label}
-                </span>
-              </label>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Category Checkboxes */}
-      <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
-          Category
-        </label>
-        <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
-          {activeCategories.map((cat) => {
-            const isSelected = selectedCategory
-              ? selectedCategory.toLowerCase() === cat.label.toLowerCase()
-              : currentCategoryList.includes(cat.id);
-            return (
-              <label
-                key={cat.id}
-                className="flex items-center gap-2.5 text-xs sm:text-sm text-neutral-700 hover:text-black cursor-pointer select-none"
-              >
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  onChange={() => toggleCategory(cat.label)}
-                  className="h-4 w-4 rounded border-neutral-300 text-black focus:ring-black accent-black"
-                />
-                <span className={cn(isSelected && "font-semibold text-black")}>
-                  {cat.label}
-                </span>
-              </label>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Price Range Checkboxes */}
-      <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
-          Price Range
-        </label>
-        <div className="space-y-2">
+        <div className="flex flex-col gap-1.5">
           {PRICE_RANGES.map((range) => {
-            const isSelected = priceType
-              ? priceType === range.id
-              : currentPriceRanges.includes(range.id);
+            const isSelected = priceType === range.id;
             return (
-              <label
+              <button
                 key={range.id}
-                className="flex items-center gap-2.5 text-xs sm:text-sm text-neutral-700 hover:text-black cursor-pointer select-none"
+                type="button"
+                onClick={() => onPriceTypeChange?.(isSelected && range.id !== "all" ? "all" : range.id)}
+                className={cn(
+                  "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors text-left cursor-pointer",
+                  isSelected
+                    ? "bg-neutral-950 text-white"
+                    : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
+                )}
               >
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  onChange={() => togglePriceRange(range.id)}
-                  className="h-4 w-4 rounded border-neutral-300 text-black focus:ring-black accent-black"
-                />
-                <span className={cn(isSelected && "font-semibold text-black")}>
-                  {range.label}
-                </span>
-              </label>
+                <span>{range.label}</span>
+                {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+              </button>
             );
           })}
         </div>
@@ -346,19 +205,19 @@ export function DomainFilters({
 
   return (
     <>
-      {/* Mobile Trigger Button */}
+      {/* Mobile Drawer Trigger Button */}
       <div className="lg:hidden mb-4">
         <button
           type="button"
           onClick={() => setMobileOpen(true)}
-          className="flex w-full items-center justify-between rounded-xl border border-neutral-300 bg-white px-4 py-3 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 cursor-pointer"
+          className="flex w-full items-center justify-between rounded-xl border border-neutral-300 bg-white px-4 py-3 text-xs sm:text-sm font-bold text-neutral-900 shadow-xs hover:bg-neutral-50 cursor-pointer"
         >
           <div className="flex items-center gap-2">
-            <SlidersHorizontal className="h-4 w-4 text-neutral-600" />
+            <SlidersHorizontal className="h-4 w-4 text-neutral-700" />
             <span>Filter Domains</span>
           </div>
           {isResetVisible && (
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black text-[11px] font-bold text-white">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-neutral-950 text-[10px] font-bold text-white">
               •
             </span>
           )}
@@ -370,7 +229,7 @@ export function DomainFilters({
         {renderFilterContent()}
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Modal Drawer */}
       {mobileOpen && (
         <div
           role="dialog"
@@ -378,18 +237,18 @@ export function DomainFilters({
           className="fixed inset-0 z-50 lg:hidden flex justify-end"
         >
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-neutral-950/60 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileOpen(false)}
           />
           <div className="relative z-10 flex h-full w-full max-w-sm flex-col bg-white p-6 shadow-2xl animate-in slide-in-from-right">
             <div className="flex items-center justify-between pb-4 border-b border-neutral-200">
-              <span className="text-base font-bold text-neutral-950">
+              <span className="text-base font-extrabold text-neutral-950">
                 Filter Domains
               </span>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="rounded-lg p-2 text-neutral-400 hover:bg-neutral-100 hover:text-black cursor-pointer"
+                className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100 hover:text-black cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -403,9 +262,9 @@ export function DomainFilters({
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="w-full rounded-xl bg-black py-3 text-center text-sm font-bold text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+                className="w-full rounded-xl bg-neutral-950 py-3 text-center text-xs sm:text-sm font-bold text-white hover:bg-neutral-800 transition-colors cursor-pointer"
               >
-                Apply Filters
+                Show Results ({totalResults ?? 0})
               </button>
             </div>
           </div>

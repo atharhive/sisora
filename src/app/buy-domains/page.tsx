@@ -1,42 +1,39 @@
 "use client";
 
 import React, { useState, useMemo, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
   SlidersHorizontal,
-  ChevronLeft,
-  ChevronRight,
   ArrowUpDown,
-  X,
   Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  X,
 } from "lucide-react";
 import { DOMAINS } from "@/lib/data";
 import { DomainGrid } from "@/components/domains/DomainGrid";
 import { DomainFilters } from "@/components/domains/DomainFilters";
-import { Button } from "@/components/ui/Button";
-
-const ITEMS_PER_PAGE = 6;
+import { DomainCard } from "@/components/domains/DomainCard";
+import { BuyingRequestForm } from "@/components/forms/BuyingRequestForm";
 
 function BuyDomainsContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Mobile filters open state
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [buyingModalOpen, setBuyingModalOpen] = useState(false);
 
   // Read state from URL
   const searchQuery = searchParams.get("q") || "";
   const selectedCategory = searchParams.get("category") || "";
   const priceType = searchParams.get("priceType") || "all";
   const sortBy = searchParams.get("sort") || "featured";
-  const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   // Helper to update search params
   const updateParams = (updates: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams.toString());
     Object.entries(updates).forEach(([key, value]) => {
-      if (value === null || value === "" || (key === "page" && value === "1") || (key === "priceType" && value === "all")) {
+      if (value === null || value === "" || (key === "priceType" && value === "all")) {
         params.delete(key);
       } else {
         params.set(key, value);
@@ -56,13 +53,14 @@ function BuyDomainsContent() {
   // Filter and sort domains
   const filteredDomains = useMemo(() => {
     return DOMAINS.filter((d) => {
-      // Search filter
+      // Search filter across name, description, tags, and category
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase().trim();
         const matchesName = d.name.toLowerCase().includes(query);
         const matchesDesc = d.description?.toLowerCase().includes(query);
         const matchesTag = d.tags?.some((t) => t.toLowerCase().includes(query));
-        if (!matchesName && !matchesDesc && !matchesTag) return false;
+        const matchesCategory = d.category?.toLowerCase().includes(query);
+        if (!matchesName && !matchesDesc && !matchesTag && !matchesCategory) return false;
       }
 
       // Category filter
@@ -73,54 +71,30 @@ function BuyDomainsContent() {
         return false;
       }
 
-      // Price type filter
-      if (priceType === "fixed" && (!d.price || d.priceType !== "fixed")) {
-        return false;
-      }
-      if (priceType === "make_offer" && d.priceType !== "make_offer") {
-        return false;
-      }
+      // Valuation Range filter
+      if (priceType === "under-25k" && (d.price === null || d.price >= 25000)) return false;
+      if (priceType === "25k-50k" && (d.price === null || d.price < 25000 || d.price > 50000)) return false;
+      if (priceType === "50k-plus" && (d.price === null || d.price < 50000)) return false;
 
       return true;
     }).sort((a, b) => {
-      if (sortBy === "az") {
+      if (sortBy === "alpha-asc") {
         return a.name.localeCompare(b.name);
       }
-      if (sortBy === "za") {
-        return b.name.localeCompare(a.name);
-      }
-      if (sortBy === "price_asc") {
+      if (sortBy === "price-asc") {
         const pA = a.price ?? 9999999;
         const pB = b.price ?? 9999999;
         return pA - pB;
       }
-      if (sortBy === "price_desc") {
+      if (sortBy === "price-desc") {
         const pA = a.price ?? 0;
         const pB = b.price ?? 0;
         return pB - pA;
       }
-      if (sortBy === "newest") {
-        if (a.createdAt && b.createdAt) {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-        }
-        return b.id.localeCompare(a.id);
-      }
-      // default: featured first, then price desc
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return (b.price ?? 0) - (a.price ?? 0);
+      // Default: featured first
+      return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
     });
   }, [searchQuery, selectedCategory, priceType, sortBy]);
-
-  // Pagination calculation
-  const totalItems = filteredDomains.length;
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-  const safePage = Math.min(Math.max(1, currentPage), totalPages);
-
-  const paginatedDomains = useMemo(() => {
-    const startIndex = (safePage - 1) * ITEMS_PER_PAGE;
-    return filteredDomains.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [filteredDomains, safePage]);
 
   const hasActiveFilters = Boolean(
     searchQuery || selectedCategory || priceType !== "all" || sortBy !== "featured"
@@ -130,197 +104,178 @@ function BuyDomainsContent() {
     router.replace(pathname, { scroll: false });
   };
 
+  // Top 4 exact domains for sale from PDF
+  const featuredPdfDomains = useMemo(() => {
+    return DOMAINS.filter((d) => ["pay", "licence", "gentle", "translate"].includes(d.slug.toLowerCase()));
+  }, []);
+
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header section */}
-      <section className="border-b border-zinc-900 bg-zinc-950/40 py-12 md:py-16">
+    <div className="min-h-screen bg-[#f4f5f7] text-[#090a0c]">
+      {/* Header section with exact PDF text */}
+      <section className="border-b border-neutral-200/90 bg-[#ebedf0]/60 py-12 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Primary .SI Exchange</span>
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="max-w-3xl space-y-4">
+              <div className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-neutral-700 shadow-2xs">
+                <Sparkles className="h-3 w-3 text-neutral-900" />
+                <span>Primary .SI Acquisition Desk</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-950 tracking-tight">
                 Buy .SI Domains
               </h1>
-              <p className="mt-3 text-base text-zinc-400 max-w-2xl leading-relaxed">
-                Explore verified, premium Slovenian country-code and generic keyword digital real estate. All assets ready for instant acquisition through licensed escrow.
+              <p className="text-base sm:text-lg text-neutral-600 leading-relaxed">
+                Explore verified, premium SI (Super Intelligence) and generic keyword digital real estate. All assets ready for instant acquisition through licensed <span className="font-semibold text-neutral-900">Escrow.com</span> and <span className="font-semibold text-neutral-900">Atom.com</span>.
               </p>
             </div>
 
-            {/* Mobile Filter Toggle & Counter */}
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-mono text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-3 py-1.5 rounded-lg">
-                {totalItems} Available Asset{totalItems === 1 ? "" : "s"}
-              </span>
-              <Button
-                variant="outline"
-                size="md"
-                className="md:hidden flex items-center gap-2"
-                onClick={() => setMobileFilterOpen(true)}
+            {/* Direct CTA button from PDF */}
+            <div className="shrink-0 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setBuyingModalOpen(true)}
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-950 px-7 py-4 text-sm font-bold text-white shadow-sm hover:bg-neutral-800 transition-all active:scale-95 cursor-pointer"
               >
-                <SlidersHorizontal className="w-4 h-4" />
-                <span>Filter</span>
-              </Button>
+                <span>Submit a Buying Request</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content: Two-column layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Desktop Sidebar (Left Col) */}
-          <aside className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-28 rounded-2xl border border-zinc-850 bg-zinc-950/70 p-6 backdrop-blur-md">
-              <DomainFilters
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onSelectCategory={(cat) => updateParams({ category: cat, page: "1" })}
-                searchQuery={searchQuery}
-                onSearchChange={(q) => updateParams({ q: q, page: "1" })}
-                priceType={priceType}
-                onPriceTypeChange={(type) => updateParams({ priceType: type, page: "1" })}
-                onReset={handleResetFilters}
-                hasActiveFilters={hasActiveFilters}
-              />
+      {/* Featured Highlight: Domains For Sale (Page 2 of PDF) */}
+      {!hasActiveFilters && (
+        <section className="border-b border-neutral-200/90 bg-white py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+                  Primary Listings
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950">
+                  Domains For Sale
+                </h2>
+              </div>
+              <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-neutral-500">
+                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                <span>Escrow.com &amp; Atom.com Verified</span>
+              </div>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredPdfDomains.map((domain) => (
+                <DomainCard
+                  key={domain.id}
+                  domain={domain}
+                  featured={true}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Main Catalog with Sticky Filter Sidebar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+          {/* Desktop Filter Sidebar - Sticky while domains scroll */}
+          <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 lg:self-start rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs">
+            <DomainFilters
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onSelectCategory={(cat) => updateParams({ category: cat })}
+              searchQuery={searchQuery}
+              onSearchChange={(q) => updateParams({ q })}
+              priceType={priceType}
+              onPriceTypeChange={(type) => updateParams({ priceType: type })}
+              onReset={handleResetFilters}
+              hasActiveFilters={hasActiveFilters}
+              totalResults={filteredDomains.length}
+            />
           </aside>
 
-          {/* Right Column: Sort bar + DomainGrid + Pagination */}
+          {/* Catalog Listing */}
           <main className="lg:col-span-3 space-y-6">
-            {/* Sorting & results toolbar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-zinc-850 bg-zinc-950/50">
-              <div className="text-xs sm:text-sm text-zinc-400">
-                Showing{" "}
-                <span className="font-semibold text-white font-mono">
-                  {totalItems > 0 ? (safePage - 1) * ITEMS_PER_PAGE + 1 : 0}-
-                  {Math.min(safePage * ITEMS_PER_PAGE, totalItems)}
-                </span>{" "}
-                of <span className="font-semibold text-white font-mono">{totalItems}</span> domains
+            {/* Sorting Toolbar */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-neutral-200 bg-white shadow-2xs">
+              <div className="text-xs sm:text-sm text-neutral-600">
+                Showing <span className="font-bold text-neutral-950">{filteredDomains.length}</span> verified .SI {filteredDomains.length === 1 ? "asset" : "assets"}
               </div>
 
-              {/* Sort dropdown */}
-              <div className="flex items-center gap-2">
-                <ArrowUpDown className="w-4 h-4 text-zinc-500" />
-                <span className="text-xs text-zinc-400 font-medium">Sort by:</span>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-500">
+                  <ArrowUpDown className="h-3.5 w-3.5" />
+                  <span>Sort:</span>
+                </div>
                 <select
                   value={sortBy}
-                  onChange={(e) => updateParams({ sort: e.target.value, page: "1" })}
-                  className="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-zinc-500 font-medium cursor-pointer"
+                  onChange={(e) => updateParams({ sort: e.target.value })}
+                  className="rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-xs font-semibold text-neutral-900 focus:border-black focus:outline-none cursor-pointer"
                 >
                   <option value="featured">Featured First</option>
-                  <option value="price_desc">Price: High to Low</option>
-                  <option value="price_asc">Price: Low to High</option>
-                  <option value="az">Name: A to Z</option>
-                  <option value="za">Name: Z to A</option>
-                  <option value="newest">Newest First</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="alpha-asc">Name: A to Z</option>
                 </select>
               </div>
             </div>
 
+            {/* Mobile Filter Drawer Trigger */}
+            <div className="lg:hidden">
+              <DomainFilters
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onSelectCategory={(cat) => updateParams({ category: cat })}
+                searchQuery={searchQuery}
+                onSearchChange={(q) => updateParams({ q })}
+                priceType={priceType}
+                onPriceTypeChange={(type) => updateParams({ priceType: type })}
+                onReset={handleResetFilters}
+                hasActiveFilters={hasActiveFilters}
+                totalResults={filteredDomains.length}
+              />
+            </div>
+
             {/* Grid */}
-            <DomainGrid domains={paginatedDomains} />
-
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-              <div className="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-xs text-zinc-400">
-                  Page <span className="font-mono text-white font-semibold">{safePage}</span> of{" "}
-                  <span className="font-mono text-white font-semibold">{totalPages}</span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={safePage <= 1}
-                    onClick={() => updateParams({ page: String(safePage - 1) })}
-                    className="gap-1 text-xs"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                    <span>Previous</span>
-                  </Button>
-
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {
-                      const isActive = p === safePage;
-                      return (
-                        <button
-                          key={p}
-                          onClick={() => updateParams({ page: String(p) })}
-                          className={`w-8 h-8 rounded-lg text-xs font-mono font-medium transition-colors ${
-                            isActive
-                              ? "bg-white text-black font-bold"
-                              : "text-zinc-400 hover:text-white hover:bg-zinc-900"
-                          }`}
-                        >
-                          {p}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={safePage >= totalPages}
-                    onClick={() => updateParams({ page: String(safePage + 1) })}
-                    className="gap-1 text-xs"
-                  >
-                    <span>Next</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            )}
+            <DomainGrid
+              domains={filteredDomains}
+              onResetFilters={handleResetFilters}
+            />
           </main>
         </div>
       </div>
 
-      {/* Mobile Filters Drawer Modal */}
-      {mobileFilterOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden">
+      {/* Modal for "Submit a Buying Request" */}
+      {buyingModalOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        >
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
-            onClick={() => setMobileFilterOpen(false)}
+            className="fixed inset-0 bg-neutral-950/60 backdrop-blur-xs transition-opacity"
+            onClick={() => setBuyingModalOpen(false)}
           />
-          <div className="relative ml-auto w-full max-w-xs h-full bg-zinc-950 border-l border-zinc-800 p-6 overflow-y-auto flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-zinc-800 mb-6">
-                <span className="font-bold text-white text-lg">Filter Portfolio</span>
-                <button
-                  onClick={() => setMobileFilterOpen(false)}
-                  className="p-1 rounded text-zinc-400 hover:text-white"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+          <div className="relative z-10 w-full max-w-xl rounded-3xl border border-neutral-200 bg-white p-6 sm:p-10 shadow-2xl animate-in zoom-in-95 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-4 border-b border-neutral-100 mb-6">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                  Buyer Mandate
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-neutral-950">
+                  Submit a Buying Request
+                </h3>
               </div>
-
-              <DomainFilters
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onSelectCategory={(cat) => updateParams({ category: cat, page: "1" })}
-                searchQuery={searchQuery}
-                onSearchChange={(q) => updateParams({ q: q, page: "1" })}
-                priceType={priceType}
-                onPriceTypeChange={(type) => updateParams({ priceType: type, page: "1" })}
-                onReset={handleResetFilters}
-                hasActiveFilters={hasActiveFilters}
-              />
-            </div>
-
-            <div className="pt-6 border-t border-zinc-900">
-              <Button
-                variant="primary"
-                size="md"
-                className="w-full justify-center"
-                onClick={() => setMobileFilterOpen(false)}
+              <button
+                type="button"
+                onClick={() => setBuyingModalOpen(false)}
+                className="rounded-full p-2 text-neutral-400 hover:bg-neutral-100 hover:text-black cursor-pointer"
               >
-                Apply Filters ({totalItems})
-              </Button>
+                <X className="h-5 w-5" />
+              </button>
             </div>
+
+            <BuyingRequestForm onSuccess={() => setBuyingModalOpen(false)} />
           </div>
         </div>
       )}
@@ -330,13 +285,7 @@ function BuyDomainsContent() {
 
 export default function BuyDomainsPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-black flex items-center justify-center text-zinc-500">
-          Loading domain portfolio...
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="min-h-screen bg-[#f4f5f7]" />}>
       <BuyDomainsContent />
     </Suspense>
   );
