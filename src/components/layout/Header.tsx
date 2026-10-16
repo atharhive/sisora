@@ -14,6 +14,10 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const closeMobileNav = React.useCallback(() => {
+    setMobileNavOpen(false);
+  }, []);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -26,7 +30,7 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-neutral-200/90 bg-white/95 backdrop-blur-md transition-all">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="group flex flex-col select-none transition-transform active:scale-[0.99]">
             <div className="flex items-center gap-1.5">
@@ -135,7 +139,7 @@ export function Header() {
       {/* Slide-out Mobile Navigation */}
       <MobileNav
         isOpen={mobileNavOpen}
-        onClose={() => setMobileNavOpen(false)}
+        onClose={closeMobileNav}
       />
     </>
   );

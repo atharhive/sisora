@@ -48,8 +48,12 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     };
   }, [isOpen, onClose]);
 
+  const prevPathname = React.useRef(pathname);
   useEffect(() => {
-    onClose();
+    if (prevPathname.current !== pathname) {
+      prevPathname.current = pathname;
+      onClose();
+    }
   }, [pathname, onClose]);
 
   if (!isOpen) return null;
