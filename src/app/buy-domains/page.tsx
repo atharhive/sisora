@@ -32,7 +32,10 @@ function BuyDomainsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [buyingModalOpen, setBuyingModalOpen] = useState(false);
-  const [viewMode, setViewMode] = useState<"table" | "grid">("table");
+  
+  // Default view is "grid" (Cards view), can be toggled to "table"
+  const initialView = searchParams.get("view") === "table" ? "table" : "grid";
+  const [viewMode, setViewMode] = useState<"table" | "grid">(initialView);
 
   // Read state from URL
   const searchQuery = searchParams.get("q") || "";
@@ -266,11 +269,31 @@ function BuyDomainsContent() {
               </div>
 
               <div className="flex items-center justify-between sm:justify-end gap-3">
-                {/* View Mode Toggle: Table (default) vs Grid Cards */}
+                {/* View Mode Toggle: Cards (default) vs Curated Table */}
                 <div className="flex items-center gap-1 bg-neutral-100 p-1 rounded-xl border border-neutral-200/80">
                   <button
                     type="button"
-                    onClick={() => setViewMode("table")}
+                    onClick={() => {
+                      setViewMode("grid");
+                      updateParams({ view: null });
+                    }}
+                    title="Card Grid View (Default)"
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95",
+                      viewMode === "grid"
+                        ? "bg-white text-neutral-950 shadow-2xs"
+                        : "text-neutral-500 hover:text-neutral-900"
+                    )}
+                  >
+                    <LayoutGrid className="h-3.5 w-3.5" />
+                    <span>Cards</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setViewMode("table");
+                      updateParams({ view: "table" });
+                    }}
                     title="Curated Table View"
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95",
@@ -281,20 +304,6 @@ function BuyDomainsContent() {
                   >
                     <TableIcon className="h-3.5 w-3.5" />
                     <span>Table</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setViewMode("grid")}
-                    title="Card Grid View"
-                    className={cn(
-                      "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95",
-                      viewMode === "grid"
-                        ? "bg-white text-neutral-950 shadow-2xs"
-                        : "text-neutral-500 hover:text-neutral-900"
-                    )}
-                  >
-                    <LayoutGrid className="h-3.5 w-3.5" />
-                    <span>Cards</span>
                   </button>
                 </div>
 
