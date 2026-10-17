@@ -91,8 +91,8 @@ export function DomainFilters({
 
   const renderFilterContent = () => (
     <div className="space-y-6 text-[#090a0c] text-left">
-      {/* Header */}
-      <div className="flex items-center justify-between pb-3.5 border-b border-neutral-200">
+      {/* Sticky Header */}
+      <div className="sticky top-0 bg-white z-10 flex items-center justify-between pb-3.5 border-b border-neutral-200 pt-0.5">
         <div>
           <h2 className="text-base font-extrabold text-neutral-950">
             Filter Inventory
@@ -131,7 +131,7 @@ export function DomainFilters({
             type="text"
             value={searchInput}
             onChange={handleSearchInputChange}
-            placeholder="Search keywords, e.g. pay, ai..."
+            placeholder="Search keywords, e.g. pay, money..."
             className="w-full rounded-xl border border-neutral-300 bg-white py-2 pl-9 pr-3 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black transition-all"
           />
           {searchInput && (
@@ -191,7 +191,7 @@ export function DomainFilters({
           <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
             Category
           </label>
-          <div className="flex flex-col gap-1.5 max-h-60 overflow-y-auto pr-1">
+          <div className="flex flex-col gap-1.5">
             <button
               type="button"
               onClick={() => onSelectCategory?.("")}

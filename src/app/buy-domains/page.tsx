@@ -194,22 +194,24 @@ function BuyDomainsContent() {
       {/* Main Catalog with Reference Image Inspired Header & Sticky Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-          {/* Desktop Filter Sidebar - Sticky while domains scroll */}
-          <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 lg:self-start rounded-2xl border border-neutral-200 bg-white p-6 shadow-xs">
-            <DomainFilters
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onSelectCategory={(cat) => updateParams({ category: cat })}
-              domainType={selectedType}
-              onDomainTypeChange={(type) => updateParams({ type })}
-              searchQuery={searchQuery}
-              onSearchChange={(q) => updateParams({ q })}
-              priceType={priceType}
-              onPriceTypeChange={(type) => updateParams({ priceType: type })}
-              onReset={handleResetFilters}
-              hasActiveFilters={hasActiveFilters}
-              totalResults={filteredDomains.length}
-            />
+          {/* Desktop Filter Sidebar - Sticky with smooth independent scroll */}
+          <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 lg:self-start rounded-2xl border border-neutral-200 bg-white shadow-xs max-h-[calc(100vh-7rem)] overflow-hidden flex flex-col">
+            <div className="overflow-y-auto p-5 sm:p-6 overscroll-contain [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]">
+              <DomainFilters
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onSelectCategory={(cat) => updateParams({ category: cat })}
+                domainType={selectedType}
+                onDomainTypeChange={(type) => updateParams({ type })}
+                searchQuery={searchQuery}
+                onSearchChange={(q) => updateParams({ q })}
+                priceType={priceType}
+                onPriceTypeChange={(type) => updateParams({ priceType: type })}
+                onReset={handleResetFilters}
+                hasActiveFilters={hasActiveFilters}
+                totalResults={filteredDomains.length}
+              />
+            </div>
           </aside>
 
           {/* Catalog Listing */}
