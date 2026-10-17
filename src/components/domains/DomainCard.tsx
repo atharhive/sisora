@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Copy, Check, ShieldCheck } from "lucide-react";
 import { formatPrice, cn } from "@/lib/utils";
+import { getDomainType } from "@/lib/data";
 
 export interface DomainItem {
   id?: string;
@@ -11,6 +12,7 @@ export interface DomainItem {
   slug?: string;
   extension?: string;
   category?: string | null;
+  domainType?: string | null;
   tags?: string[] | null;
   price?: number | null;
   priceType?: string | null;
@@ -33,6 +35,7 @@ export function DomainCard({
 
   const slug = domain.slug || domain.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const isMakeOffer = !domain.price || domain.priceType === "make_offer";
+  const domainType = getDomainType(domain as any);
 
   const handleCopy = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,11 +55,14 @@ export function DomainCard({
         className
       )}
     >
-      {/* Top Row: Category + Copy Domain Action */}
+      {/* Top Row: Category + Type + Copy Domain Action */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="rounded-md bg-neutral-900/5 text-neutral-800 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-mono font-bold border border-neutral-300/80">
+            {domainType}
+          </span>
           {domain.category && (
-            <span className="rounded-md bg-neutral-100 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-semibold text-neutral-800 transition-colors group-hover:bg-neutral-950 group-hover:text-white">
+            <span className="rounded-md bg-neutral-100 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-[11px] font-semibold text-neutral-700 transition-colors group-hover:bg-neutral-950 group-hover:text-white">
               {domain.category}
             </span>
           )}

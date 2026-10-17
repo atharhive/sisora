@@ -7,6 +7,7 @@ export interface DomainItem {
   slug: string;
   extension: string;
   category: string;
+  domainType?: string;
   tags: string[];
   price: number | null;
   priceType: string;
@@ -85,4 +86,19 @@ export function getDomainBySlug(slug: string): DomainItem | undefined {
 
 export function getFeaturedDomains(): DomainItem[] {
   return DOMAINS.filter((d) => d.featured);
+}
+
+export function getDomainType(domain: DomainItem): "One-word" | "LL" | "LLL" | "CVCV" {
+  if (domain.domainType) {
+    const dt = domain.domainType.toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (dt === "ll" || dt === "2l") return "LL";
+    if (dt === "lll" || dt === "3l") return "LLL";
+    if (dt === "cvcv" || dt === "4l") return "CVCV";
+    if (dt === "oneword" || dt === "word") return "One-word";
+  }
+  const clean = (domain.slug || domain.name.replace(/\.si$/i, "")).trim().toLowerCase();
+  if (clean.length === 2 && /^[a-z]{2}$/.test(clean)) return "LL";
+  if (clean.length === 3 && /^[a-z]{3}$/.test(clean)) return "LLL";
+  if (clean.length === 4 && /^[^aeiou][aeiou][^aeiou][aeiou]$/.test(clean)) return "CVCV";
+  return "One-word";
 }

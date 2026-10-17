@@ -8,6 +8,8 @@ export interface DomainFiltersProps {
   categories?: string[];
   selectedCategory?: string;
   onSelectCategory?: (category: string) => void;
+  domainType?: string;
+  onDomainTypeChange?: (type: string) => void;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   priceType?: string;
@@ -19,6 +21,14 @@ export interface DomainFiltersProps {
   totalResults?: number;
   className?: string;
 }
+
+export const DOMAIN_TYPES = [
+  { id: "all", label: "All Types" },
+  { id: "one-word", label: "One-word" },
+  { id: "ll", label: "LL" },
+  { id: "lll", label: "LLL" },
+  { id: "cvcv", label: "CVCV" },
+];
 
 const PRICE_RANGES = [
   { id: "all", label: "All Valuations" },
@@ -38,6 +48,8 @@ export function DomainFilters({
   categories = [],
   selectedCategory = "",
   onSelectCategory,
+  domainType = "all",
+  onDomainTypeChange,
   searchQuery = "",
   onSearchChange,
   priceType = "all",
@@ -67,7 +79,12 @@ export function DomainFilters({
     onSearchChange?.(val);
   };
 
-  const isResetVisible = hasActiveFilters || searchQuery !== "" || selectedCategory !== "" || priceType !== "all";
+  const isResetVisible =
+    hasActiveFilters ||
+    searchQuery !== "" ||
+    selectedCategory !== "" ||
+    priceType !== "all" ||
+    (domainType && domainType !== "all");
 
   const renderFilterContent = () => (
     <div className="space-y-6 text-[#090a0c] text-left">
@@ -127,6 +144,42 @@ export function DomainFilters({
             </button>
           )}
         </form>
+      </div>
+
+      {/* Domain Type Filter: One-word, LL, LLL, CVCV */}
+      <div className="space-y-2.5">
+        <div className="flex items-center justify-between">
+          <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
+            Structure / Type
+          </label>
+          {domainType !== "all" && (
+            <span className="text-[10px] font-semibold text-neutral-400">
+              Active
+            </span>
+          )}
+        </div>
+        <div className="grid grid-cols-2 gap-1.5">
+          {DOMAIN_TYPES.map((type) => {
+            const isSelected = domainType === type.id;
+            return (
+              <button
+                key={type.id}
+                type="button"
+                onClick={() => onDomainTypeChange?.(isSelected && type.id !== "all" ? "all" : type.id)}
+                className={cn(
+                  "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all text-left cursor-pointer",
+                  type.id === "all" ? "col-span-2" : "col-span-1",
+                  isSelected
+                    ? "bg-neutral-950 text-white shadow-xs"
+                    : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100 border border-neutral-200/60"
+                )}
+              >
+                <span>{type.label}</span>
+                {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Categories */}

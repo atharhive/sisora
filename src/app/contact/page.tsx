@@ -53,11 +53,11 @@ export default function ContactPage() {
     },
     {
       title: "X (Twitter)",
-      value: "x.com/DomingoDomain",
+      value: "x.com/SisoraBrokerage",
       subtext: "Official brokerage updates, market insights, and deal flow",
       icon: TwitterIcon,
-      href: "https://x.com/DomingoDomain",
-      actionText: "Visit @DomingoDomain",
+      href: "https://x.com/SisoraBrokerage",
+      actionText: "Visit @SisoraBrokerage",
     },
     {
       title: "LinkedIn",

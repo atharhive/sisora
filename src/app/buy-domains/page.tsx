@@ -4,28 +4,40 @@ import React, { useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import {
-  SlidersHorizontal,
   ArrowUpDown,
   Sparkles,
   ArrowRight,
   ShieldCheck,
   X,
+  Table as TableIcon,
+  LayoutGrid,
 } from "lucide-react";
-import { DOMAINS } from "@/lib/data";
+import { DOMAINS, getDomainType } from "@/lib/data";
 import { DomainGrid } from "@/components/domains/DomainGrid";
+import { DomainTableView } from "@/components/domains/DomainTableView";
 import { DomainFilters } from "@/components/domains/DomainFilters";
-import { DomainCard } from "@/components/domains/DomainCard";
 import { BuyingRequestForm } from "@/components/forms/BuyingRequestForm";
+import { cn } from "@/lib/utils";
+
+const TYPE_TABS = [
+  { id: "all", label: "All" },
+  { id: "one-word", label: "One-word" },
+  { id: "ll", label: "LL" },
+  { id: "lll", label: "LLL" },
+  { id: "cvcv", label: "CVCV" },
+];
 
 function BuyDomainsContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [buyingModalOpen, setBuyingModalOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<"table" | "grid">("table");
 
   // Read state from URL
   const searchQuery = searchParams.get("q") || "";
   const selectedCategory = searchParams.get("category") || "";
+  const selectedType = searchParams.get("type") || "all";
   const priceType = searchParams.get("priceType") || "all";
   const sortBy = searchParams.get("sort") || "featured";
 
@@ -33,7 +45,12 @@ function BuyDomainsContent() {
   const updateParams = (updates: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams.toString());
     Object.entries(updates).forEach(([key, value]) => {
-      if (value === null || value === "" || (key === "priceType" && value === "all")) {
+      if (
+        value === null ||
+        value === "" ||
+        (key === "priceType" && value === "all") ||
+        (key === "type" && value === "all")
+      ) {
         params.delete(key);
       } else {
         params.set(key, value);
@@ -50,9 +67,35 @@ function BuyDomainsContent() {
     return Array.from(set);
   }, []);
 
+  // Compute counts for the tabs
+  const typeCounts = useMemo(() => {
+    const counts: Record<string, number> = {
+      all: DOMAINS.length,
+      "one-word": 0,
+      ll: 0,
+      lll: 0,
+      cvcv: 0,
+    };
+    DOMAINS.forEach((d) => {
+      const t = getDomainType(d).toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (t === "oneword" || t === "word") counts["one-word"]++;
+      else if (t === "ll") counts["ll"]++;
+      else if (t === "lll") counts["lll"]++;
+      else if (t === "cvcv") counts["cvcv"]++;
+    });
+    return counts;
+  }, []);
+
   // Filter and sort domains
   const filteredDomains = useMemo(() => {
     return DOMAINS.filter((d) => {
+      // Structure / Type filter
+      if (selectedType !== "all") {
+        const dType = getDomainType(d).toLowerCase().replace(/[^a-z0-9]/g, "");
+        const targetType = selectedType.toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (dType !== targetType) return false;
+      }
+
       // Search filter across name, description, tags, and category
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase().trim();
@@ -94,20 +137,19 @@ function BuyDomainsContent() {
       // Default: featured first
       return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
     });
-  }, [searchQuery, selectedCategory, priceType, sortBy]);
+  }, [selectedType, searchQuery, selectedCategory, priceType, sortBy]);
 
   const hasActiveFilters = Boolean(
-    searchQuery || selectedCategory || priceType !== "all" || sortBy !== "featured"
+    searchQuery ||
+      selectedCategory ||
+      selectedType !== "all" ||
+      priceType !== "all" ||
+      sortBy !== "featured"
   );
 
   const handleResetFilters = () => {
     router.replace(pathname, { scroll: false });
   };
-
-  // Top 4 exact domains for sale from PDF
-  const featuredPdfDomains = useMemo(() => {
-    return DOMAINS.filter((d) => ["pay", "licence", "gentle", "translate"].includes(d.slug.toLowerCase()));
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#f4f5f7] text-[#090a0c]">
@@ -120,7 +162,7 @@ function BuyDomainsContent() {
                 <Sparkles className="h-3 w-3 text-neutral-900" />
                 <span>Primary .SI Acquisition Desk</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-950 tracking-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-950 tracking-tight font-sans">
                 Buy .SI Domains
               </h1>
               <p className="text-xs sm:text-base lg:text-lg text-neutral-600 leading-relaxed">
@@ -143,39 +185,7 @@ function BuyDomainsContent() {
         </div>
       </section>
 
-      {/* Featured Highlight: Domains For Sale (Page 2 of PDF) - Visible on large screens */}
-      {!hasActiveFilters && (
-        <section className="hidden lg:block border-b border-neutral-200/90 bg-white py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">
-                  Primary Listings
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950">
-                  Domains For Sale
-                </h2>
-              </div>
-              <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-neutral-500">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                <span>Escrow.com &amp; Atom.com Verified</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredPdfDomains.map((domain) => (
-                <DomainCard
-                  key={domain.id}
-                  domain={domain}
-                  featured={true}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Main Catalog with Sticky Filter Sidebar */}
+      {/* Main Catalog with Reference Image Inspired Header & Sticky Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
           {/* Desktop Filter Sidebar - Sticky while domains scroll */}
@@ -184,6 +194,8 @@ function BuyDomainsContent() {
               categories={categories}
               selectedCategory={selectedCategory}
               onSelectCategory={(cat) => updateParams({ category: cat })}
+              domainType={selectedType}
+              onDomainTypeChange={(type) => updateParams({ type })}
               searchQuery={searchQuery}
               onSearchChange={(q) => updateParams({ q })}
               priceType={priceType}
@@ -196,27 +208,113 @@ function BuyDomainsContent() {
 
           {/* Catalog Listing */}
           <main className="lg:col-span-3 space-y-6">
-            {/* Sorting Toolbar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-neutral-200 bg-white shadow-2xs">
+            {/* Curated Section Header & Filter Tabs (from reference image) */}
+            <div className="rounded-2xl border border-neutral-200/90 bg-white p-4 sm:p-6 shadow-2xs space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-neutral-950 font-sans">
+                    Domains for Sale
+                  </h2>
+                  <p className="text-xs sm:text-sm text-neutral-600 mt-0.5">
+                    A curated selection of premium One-word, LL, LLL, and CVCV .SI domains.
+                  </p>
+                </div>
+
+                <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-neutral-500 shrink-0">
+                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                  <span>Escrow.com &amp; Atom.com Verified</span>
+                </div>
+              </div>
+
+              {/* Working Filter Tabs matching reference image */}
+              <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-neutral-100">
+                {TYPE_TABS.map((tab) => {
+                  const isActive = selectedType === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => updateParams({ type: tab.id })}
+                      className={cn(
+                        "px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5 active:scale-95",
+                        isActive
+                          ? "bg-neutral-950 text-white shadow-xs"
+                          : "bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black border border-neutral-300/80 shadow-2xs"
+                      )}
+                    >
+                      <span>{tab.label}</span>
+                      <span
+                        className={cn(
+                          "text-[10px] sm:text-[11px] font-mono px-1.5 py-0.5 rounded",
+                          isActive
+                            ? "bg-neutral-800 text-white"
+                            : "bg-neutral-100 text-neutral-500"
+                        )}
+                      >
+                        {typeCounts[tab.id] ?? 0}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Sorting & View Toggle Toolbar */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-xl border border-neutral-200 bg-white shadow-2xs">
               <div className="text-xs sm:text-sm text-neutral-600">
                 Showing <span className="font-bold text-neutral-950">{filteredDomains.length}</span> verified .SI {filteredDomains.length === 1 ? "asset" : "assets"}
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-500">
-                  <ArrowUpDown className="h-3.5 w-3.5" />
-                  <span>Sort:</span>
+              <div className="flex items-center justify-between sm:justify-end gap-3">
+                {/* View Mode Toggle: Table (default) vs Grid Cards */}
+                <div className="flex items-center gap-1 bg-neutral-100 p-1 rounded-xl border border-neutral-200/80">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("table")}
+                    title="Curated Table View"
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95",
+                      viewMode === "table"
+                        ? "bg-white text-neutral-950 shadow-2xs"
+                        : "text-neutral-500 hover:text-neutral-900"
+                    )}
+                  >
+                    <TableIcon className="h-3.5 w-3.5" />
+                    <span>Table</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("grid")}
+                    title="Card Grid View"
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95",
+                      viewMode === "grid"
+                        ? "bg-white text-neutral-950 shadow-2xs"
+                        : "text-neutral-500 hover:text-neutral-900"
+                    )}
+                  >
+                    <LayoutGrid className="h-3.5 w-3.5" />
+                    <span>Cards</span>
+                  </button>
                 </div>
-                <select
-                  value={sortBy}
-                  onChange={(e) => updateParams({ sort: e.target.value })}
-                  className="rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-xs font-semibold text-neutral-900 focus:border-black focus:outline-none cursor-pointer"
-                >
-                  <option value="featured">Featured First</option>
-                  <option value="price-desc">Price: High to Low</option>
-                  <option value="price-asc">Price: Low to High</option>
-                  <option value="alpha-asc">Name: A to Z</option>
-                </select>
+
+                {/* Sort selector */}
+                <div className="flex items-center gap-1.5">
+                  <div className="hidden md:flex items-center gap-1 text-xs font-semibold text-neutral-500">
+                    <ArrowUpDown className="h-3.5 w-3.5" />
+                    <span>Sort:</span>
+                  </div>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => updateParams({ sort: e.target.value })}
+                    className="rounded-lg border border-neutral-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-neutral-900 focus:border-black focus:outline-none cursor-pointer"
+                  >
+                    <option value="featured">Featured First</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="alpha-asc">Name: A to Z</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -226,6 +324,8 @@ function BuyDomainsContent() {
                 categories={categories}
                 selectedCategory={selectedCategory}
                 onSelectCategory={(cat) => updateParams({ category: cat })}
+                domainType={selectedType}
+                onDomainTypeChange={(type) => updateParams({ type })}
                 searchQuery={searchQuery}
                 onSearchChange={(q) => updateParams({ q })}
                 priceType={priceType}
@@ -236,11 +336,18 @@ function BuyDomainsContent() {
               />
             </div>
 
-            {/* Grid */}
-            <DomainGrid
-              domains={filteredDomains}
-              onResetFilters={handleResetFilters}
-            />
+            {/* Curated Table or Grid view based on toggle */}
+            {viewMode === "table" ? (
+              <DomainTableView
+                domains={filteredDomains}
+                onResetFilters={handleResetFilters}
+              />
+            ) : (
+              <DomainGrid
+                domains={filteredDomains}
+                onResetFilters={handleResetFilters}
+              />
+            )}
           </main>
         </div>
       </div>
@@ -262,7 +369,7 @@ function BuyDomainsContent() {
                 <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
                   Buyer Mandate
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black text-neutral-950">
+                <h3 className="text-xl sm:text-2xl font-black text-neutral-950 font-sans">
                   Submit a Buying Request
                 </h3>
               </div>

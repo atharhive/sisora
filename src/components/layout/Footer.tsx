@@ -64,7 +64,7 @@ export function Footer() {
                   <Mail className="h-3.5 w-3.5" />
                 </a>
                 <a
-                  href="https://x.com/DomingoDomain"
+                  href="https://x.com/SisoraBrokerage"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="X (Twitter)"
@@ -91,7 +91,7 @@ export function Footer() {
             {/* Desktop social icons */}
             <div className="hidden sm:flex pt-1 items-center gap-2.5">
               <a
-                href="https://x.com/DomingoDomain"
+                href="https://x.com/SisoraBrokerage"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X (Twitter)"
@@ -207,12 +207,12 @@ export function Footer() {
                   X (Twitter)
                 </span>
                 <a
-                  href="https://x.com/DomingoDomain"
+                  href="https://x.com/SisoraBrokerage"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white text-neutral-300 text-xs transition-colors"
                 >
-                  @DomingoDomain
+                  @SisoraBrokerage
                 </a>
               </li>
               <li className="hidden sm:block">
