@@ -48,13 +48,13 @@ export function Footer() {
               {/* Mobile quick social icon row */}
               <div className="flex sm:hidden items-center gap-1.5">
                 <a
-                  href="http://t.me/SisoraBrokerage"
+                  href="https://x.com/SisoraBrokerage"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Telegram"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-sky-400 active:scale-95"
+                  aria-label="X (Twitter)"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white active:scale-95"
                 >
-                  <TelegramIcon className="h-3.5 w-3.5" />
+                  <TwitterIcon className="h-3.5 w-3.5" />
                 </a>
                 <a
                   href={`mailto:${SITE_CONFIG.contact.email}`}
@@ -64,13 +64,13 @@ export function Footer() {
                   <Mail className="h-3.5 w-3.5" />
                 </a>
                 <a
-                  href="https://x.com/SisoraBrokerage"
+                  href="http://t.me/SisoraBrokerage"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="X (Twitter)"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white active:scale-95"
+                  aria-label="Telegram"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-sky-400 active:scale-95"
                 >
-                  <TwitterIcon className="h-3.5 w-3.5" />
+                  <TelegramIcon className="h-3.5 w-3.5" />
                 </a>
                 <a
                   href={SITE_CONFIG.social.linkedin}
@@ -100,13 +100,11 @@ export function Footer() {
                 <TwitterIcon className="h-4 w-4" />
               </a>
               <a
-                href={SITE_CONFIG.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
+                href={`mailto:${SITE_CONFIG.contact.email}`}
+                aria-label="Email"
                 className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700 transition-all active:scale-95"
               >
-                <LinkedInIcon className="h-4 w-4" />
+                <Mail className="h-4 w-4" />
               </a>
               <a
                 href="http://t.me/SisoraBrokerage"
@@ -118,11 +116,13 @@ export function Footer() {
                 <TelegramIcon className="h-4 w-4" />
               </a>
               <a
-                href={`mailto:${SITE_CONFIG.contact.email}`}
-                aria-label="Email"
+                href={SITE_CONFIG.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
                 className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700 transition-all active:scale-95"
               >
-                <Mail className="h-4 w-4" />
+                <LinkedInIcon className="h-4 w-4" />
               </a>
             </div>
           </div>
@@ -179,6 +179,20 @@ export function Footer() {
             <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-neutral-400">
               <li>
                 <span className="block text-[10px] uppercase font-bold tracking-wider text-neutral-500">
+                  X (Twitter)
+                </span>
+                <a
+                  href="https://x.com/SisoraBrokerage"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white text-neutral-300 font-mono text-[11px] sm:text-xs transition-colors flex items-center gap-1"
+                >
+                  <span>@SisoraBrokerage</span>
+                  <ExternalLink className="h-3 w-3 shrink-0" />
+                </a>
+              </li>
+              <li>
+                <span className="block text-[10px] uppercase font-bold tracking-wider text-neutral-500">
                   Email Desk
                 </span>
                 <a
@@ -200,19 +214,6 @@ export function Footer() {
                 >
                   <span>@SisoraBrokerage</span>
                   <ExternalLink className="h-3 w-3 shrink-0" />
-                </a>
-              </li>
-              <li className="hidden sm:block">
-                <span className="block text-[10px] uppercase font-bold tracking-wider text-neutral-500">
-                  X (Twitter)
-                </span>
-                <a
-                  href="https://x.com/SisoraBrokerage"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white text-neutral-300 text-xs transition-colors"
-                >
-                  @SisoraBrokerage
                 </a>
               </li>
               <li className="hidden sm:block">

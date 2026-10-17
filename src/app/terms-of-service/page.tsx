@@ -84,14 +84,19 @@ export default function TermsOfServicePage() {
               4. Direct Desk Contact
             </h2>
             <p>
-              For legal or transactional inquiries, contact us directly at{" "}
+              For legal or transactional inquiries, contact us directly on X at{" "}
+              <a href="https://x.com/SisoraBrokerage" target="_blank" rel="noopener noreferrer" className="font-semibold text-neutral-950 underline">
+                @SisoraBrokerage
+              </a>
+              , via email at{" "}
               <a href={`mailto:${SITE_CONFIG.contact.email}`} className="font-semibold text-neutral-950 underline">
                 {SITE_CONFIG.contact.email}
-              </a>{" "}
-              or via Telegram at{" "}
+              </a>
+              , or via Telegram at{" "}
               <a href={SITE_CONFIG.contact.telegramUrl || "http://t.me/SisoraBrokerage"} target="_blank" rel="noopener noreferrer" className="font-semibold text-neutral-950 underline">
                 {SITE_CONFIG.contact.telegram || "@SisoraBrokerage"}
-              </a>.
+              </a>
+              .
             </p>
           </div>
         </div>

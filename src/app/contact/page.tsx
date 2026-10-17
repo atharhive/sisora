@@ -44,20 +44,20 @@ export default function ContactPage() {
       actionText: "Visit @SisoraBrokerage",
     },
     {
-      title: "Telegram",
-      value: "@SisoraBrokerage",
-      subtext: "Direct desk with Domingo & brokerage team for instant messaging",
-      icon: TelegramIcon,
-      href: "http://t.me/SisoraBrokerage",
-      actionText: "Chat on Telegram",
-    },
-    {
       title: "Email",
       value: SITE_CONFIG.contact.email,
       subtext: "Fastest response for offers, appraisals, and broker mandates",
       icon: Mail,
       href: `mailto:${SITE_CONFIG.contact.email}`,
       actionText: "Send Email",
+    },
+    {
+      title: "Telegram",
+      value: "@SisoraBrokerage",
+      subtext: "Direct desk with Domingo & brokerage team for instant messaging",
+      icon: TelegramIcon,
+      href: "http://t.me/SisoraBrokerage",
+      actionText: "Chat on Telegram",
     },
     {
       title: "LinkedIn",
