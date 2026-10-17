@@ -9,6 +9,7 @@ import {
   Eye,
   User,
   CheckCircle2,
+  ExternalLink,
 } from "lucide-react";
 import { TrackRecordSection } from "@/components/sections/TrackRecordSection";
 
@@ -120,12 +121,15 @@ export default function AboutPage() {
                 <span>View Notable Transactions</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link
-                href="/contact"
+              <a
+                href="https://x.com/DomingoDomain"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-5 py-3 text-xs sm:text-sm font-bold text-neutral-900 hover:bg-neutral-100 transition-all active:scale-95"
               >
                 <span>Connect with Domingo</span>
-              </Link>
+                <ExternalLink className="h-4 w-4 text-neutral-600" />
+              </a>
             </div>
           </div>
         </div>

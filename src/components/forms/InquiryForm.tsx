@@ -73,7 +73,7 @@ I am interested in inquiring about the domain: ${targetDomain}
 --- Inquirer Details ---
 Name: ${formData.name}
 Email: ${formData.email}
-Phone / WhatsApp: ${formData.phone || "Not provided"}
+Phone / Telegram: ${formData.phone || "Not provided"}
 Inquiry Type: ${formData.type.toUpperCase()}
 
 --- Message / Offer ---
@@ -87,10 +87,8 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
     )}&body=${encodeURIComponent(body)}`;
   };
 
-  const getWhatsAppLink = () => {
-    const targetDomain = formData.domainName || "a .SI domain";
-    const text = `Hello SISORA, I'm inquiring about ${targetDomain}. My name is ${formData.name} (${formData.email}). ${formData.message || "Please provide acquisition details."}`;
-    return `https://wa.me/${SITE_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(text)}`;
+  const getTelegramLink = () => {
+    return "http://t.me/SisoraBrokerage";
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -122,7 +120,7 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
         <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
           Your inquiry for{" "}
           <span className="font-semibold text-black">{formData.domainName}</span>{" "}
-          has been generated. If your email app didn&apos;t open automatically, you can send it directly or chat on WhatsApp:
+          has been generated. If your email app didn&apos;t open automatically, you can send it directly or chat on Telegram:
         </p>
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
@@ -133,13 +131,13 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
             <span>Open Email Client</span>
           </a>
           <a
-            href={getWhatsAppLink()}
+            href={getTelegramLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
           >
-            <MessageSquare className="h-4 w-4 text-emerald-600" />
-            <span>Send via WhatsApp</span>
+            <MessageSquare className="h-4 w-4 text-sky-500" />
+            <span>Send via Telegram</span>
           </a>
         </div>
         <div className="pt-4 border-t border-neutral-200">
@@ -168,7 +166,7 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
             </span>
           </div>
           <span className="rounded-md bg-neutral-200 px-2 py-0.5 text-xs font-semibold text-neutral-700">
-            .SI Asset
+            .SI Domain
           </span>
         </div>
       ) : (
@@ -205,7 +203,7 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
       </div>
 
       <Input
-        label="Phone / WhatsApp (Optional)"
+        label="Phone / Telegram (Optional)"
         placeholder="+1 (555) 000-0000"
         value={formData.phone}
         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}

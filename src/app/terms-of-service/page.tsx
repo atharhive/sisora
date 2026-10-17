@@ -88,9 +88,9 @@ export default function TermsOfServicePage() {
               <a href={`mailto:${SITE_CONFIG.contact.email}`} className="font-semibold text-neutral-950 underline">
                 {SITE_CONFIG.contact.email}
               </a>{" "}
-              or via WhatsApp at{" "}
-              <a href={SITE_CONFIG.contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-neutral-950 underline">
-                {SITE_CONFIG.contact.whatsapp}
+              or via Telegram at{" "}
+              <a href={SITE_CONFIG.contact.telegramUrl || "http://t.me/SisoraBrokerage"} target="_blank" rel="noopener noreferrer" className="font-semibold text-neutral-950 underline">
+                {SITE_CONFIG.contact.telegram || "@SisoraBrokerage"}
               </a>.
             </p>
           </div>

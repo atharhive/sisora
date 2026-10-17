@@ -5,7 +5,7 @@ const STEPS = [
   {
     title: "Buyer Outreach & Evaluation",
     description:
-      "We identify qualified corporate buyers, founders, and domain investors actively looking to acquire .si assets.",
+      "We identify qualified corporate buyers, founders, and domain investors actively looking to acquire .si domains.",
     icon: Users,
   },
   {

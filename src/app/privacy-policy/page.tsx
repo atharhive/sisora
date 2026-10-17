@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
               We collect information that you voluntarily provide when submitting buying requests, listing domain names for representation, or communicating with our desk:
             </p>
             <ul className="list-disc pl-5 mt-3 space-y-2 text-neutral-600">
-              <li>Contact details: Name, email address, phone number, and WhatsApp contact.</li>
+              <li>Contact details: Name, email address, phone number, and Telegram handle.</li>
               <li>Transaction data: Target domain names, desired acquisition budgets, and asking valuations.</li>
               <li>Verification documentation: Registry ownership validation required by Escrow.com or Atom.com.</li>
             </ul>

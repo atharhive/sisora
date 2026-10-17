@@ -63,7 +63,7 @@ I would like to initiate a confidential domain acquisition request:
 --- Investor Details ---
 Name: ${formData.name}
 Email: ${formData.email}
-Phone / WhatsApp: ${formData.phone || "Not provided"}
+Phone / Telegram: ${formData.phone || "Not provided"}
 Estimated Budget: ${formData.budget || "Open / flexible"}
 
 --- Acquisition Mandate & Target Requirements ---
@@ -77,9 +77,8 @@ Submitted via SISORA Investor Portal (sisora.si)`;
     )}&body=${encodeURIComponent(body)}`;
   };
 
-  const getWhatsAppLink = () => {
-    const text = `Hello SISORA, I'd like to initiate an acquisition request. Name: ${formData.name} (${formData.email}), Budget: ${formData.budget || "Flexible"}. Requirements: ${formData.requirements}`;
-    return `https://wa.me/${SITE_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(text)}`;
+  const getTelegramLink = () => {
+    return "http://t.me/SisoraBrokerage";
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -120,13 +119,13 @@ Submitted via SISORA Investor Portal (sisora.si)`;
             <span>Open Email Client</span>
           </a>
           <a
-            href={getWhatsAppLink()}
+            href={getTelegramLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
           >
-            <MessageSquare className="h-4 w-4 text-emerald-600" />
-            <span>Submit via WhatsApp</span>
+            <MessageSquare className="h-4 w-4 text-sky-500" />
+            <span>Submit via Telegram</span>
           </a>
         </div>
         <div className="pt-4 border-t border-neutral-200">
@@ -166,7 +165,7 @@ Submitted via SISORA Investor Portal (sisora.si)`;
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Input
-          label="Phone / WhatsApp (Optional)"
+          label="Phone / Telegram (Optional)"
           placeholder="+1 (555) 000-0000"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}

@@ -127,12 +127,14 @@ export default function TrackRecordPage() {
           <p className="text-xs text-neutral-500 italic">
             These represent Domingo’s previous brokerage transactions. More deals will be added as Sisora grows.
           </p>
-          <Link
-            href="/contact"
+          <a
+            href="https://x.com/DomingoDomain"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-950 hover:underline shrink-0"
           >
             <span>Partner with Domingo on .SI deals →</span>
-          </Link>
+          </a>
         </div>
       </section>
     </div>

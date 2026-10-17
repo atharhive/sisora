@@ -122,7 +122,7 @@ export default function AdminDashboardPage() {
                     Site Configuration &amp; Contact
                   </h4>
                   <p className="text-xs text-neutral-500">
-                    Update phone, WhatsApp, email, social profiles
+                    Update phone, Telegram, email, social profiles
                   </p>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default function AdminDashboardPage() {
               <span className="font-bold text-neutral-900 block mb-1">
                 ✉️ Form Inquiries
               </span>
-              All submissions on Buy, Sell, and Contact pages immediately open the visitor&apos;s email client pre-filled to <code className="font-bold text-black">{SITE_CONFIG.contact.email}</code> and provide 1-click WhatsApp messaging. No database maintenance needed!
+              All submissions on Buy, Sell, and Contact pages immediately open the visitor&apos;s email client pre-filled to <code className="font-bold text-black">{SITE_CONFIG.contact.email}</code> and provide 1-click Telegram messaging. No database maintenance needed!
             </div>
           </div>
         </div>

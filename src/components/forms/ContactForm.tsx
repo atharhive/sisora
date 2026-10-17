@@ -70,7 +70,7 @@ Subject: ${formData.subject}
 --- Contact Details ---
 Name: ${formData.name}
 Email: ${formData.email}
-Phone / WhatsApp: ${formData.phone || "Not provided"}
+Phone / Telegram: ${formData.phone || "Not provided"}
 
 --- Message ---
 ${formData.message}
@@ -83,9 +83,8 @@ Sent via SISORA Contact Form (sisora.si)`;
     )}&body=${encodeURIComponent(body)}`;
   };
 
-  const getWhatsAppLink = () => {
-    const text = `Hello SISORA, I'm reaching out regarding "${formData.subject}". My name is ${formData.name} (${formData.email}).\n\n${formData.message}`;
-    return `https://wa.me/${SITE_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(text)}`;
+  const getTelegramLink = () => {
+    return "http://t.me/SisoraBrokerage";
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -116,7 +115,7 @@ Sent via SISORA Contact Form (sisora.si)`;
         <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
           Your message has been formatted for{" "}
           <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>.
-          If your email client didn&apos;t open automatically, send directly or chat on WhatsApp:
+          If your email client didn&apos;t open automatically, send directly or chat on Telegram:
         </p>
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
@@ -127,13 +126,13 @@ Sent via SISORA Contact Form (sisora.si)`;
             <span>Open Email Client</span>
           </a>
           <a
-            href={getWhatsAppLink()}
+            href={getTelegramLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
           >
-            <MessageSquare className="h-4 w-4 text-emerald-600" />
-            <span>Chat on WhatsApp</span>
+            <MessageSquare className="h-4 w-4 text-sky-500" />
+            <span>Chat on Telegram</span>
           </a>
         </div>
         <div className="pt-4 border-t border-neutral-200">
@@ -173,7 +172,7 @@ Sent via SISORA Contact Form (sisora.si)`;
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Input
-          label="Phone / WhatsApp (Optional)"
+          label="Phone / Telegram (Optional)"
           placeholder="+1 (555) 000-0000"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}

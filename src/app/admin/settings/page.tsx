@@ -103,15 +103,15 @@ export default function AdminSettingsPage() {
 
           <div>
             <label className="block text-xs font-semibold text-neutral-700 mb-1">
-              WhatsApp Contact Number
+              Telegram Handle / Link
             </label>
             <input
               type="text"
-              value={config.contact.whatsapp}
+              value={config.contact.telegram || ""}
               onChange={(e) =>
                 setConfig({
                   ...config,
-                  contact: { ...config.contact, whatsapp: e.target.value },
+                  contact: { ...config.contact, telegram: e.target.value },
                 })
               }
               className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs font-medium text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"

@@ -38,7 +38,7 @@ const INVESTOR_SERVICES = [
     id: "private-deals",
     title: "Off-Market Deal Access",
     description:
-      "First-look allocation on high-value two-letter, one-word dictionary, and AI/Super Intelligence .si assets prior to public release.",
+      "First-look allocation on high-value two-letter, one-word dictionary, and AI/Super Intelligence .si domains prior to public release.",
     icon: EyeOff,
     badge: "VIP Allocation",
   },

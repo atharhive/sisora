@@ -60,22 +60,31 @@ export function HeroSection() {
               Sisora is a dedicated brokerage connecting .si domain investors to buy and sell domain names. We manage negotiations between buyers and sellers, helping turn opportunities into completed transactions.
             </p>
 
-            {/* Dual Primary Buttons verbatim from PDF - compact side-by-side on mobile */}
-            <div className="pt-2 flex flex-row items-center gap-2.5 sm:gap-4">
+            {/* Primary Buttons - compact and responsive */}
+            <div className="pt-2 flex flex-wrap items-center gap-2.5 sm:gap-3.5">
               <Link
                 href="/buy-domains"
-                className="group flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2.5 rounded-xl bg-neutral-950 px-4 py-3 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-white shadow-sm transition-all hover:bg-neutral-800 hover:shadow-lg active:scale-95"
+                className="group flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl bg-neutral-950 px-4 py-3 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold text-white shadow-sm transition-all hover:bg-neutral-800 hover:shadow-lg active:scale-95"
               >
                 <span>Looking to Buy</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/sell-domains"
-                className="group flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2.5 rounded-xl border border-neutral-300 bg-white px-4 py-3 sm:px-7 sm:py-4 text-xs sm:text-sm font-bold text-neutral-900 transition-all hover:bg-neutral-50 hover:border-neutral-900 active:scale-95"
+                className="group flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-3 sm:px-6 sm:py-3.5 text-xs sm:text-sm font-bold text-neutral-900 transition-all hover:bg-neutral-50 hover:border-neutral-900 active:scale-95"
               >
                 <span>Looking to Sell</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
+              <a
+                href="https://x.com/DomingoDomain"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl border border-neutral-300 bg-white/90 px-4 py-3 sm:px-5 sm:py-3.5 text-xs sm:text-sm font-bold text-neutral-900 transition-all hover:bg-white hover:border-neutral-900 hover:shadow-sm active:scale-95"
+              >
+                <span>Connect with Domingo</span>
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              </a>
             </div>
           </div>
 
@@ -92,7 +101,7 @@ export function HeroSection() {
               </div>
               <div className="space-y-1">
                 <div className="text-3xl font-black tracking-tight">
-                  .SI DIGITAL ASSETS
+                  .SI Domains
                 </div>
                 <p className="text-xs text-neutral-400 leading-relaxed">
                   Premier Central European ccTLD &amp; global Super Intelligence keyword assets ready for immediate acquisition.

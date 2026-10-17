@@ -65,7 +65,7 @@ I would like to submit the following .SI domain for brokerage and sale:
 Domain Name: ${formData.domainName}
 Owner / Representative: ${formData.ownerName}
 Email: ${formData.email}
-Phone / WhatsApp: ${formData.phone || "Not provided"}
+Phone / Telegram: ${formData.phone || "Not provided"}
 Asking Price / Reserve: ${formData.askingPrice || "Open for valuation / make offer"}
 
 --- Background & Notes ---
@@ -79,9 +79,8 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
     )}&body=${encodeURIComponent(body)}`;
   };
 
-  const getWhatsAppLink = () => {
-    const text = `Hello SISORA, I'd like to sell my domain "${formData.domainName}". My asking price is ${formData.askingPrice || "open to offers"}. Contact: ${formData.ownerName} (${formData.email}).`;
-    return `https://wa.me/${SITE_CONFIG.contact.whatsappRaw}?text=${encodeURIComponent(text)}`;
+  const getTelegramLink = () => {
+    return "http://t.me/SisoraBrokerage";
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -123,13 +122,13 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
             <span>Open Email Client</span>
           </a>
           <a
-            href={getWhatsAppLink()}
+            href={getTelegramLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
           >
-            <MessageSquare className="h-4 w-4 text-emerald-600" />
-            <span>Submit via WhatsApp</span>
+            <MessageSquare className="h-4 w-4 text-sky-500" />
+            <span>Submit via Telegram</span>
           </a>
         </div>
         <div className="pt-4 border-t border-neutral-200">
@@ -179,7 +178,7 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Input
-          label="Phone / WhatsApp (Optional)"
+          label="Phone / Telegram (Optional)"
           placeholder="+1 (555) 000-0000"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}

@@ -29,15 +29,12 @@ export interface SiteConfig {
     email: string;
     phone: string;
     phoneRaw: string;
-    whatsapp: string;
-    whatsappRaw: string;
-    whatsappUrl?: string;
-    telegram?: string;
+    telegram: string;
+    telegramUrl?: string;
     location: string;
     address: string;
   };
   social: {
-    whatsapp?: string;
     twitter: string;
     linkedin: string;
     telegram?: string;
