@@ -1,25 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import {
   ShieldCheck,
-  Zap,
-  CreditCard,
-  Send,
-  Calendar,
-  Lock,
-  ArrowRight,
-  TrendingUp,
-  ExternalLink,
   ChevronRight,
   Sparkles,
   CheckCircle2,
   Mail,
+  Lock,
+  ArrowRight,
+  Check,
+  FileCheck2,
 } from "lucide-react";
-import { getDomainBySlug, DOMAINS, SITE_CONFIG } from "@/lib/data";
+import { getDomainBySlug, DOMAINS, SITE_CONFIG, getDomainType } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { InquiryForm } from "@/components/forms/InquiryForm";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
 interface PageProps {
@@ -61,20 +55,16 @@ export default async function DomainDetailPage({ params }: PageProps) {
     description: `High-impact brandable domain ${slug.toLowerCase()}.si available for acquisition.`,
     category: "Generic Asset",
     tags: ["Premium", "Domain", "Slovenia"],
-    price: 24995,
-    priceType: "fixed",
+    price: null,
+    priceType: "make_offer",
     featured: false,
     status: "active",
-    totalVisitors: 3820,
     createdAt: new Date().toISOString(),
   };
 
-  const visitors = domain.totalVisitors || 3820;
+  const domainType = getDomainType(domain as any);
   const priceDisplay = domain.price ? formatPrice(domain.price) : "Make Offer";
-
-  // Monthly traffic bar mockup
-  const trafficBars = [42, 58, 45, 68, 74, 62, 85, 91, 79, 88, 96, 100];
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const isMakeOffer = !domain.price || domain.priceType === "make_offer";
 
   return (
     <div className="min-h-screen bg-[#f4f5f7] text-[#090a0c]">
@@ -98,11 +88,14 @@ export default async function DomainDetailPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 xl:gap-14 items-start">
           {/* ================= LEFT COLUMN ================= */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-            {/* Status badge */}
+            {/* Status badges */}
             <div className="flex items-center gap-2 flex-wrap">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 VERIFIED .SI DOMAIN
+              </span>
+              <span className="rounded-full bg-neutral-900/5 px-3 py-1 text-[11px] sm:text-xs font-mono font-bold text-neutral-800 border border-neutral-300/80">
+                {domainType}
               </span>
               {domain.category && (
                 <span className="rounded-full bg-neutral-100 px-3 py-1 text-[11px] sm:text-xs font-semibold text-neutral-800 border border-neutral-200/60">
@@ -124,76 +117,150 @@ export default async function DomainDetailPage({ params }: PageProps) {
             </div>
 
             {/* Showcase Card */}
-            <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-200 bg-neutral-50/70 p-6 sm:p-12 text-center flex flex-col items-center justify-center min-h-[160px] sm:min-h-[220px] shadow-xs">
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white p-6 sm:p-12 text-center flex flex-col items-center justify-center min-h-[160px] sm:min-h-[200px] shadow-xs">
               <div className="relative z-10 flex flex-col items-center">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-neutral-950 text-white flex items-center justify-center font-bold text-xl sm:text-2xl shadow-md mb-3 sm:mb-4">
                   {domain.name.charAt(0).toUpperCase()}
                 </div>
-                <div className="text-2xl sm:text-5xl font-black tracking-tight text-neutral-950 mb-1.5 sm:mb-2">
+                <div className="text-2xl sm:text-5xl font-black tracking-tight text-neutral-950 mb-1.5 sm:mb-2 font-sans">
                   {domain.name}
                 </div>
                 <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-neutral-500">
                   <span className="text-emerald-600 font-semibold">● Active DNS</span>
                   <span>|</span>
-                  <span>Escrow.com &amp; Atom.com Ready</span>
+                  <span>Escrow.com &amp; Atom.com Verified</span>
                 </div>
               </div>
             </div>
 
-            {/* Traffic Stats Section */}
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8 space-y-6 shadow-xs">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
+            {/* Asset Intelligence & Specifications (Replaces Unverified Traffic Chart) */}
+            <div className="rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white p-6 sm:p-8 space-y-6 shadow-xs">
+              <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
                 <div>
-                  <div className="text-xs uppercase tracking-wider text-neutral-400 font-bold">
-                    ANNUAL TRAFFIC REACH
-                  </div>
-                  <div className="text-3xl sm:text-4xl font-extrabold font-mono text-neutral-950 mt-1">
-                    {visitors.toLocaleString()}
-                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                    Domain Intelligence
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-neutral-950 tracking-tight">
+                    Asset Specifications &amp; Registry Verification
+                  </h3>
                 </div>
-
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-3 py-1.5 rounded-lg self-start sm:self-auto">
-                  <TrendingUp className="w-4 h-4 text-emerald-600" />
-                  <span>Verified Type-in Demand</span>
+                <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/80">
+                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>Unencumbered Title</span>
                 </div>
               </div>
 
-              {/* Sparkline chart */}
-              <div>
-                <div className="text-xs font-semibold text-neutral-500 mb-3 flex items-center justify-between">
-                  <span>12-Month Traffic Trend</span>
-                  <span className="font-mono text-neutral-400">Monthly breakdown</span>
+              {/* Specification Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 text-xs">
+                <div className="p-3.5 sm:p-4 rounded-xl border border-neutral-200/80 bg-neutral-50/60">
+                  <span className="text-neutral-400 block text-[10px] uppercase font-bold tracking-wider">
+                    Structure Type
+                  </span>
+                  <span className="text-neutral-950 font-bold text-sm sm:text-base mt-0.5 block font-mono">
+                    {domainType}
+                  </span>
                 </div>
 
-                <div className="h-24 flex items-end justify-between gap-1.5 sm:gap-2 pt-2 px-1">
-                  {trafficBars.map((height, idx) => (
-                    <div key={idx} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
-                      <div
-                        style={{ height: `${height}%` }}
-                        className="w-full rounded-t bg-neutral-200 group-hover:bg-neutral-900 transition-colors duration-150"
-                      />
-                      <span className="text-[10px] font-mono text-neutral-400 group-hover:text-black">
-                        {months[idx]}
-                      </span>
-                    </div>
-                  ))}
+                <div className="p-3.5 sm:p-4 rounded-xl border border-neutral-200/80 bg-neutral-50/60">
+                  <span className="text-neutral-400 block text-[10px] uppercase font-bold tracking-wider">
+                    Character Count
+                  </span>
+                  <span className="text-neutral-950 font-bold text-sm sm:text-base mt-0.5 block font-mono">
+                    {domain.slug.length} Letters
+                  </span>
+                </div>
+
+                <div className="p-3.5 sm:p-4 rounded-xl border border-neutral-200/80 bg-neutral-50/60">
+                  <span className="text-neutral-400 block text-[10px] uppercase font-bold tracking-wider">
+                    Registry
+                  </span>
+                  <span className="text-neutral-950 font-bold text-sm sm:text-base mt-0.5 block">
+                    Arnes (.SI, EU)
+                  </span>
+                </div>
+
+                <div className="p-3.5 sm:p-4 rounded-xl border border-neutral-200/80 bg-neutral-50/60">
+                  <span className="text-neutral-400 block text-[10px] uppercase font-bold tracking-wider">
+                    Transfer Protocol
+                  </span>
+                  <span className="text-neutral-950 font-bold text-sm sm:text-base mt-0.5 block">
+                    EPP Auth Push
+                  </span>
+                </div>
+
+                <div className="p-3.5 sm:p-4 rounded-xl border border-neutral-200/80 bg-neutral-50/60">
+                  <span className="text-neutral-400 block text-[10px] uppercase font-bold tracking-wider">
+                    Transfer Speed
+                  </span>
+                  <span className="text-neutral-950 font-bold text-sm sm:text-base mt-0.5 block">
+                    Same-Day (24h)
+                  </span>
+                </div>
+
+                <div className="p-3.5 sm:p-4 rounded-xl border border-neutral-200/80 bg-neutral-50/60">
+                  <span className="text-neutral-400 block text-[10px] uppercase font-bold tracking-wider">
+                    Custody Vault
+                  </span>
+                  <span className="text-neutral-950 font-bold text-sm sm:text-base mt-0.5 block">
+                    Escrow.com / Atom
+                  </span>
                 </div>
               </div>
             </div>
 
-            {/* Domain Metadata Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
-              <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50/50">
-                <span className="text-neutral-400 block text-[10px] uppercase font-bold">Extension</span>
-                <span className="text-neutral-950 font-bold text-sm">.SI (Slovenia / EU)</span>
+            {/* Institutional Transfer & Acquisition Workflow */}
+            <div className="rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white p-6 sm:p-8 space-y-6 shadow-xs">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Institutional Security
+                </span>
+                <h3 className="text-lg sm:text-xl font-black text-neutral-950 tracking-tight mt-0.5">
+                  Three-Step Protected Acquisition Workflow
+                </h3>
               </div>
-              <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50/50">
-                <span className="text-neutral-400 block text-[10px] uppercase font-bold">Length</span>
-                <span className="text-neutral-950 font-bold text-sm">{domain.slug.length} Characters</span>
-              </div>
-              <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50/50 col-span-2 sm:col-span-1">
-                <span className="text-neutral-400 block text-[10px] uppercase font-bold">Settlement</span>
-                <span className="text-neutral-950 font-bold text-sm">Escrow.com / Atom</span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="p-4 rounded-2xl bg-neutral-50/70 border border-neutral-200/70 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-950 text-[11px] font-mono font-bold text-white">
+                      1
+                    </span>
+                    <span className="text-xs font-bold text-neutral-950">
+                      Offer &amp; Terms
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-neutral-600 leading-relaxed">
+                    Submit a formal offer or acquire directly at agreed valuation. Terms and bilateral agreement finalized confidentially.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-neutral-50/70 border border-neutral-200/70 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-950 text-[11px] font-mono font-bold text-white">
+                      2
+                    </span>
+                    <span className="text-xs font-bold text-neutral-950">
+                      Escrow Vault
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-neutral-600 leading-relaxed">
+                    Buyer deposits funds into licensed third-party escrow (Escrow.com or Atom.com). Funds remain protected in custody.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-neutral-50/70 border border-neutral-200/70 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-neutral-950 text-[11px] font-mono font-bold text-white">
+                      3
+                    </span>
+                    <span className="text-xs font-bold text-neutral-950">
+                      Registry Push
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-neutral-600 leading-relaxed">
+                    EPP authorization code is delivered to push domain to your registrar. Escrow releases funds only after buyer confirmation.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -222,7 +289,7 @@ export default async function DomainDetailPage({ params }: PageProps) {
                     size="lg"
                     className="w-full justify-center text-sm font-bold py-4 h-13 bg-neutral-950 text-white hover:bg-neutral-800 shadow-sm"
                   >
-                    {domain.price ? `Acquire Now - ${priceDisplay}` : "Submit Formal Offer"}
+                    {isMakeOffer ? "Submit Formal Offer" : `Acquire Now - ${priceDisplay}`}
                   </Button>
                 </a>
 
@@ -237,42 +304,53 @@ export default async function DomainDetailPage({ params }: PageProps) {
                 </a>
               </div>
 
-              {/* Direct Broker Desk Contacts from PDF */}
+              {/* Direct Broker Channels: Just Logos in Order (X then Email then Telegram) */}
               <div className="pt-4 border-t border-neutral-100 space-y-2.5">
-                <div className="text-xs font-bold uppercase tracking-wider text-neutral-500">
-                  Direct Broker Channels
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+                    Direct Broker Channels
+                  </span>
+                  <span className="text-[11px] font-mono text-neutral-400">
+                    Instant Response
+                  </span>
                 </div>
-                <div className="grid grid-cols-3 gap-1.5 text-xs">
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  {/* 1. X */}
                   <a
                     href="https://x.com/SisoraBrokerage"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-neutral-900 hover:bg-black text-white font-semibold transition-colors shadow-2xs"
+                    aria-label="X (Twitter)"
+                    title="Official X (@SisoraBrokerage)"
+                    className="flex h-11 items-center justify-center rounded-xl bg-neutral-950 hover:bg-neutral-800 text-white transition-all active:scale-95 shadow-2xs hover:shadow-xs"
                   >
-                    <svg className="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                     </svg>
-                    <span>X Desk</span>
                   </a>
 
+                  {/* 2. Email */}
+                  <a
+                    href={`mailto:${SITE_CONFIG.contact.email}?subject=Acquisition%20Inquiry%20for%20${domain.name}`}
+                    aria-label="Email Desk"
+                    title={`Email (${SITE_CONFIG.contact.email})`}
+                    className="flex h-11 items-center justify-center rounded-xl bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 text-neutral-800 transition-all active:scale-95 shadow-2xs hover:shadow-xs"
+                  >
+                    <Mail className="w-4 h-4 text-neutral-700 shrink-0" />
+                  </a>
+
+                  {/* 3. Telegram */}
                   <a
                     href="http://t.me/SisoraBrokerage"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 text-neutral-800 font-semibold transition-colors"
+                    aria-label="Telegram Desk"
+                    title="Telegram (@SisoraBrokerage)"
+                    className="flex h-11 items-center justify-center rounded-xl bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 text-neutral-800 transition-all active:scale-95 shadow-2xs hover:shadow-xs"
                   >
-                    <svg className="w-3.5 h-3.5 text-sky-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <svg className="w-4 h-4 text-sky-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
                     </svg>
-                    <span>Telegram</span>
-                  </a>
-
-                  <a
-                    href={`mailto:${SITE_CONFIG.contact.email}?subject=Acquisition%20Inquiry%20for%20${domain.name}`}
-                    className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 text-neutral-800 font-semibold transition-colors"
-                  >
-                    <Mail className="w-3.5 h-3.5 text-neutral-600 shrink-0" />
-                    <span>Email</span>
                   </a>
                 </div>
               </div>
