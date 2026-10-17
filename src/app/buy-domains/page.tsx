@@ -118,6 +118,7 @@ function BuyDomainsContent() {
       }
 
       // Valuation Range filter
+      if (priceType === "make-offer" && (d.price !== null && d.priceType !== "make_offer")) return false;
       if (priceType === "under-25k" && (d.price === null || d.price >= 25000)) return false;
       if (priceType === "25k-50k" && (d.price === null || d.price < 25000 || d.price > 50000)) return false;
       if (priceType === "50k-plus" && (d.price === null || d.price < 50000)) return false;

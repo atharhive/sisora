@@ -32,6 +32,7 @@ export const DOMAIN_TYPES = [
 
 const PRICE_RANGES = [
   { id: "all", label: "All Valuations" },
+  { id: "make-offer", label: "Make an Offer" },
   { id: "under-25k", label: "Under $25,000" },
   { id: "25k-50k", label: "$25,000 – $50,000" },
   { id: "50k-plus", label: "$50,000 and above" },

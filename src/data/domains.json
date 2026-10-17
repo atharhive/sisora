@@ -1,5 +1,25 @@
 [
   {
+    "id": "d-money",
+    "name": "Money.si",
+    "slug": "money",
+    "extension": ".si",
+    "category": "Fintech & Wealth",
+    "domainType": "One-word",
+    "tags": [
+      "Fintech",
+      "Money",
+      "Super Intelligence",
+      "Category Killer"
+    ],
+    "price": null,
+    "priceType": "make_offer",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 8920,
+    "description": "Premier global financial asset commanding instant authority for fintech, wealth management, banking, or digital payment rails."
+  },
+  {
     "id": "d-pay",
     "name": "Pay.si",
     "slug": "pay",
@@ -12,8 +32,8 @@
       "Super Intelligence",
       "Category Killer"
     ],
-    "price": 150000,
-    "priceType": "fixed",
+    "price": null,
+    "priceType": "make_offer",
     "featured": true,
     "status": "active",
     "totalVisitors": 9240,
@@ -78,106 +98,6 @@
     "status": "active",
     "totalVisitors": 5890,
     "description": "Premium dictionary keyword for artificial intelligence translation engines, global localization platforms, or neural speech tech."
-  },
-  {
-    "id": "d-ai",
-    "name": "ai.si",
-    "slug": "ai",
-    "extension": ".si",
-    "category": "Artificial Intelligence",
-    "domainType": "LL",
-    "tags": [
-      "AI",
-      "Super Intelligence",
-      "Ultra-Premium",
-      "2-Letter"
-    ],
-    "price": 48000,
-    "priceType": "fixed",
-    "featured": true,
-    "status": "active",
-    "totalVisitors": 8420,
-    "description": "The definitive two-letter artificial intelligence domain in Slovenia and Central Europe. Ideal for AI labs or autonomous tech ventures."
-  },
-  {
-    "id": "d-lm",
-    "name": "lm.si",
-    "slug": "lm",
-    "extension": ".si",
-    "category": "Language Models & AI",
-    "domainType": "LL",
-    "tags": [
-      "LLM",
-      "AI",
-      "2-Letter",
-      "Super Intelligence"
-    ],
-    "price": 38500,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 6120,
-    "description": "Premier 2-letter acronym for Large Models and AI research labs. Represented in notable deals by Domingo."
-  },
-  {
-    "id": "d-io",
-    "name": "io.si",
-    "slug": "io",
-    "extension": ".si",
-    "category": "Technology & Cloud",
-    "domainType": "LL",
-    "tags": [
-      "Input-Output",
-      "Developer",
-      "Cloud",
-      "2-Letter"
-    ],
-    "price": 42000,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 5340,
-    "description": "The quintessential developer and cloud infrastructure 2-letter handle. High liquidity asset for tech founders."
-  },
-  {
-    "id": "d-vr",
-    "name": "vr.si",
-    "slug": "vr",
-    "extension": ".si",
-    "category": "Spatial Computing",
-    "domainType": "LL",
-    "tags": [
-      "Virtual Reality",
-      "Spatial",
-      "Gaming",
-      "2-Letter"
-    ],
-    "price": 31000,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 4120,
-    "description": "2-letter category asset for virtual reality, spatial headsets, and immersive simulation environments."
-  },
-  {
-    "id": "d-need",
-    "name": "need.si",
-    "slug": "need",
-    "extension": ".si",
-    "category": "Consumer & Marketplace",
-    "domainType": "One-word",
-    "tags": [
-      "Marketplace",
-      "E-commerce",
-      "On-Demand",
-      "One-Word"
-    ],
-    "price": 29000,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 5100,
-    "description": "Powerful imperative English dictionary keyword suited for on-demand service networks, marketplaces, and consumer delivery."
   },
   {
     "id": "d-data",
@@ -278,206 +198,6 @@
     "status": "active",
     "totalVisitors": 2890,
     "description": "Clean 4-letter CVCV brand for micro-lending, credit infrastructure, and modern financial applications."
-  },
-  {
-    "id": "d-nxt",
-    "name": "nxt.si",
-    "slug": "nxt",
-    "extension": ".si",
-    "category": "Next-Gen Tech",
-    "domainType": "LLL",
-    "tags": [
-      "Next",
-      "Venture",
-      "Innovation",
-      "LLL"
-    ],
-    "price": 18500,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 4620,
-    "description": "High-velocity 3-letter acronym representing Next-Gen ventures, startup incubators, and frontier technology."
-  },
-  {
-    "id": "d-dev",
-    "name": "dev.si",
-    "slug": "dev",
-    "extension": ".si",
-    "category": "Developer Tools",
-    "domainType": "LLL",
-    "tags": [
-      "Developer",
-      "Coding",
-      "Cloud",
-      "LLL"
-    ],
-    "price": 34000,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 5890,
-    "description": "The definitive 3-letter keyword for developer tools, IDE extensions, API hubs, and software engineering communities."
-  },
-  {
-    "id": "d-lab",
-    "name": "lab.si",
-    "slug": "lab",
-    "extension": ".si",
-    "category": "Science & R&D",
-    "domainType": "LLL",
-    "tags": [
-      "Research",
-      "Biotech",
-      "AI Lab",
-      "LLL"
-    ],
-    "price": 19500,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 3780,
-    "description": "Prime 3-letter domain for research institutes, biotech incubators, and machine intelligence research laboratories."
-  },
-  {
-    "id": "d-bot",
-    "name": "bot.si",
-    "slug": "bot",
-    "extension": ".si",
-    "category": "Autonomous Agents",
-    "domainType": "LLL",
-    "tags": [
-      "Agents",
-      "Automation",
-      "Robotics",
-      "LLL"
-    ],
-    "price": 28000,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 4910,
-    "description": "Universal 3-letter keyword asset commanding conversational AI, autonomous agent swarms, and robotic process automation."
-  },
-  {
-    "id": "d-cloud",
-    "name": "cloud.si",
-    "slug": "cloud",
-    "extension": ".si",
-    "category": "Technology",
-    "domainType": "One-word",
-    "tags": [
-      "Cloud",
-      "SaaS",
-      "Enterprise",
-      "B2B"
-    ],
-    "price": 19500,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 4890,
-    "description": "A premier cloud infrastructure, DevOps, and enterprise hosting asset. Clean, memorable, and globally recognized English keyword."
-  },
-  {
-    "id": "d-bank",
-    "name": "bank.si",
-    "slug": "bank",
-    "extension": ".si",
-    "category": "Finance",
-    "domainType": "One-word",
-    "tags": [
-      "Fintech",
-      "Banking",
-      "Neobank",
-      "Category Killer"
-    ],
-    "price": 65000,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 7230,
-    "description": "Flagship financial institution domain ready for neobanks, cross-border payment rails, and institutional wealth managers."
-  },
-  {
-    "id": "d-flow",
-    "name": "flow.si",
-    "slug": "flow",
-    "extension": ".si",
-    "category": "Technology",
-    "domainType": "One-word",
-    "tags": [
-      "Automation",
-      "Workflow",
-      "Fintech",
-      "SaaS"
-    ],
-    "price": 12500,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 3940,
-    "description": "Dynamic keyword asset ideal for workflow automation engines, crypto liquidity protocols, or interactive design suites."
-  },
-  {
-    "id": "d-smart",
-    "name": "smart.si",
-    "slug": "smart",
-    "extension": ".si",
-    "category": "Technology",
-    "domainType": "One-word",
-    "tags": [
-      "IoT",
-      "AI",
-      "CleanTech",
-      "Smart City"
-    ],
-    "price": 16000,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 4350,
-    "description": "Modern generic asset commanding smart-city hardware, home automation, intelligent IoT devices, and clean energy grids."
-  },
-  {
-    "id": "d-equator",
-    "name": "Equator.si",
-    "slug": "equator",
-    "extension": ".si",
-    "category": "Premium Dictionary Word",
-    "domainType": "One-word",
-    "tags": [
-      "Travel",
-      "Tech",
-      "Climate",
-      "Global Business"
-    ],
-    "price": 18500,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 5420,
-    "description": "Exceptional one-word global dictionary asset for travel platforms, climate tech, or modern international branding."
-  },
-  {
-    "id": "d-absence",
-    "name": "Absence.si",
-    "slug": "absence",
-    "extension": ".si",
-    "category": "SaaS & HR",
-    "domainType": "One-word",
-    "tags": [
-      "HR Tech",
-      "Workforce Management",
-      "SaaS",
-      "Enterprise"
-    ],
-    "price": 14500,
-    "priceType": "fixed",
-    "featured": false,
-    "status": "active",
-    "totalVisitors": 4190,
-    "description": "The definitive enterprise brand for HR platforms, time-tracking SaaS, leave management, or digital security."
   },
   {
     "id": "d-ndf",
@@ -2138,5 +1858,45 @@
     "status": "active",
     "totalVisitors": 2107,
     "description": "Rare 4-letter CVCV pattern (NEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-cd",
+    "name": "CD.si",
+    "slug": "cd",
+    "extension": ".si",
+    "category": "2-Letter Premium",
+    "domainType": "LL",
+    "tags": [
+      "2-Letter",
+      "LL",
+      "Super Intelligence",
+      "Ultra-Liquid"
+    ],
+    "price": null,
+    "priceType": "make_offer",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 5640,
+    "description": "Ultra-rare 2-letter .SI domain asset (CD). High institutional liquidity, compact branding, and worldwide recognition."
+  },
+  {
+    "id": "d-mf",
+    "name": "MF.si",
+    "slug": "mf",
+    "extension": ".si",
+    "category": "2-Letter Premium",
+    "domainType": "LL",
+    "tags": [
+      "2-Letter",
+      "LL",
+      "Super Intelligence",
+      "Ultra-Liquid"
+    ],
+    "price": null,
+    "priceType": "make_offer",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 5210,
+    "description": "Ultra-rare 2-letter .SI domain asset (MF). High liquidity financial acronym, frontier technology, and global venture branding."
   }
 ]

@@ -162,7 +162,7 @@ export function DomainTableView({
                         href={`/domains/${slug}`}
                         className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-neutral-950 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-neutral-800 transition-all active:scale-95 shadow-2xs"
                       >
-                        <span>Acquire</span>
+                        <span>{isMakeOffer ? "Make Offer" : "Acquire"}</span>
                         <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                       </Link>
                     </div>

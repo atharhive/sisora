@@ -136,7 +136,7 @@ export function DomainCard({
           href={`/domains/${slug}`}
           className="inline-flex items-center justify-center gap-1 sm:gap-1.5 rounded-xl bg-neutral-950 px-3.5 py-2 sm:px-4 sm:py-2.5 text-xs font-bold text-white transition-all hover:bg-neutral-800 active:scale-95 shadow-xs"
         >
-          <span>Acquire</span>
+          <span>{isMakeOffer ? "Make Offer" : "Acquire"}</span>
           <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
