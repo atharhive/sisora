@@ -89,6 +89,28 @@ function BuyDomainsContent() {
     return counts;
   }, []);
 
+  // Compute counts for valuation ranges
+  const priceCounts = useMemo(() => {
+    const counts: Record<string, number> = {
+      all: DOMAINS.length,
+      "make-offer": 0,
+      "25k-50k": 0,
+      "under-5k": 0,
+      "under-10k": 0,
+      "under-25k": 0,
+      "50k-plus": 0,
+    };
+    DOMAINS.forEach((d) => {
+      if (d.price === null || d.priceType === "make_offer") counts["make-offer"]++;
+      if (d.price !== null && d.price >= 24000 && d.price <= 50000) counts["25k-50k"]++;
+      if (d.price !== null && d.price < 5000) counts["under-5k"]++;
+      if (d.price !== null && d.price < 10000) counts["under-10k"]++;
+      if (d.price !== null && d.price < 24000) counts["under-25k"]++;
+      if (d.price !== null && d.price > 50000) counts["50k-plus"]++;
+    });
+    return counts;
+  }, []);
+
   // Filter and sort domains
   const filteredDomains = useMemo(() => {
     return DOMAINS.filter((d) => {
@@ -121,9 +143,9 @@ function BuyDomainsContent() {
       if (priceType === "make-offer" && (d.price !== null && d.priceType !== "make_offer")) return false;
       if (priceType === "under-5k" && (d.price === null || d.price >= 5000)) return false;
       if (priceType === "under-10k" && (d.price === null || d.price >= 10000)) return false;
-      if (priceType === "under-25k" && (d.price === null || d.price >= 25000)) return false;
-      if (priceType === "25k-50k" && (d.price === null || d.price < 25000 || d.price > 50000)) return false;
-      if (priceType === "50k-plus" && (d.price === null || d.price < 50000)) return false;
+      if (priceType === "under-25k" && (d.price === null || d.price >= 24000)) return false;
+      if (priceType === "25k-50k" && (d.price === null || d.price < 24000 || d.price > 50000)) return false;
+      if (priceType === "50k-plus" && (d.price === null || d.price <= 50000)) return false;
 
       return true;
     }).sort((a, b) => {
@@ -194,24 +216,24 @@ function BuyDomainsContent() {
       {/* Main Catalog with Reference Image Inspired Header & Sticky Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-          {/* Desktop Filter Sidebar - Sticky with smooth independent scroll */}
-          <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 lg:self-start rounded-2xl border border-neutral-200 bg-white shadow-xs max-h-[calc(100vh-7rem)] overflow-hidden flex flex-col">
-            <div className="overflow-y-auto p-5 sm:p-6 overscroll-contain [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]">
-              <DomainFilters
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onSelectCategory={(cat) => updateParams({ category: cat })}
-                domainType={selectedType}
-                onDomainTypeChange={(type) => updateParams({ type })}
-                searchQuery={searchQuery}
-                onSearchChange={(q) => updateParams({ q })}
-                priceType={priceType}
-                onPriceTypeChange={(type) => updateParams({ priceType: type })}
-                onReset={handleResetFilters}
-                hasActiveFilters={hasActiveFilters}
-                totalResults={filteredDomains.length}
-              />
-            </div>
+          {/* Desktop Filter Sidebar - Sticky with natural smooth scroll, no scroll traps */}
+          <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 lg:self-start rounded-2xl border border-neutral-200/90 bg-white shadow-xs max-h-[calc(100vh-7rem)] overflow-y-auto p-5 sm:p-6 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]">
+            <DomainFilters
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onSelectCategory={(cat) => updateParams({ category: cat })}
+              domainType={selectedType}
+              onDomainTypeChange={(type) => updateParams({ type })}
+              searchQuery={searchQuery}
+              onSearchChange={(q) => updateParams({ q })}
+              priceType={priceType}
+              onPriceTypeChange={(type) => updateParams({ priceType: type })}
+              onReset={handleResetFilters}
+              hasActiveFilters={hasActiveFilters}
+              totalResults={filteredDomains.length}
+              typeCounts={typeCounts}
+              priceCounts={priceCounts}
+            />
           </aside>
 
           {/* Catalog Listing */}
@@ -347,6 +369,8 @@ function BuyDomainsContent() {
                 onReset={handleResetFilters}
                 hasActiveFilters={hasActiveFilters}
                 totalResults={filteredDomains.length}
+                typeCounts={typeCounts}
+                priceCounts={priceCounts}
               />
             </div>
 

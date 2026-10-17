@@ -141,7 +141,7 @@ export default async function DomainDetailPage({ params }: PageProps) {
                     Domain Intelligence
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-neutral-950 tracking-tight">
-                    Asset Specifications &amp; Registry Verification
+                    Asset Specifications &amp; Verification
                   </h3>
                 </div>
                 <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/80">
@@ -172,10 +172,10 @@ export default async function DomainDetailPage({ params }: PageProps) {
 
                 <div className="p-3.5 sm:p-4 rounded-xl border border-neutral-200/80 bg-neutral-50/60">
                   <span className="text-neutral-400 block text-[10px] uppercase font-bold tracking-wider">
-                    Registry
+                    Asset Status
                   </span>
                   <span className="text-neutral-950 font-bold text-sm sm:text-base mt-0.5 block">
-                    Arnes (.SI, EU)
+                    Direct Exclusive
                   </span>
                 </div>
 
@@ -254,7 +254,7 @@ export default async function DomainDetailPage({ params }: PageProps) {
                       3
                     </span>
                     <span className="text-xs font-bold text-neutral-950">
-                      Registry Push
+                      Domain Authorization Push
                     </span>
                   </div>
                   <p className="text-[11px] text-neutral-600 leading-relaxed">
@@ -371,7 +371,7 @@ export default async function DomainDetailPage({ params }: PageProps) {
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Fast Arnes registry authorization push</span>
+                    <span>Fast EPP authorization code push</span>
                   </li>
                 </ul>
               </div>

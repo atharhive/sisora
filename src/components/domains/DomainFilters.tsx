@@ -20,6 +20,8 @@ export interface DomainFiltersProps {
   onReset?: () => void;
   totalResults?: number;
   className?: string;
+  typeCounts?: Record<string, number>;
+  priceCounts?: Record<string, number>;
 }
 
 export const DOMAIN_TYPES = [
@@ -33,10 +35,10 @@ export const DOMAIN_TYPES = [
 const PRICE_RANGES = [
   { id: "all", label: "All Valuations" },
   { id: "make-offer", label: "Make an Offer" },
+  { id: "25k-50k", label: "$25,000 – $50,000" },
   { id: "under-5k", label: "Under $5,000" },
   { id: "under-10k", label: "Under $10,000" },
   { id: "under-25k", label: "Under $25,000" },
-  { id: "25k-50k", label: "$25,000 – $50,000" },
   { id: "50k-plus", label: "$50,000 and above" },
 ];
 
@@ -63,6 +65,8 @@ export function DomainFilters({
   onReset,
   totalResults,
   className,
+  typeCounts,
+  priceCounts,
 }: DomainFiltersProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchInput, setSearchInput] = useState(searchQuery);
@@ -150,7 +154,7 @@ export function DomainFilters({
       </div>
 
       {/* Domain Type Filter: One-word, LL, LLL, CVCV */}
-      <div className="space-y-2.5">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
           <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
             Structure / Type
@@ -164,13 +168,14 @@ export function DomainFilters({
         <div className="grid grid-cols-2 gap-1.5">
           {DOMAIN_TYPES.map((type) => {
             const isSelected = domainType === type.id;
+            const count = typeCounts?.[type.id];
             return (
               <button
                 key={type.id}
                 type="button"
                 onClick={() => onDomainTypeChange?.(isSelected && type.id !== "all" ? "all" : type.id)}
                 className={cn(
-                  "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-all text-left cursor-pointer",
+                  "flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-left cursor-pointer active:scale-95",
                   type.id === "all" ? "col-span-2" : "col-span-1",
                   isSelected
                     ? "bg-neutral-950 text-white shadow-xs"
@@ -178,84 +183,107 @@ export function DomainFilters({
                 )}
               >
                 <span>{type.label}</span>
-                {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                {typeof count === "number" && (
+                  <span
+                    className={cn(
+                      "text-[10px] font-mono px-1.5 py-0.5 rounded ml-1 shrink-0",
+                      isSelected
+                        ? "bg-neutral-800 text-white"
+                        : "bg-neutral-200/70 text-neutral-500"
+                    )}
+                  >
+                    {count}
+                  </span>
+                )}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Categories */}
-      {categories.length > 0 && (
-        <div className="space-y-2.5">
+      {/* Valuation Range Filter - Placed prominently so it's immediately visible */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
           <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
-            Category
+            Valuation Range
           </label>
-          <div className="flex flex-col gap-1.5">
-            <button
-              type="button"
-              onClick={() => onSelectCategory?.("")}
-              className={cn(
-                "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors text-left cursor-pointer",
-                selectedCategory === ""
-                  ? "bg-neutral-950 text-white"
-                  : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
-              )}
-            >
-              <span>All Categories</span>
-              {selectedCategory === "" && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
-            </button>
-
-            {categories.map((cat) => {
-              const isSelected = selectedCategory.toLowerCase() === cat.toLowerCase();
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => onSelectCategory?.(isSelected ? "" : cat)}
-                  className={cn(
-                    "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors text-left cursor-pointer",
-                    isSelected
-                      ? "bg-neutral-950 text-white"
-                      : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
-                  )}
-                >
-                  <span className="truncate">{cat}</span>
-                  {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
-                </button>
-              );
-            })}
-          </div>
+          {priceType !== "all" && (
+            <span className="text-[10px] font-semibold text-neutral-400">
+              Active
+            </span>
+          )}
         </div>
-      )}
-
-      {/* Price Range Filter */}
-      <div className="space-y-2.5">
-        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-600">
-          Valuation Range
-        </label>
-        <div className="flex flex-col gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5">
           {PRICE_RANGES.map((range) => {
             const isSelected = priceType === range.id;
+            const count = priceCounts?.[range.id];
             return (
               <button
                 key={range.id}
                 type="button"
                 onClick={() => onPriceTypeChange?.(isSelected && range.id !== "all" ? "all" : range.id)}
                 className={cn(
-                  "flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors text-left cursor-pointer",
+                  "flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-left cursor-pointer active:scale-95",
+                  range.id === "all" ? "col-span-2" : "col-span-1",
                   isSelected
-                    ? "bg-neutral-950 text-white"
-                    : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
+                    ? "bg-neutral-950 text-white shadow-xs"
+                    : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100 border border-neutral-200/60"
                 )}
               >
-                <span>{range.label}</span>
-                {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                <span className="truncate">{range.label}</span>
+                {typeof count === "number" && (
+                  <span
+                    className={cn(
+                      "text-[10px] font-mono px-1.5 py-0.5 rounded ml-1 shrink-0",
+                      isSelected
+                        ? "bg-neutral-800 text-white"
+                        : "bg-neutral-200/70 text-neutral-500"
+                    )}
+                  >
+                    {count}
+                  </span>
+                )}
               </button>
             );
           })}
         </div>
       </div>
+
+      {/* Categories Dropdown */}
+      {categories.length > 0 && (
+        <div className="space-y-1.5 pt-1 border-t border-neutral-100">
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="filter-category-select"
+              className="block text-xs font-bold uppercase tracking-wider text-neutral-600"
+            >
+              Industry Category
+            </label>
+            {selectedCategory && (
+              <button
+                type="button"
+                onClick={() => onSelectCategory?.("")}
+                className="text-[10px] font-semibold text-neutral-500 hover:text-black underline cursor-pointer"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+          <select
+            id="filter-category-select"
+            value={selectedCategory}
+            onChange={(e) => onSelectCategory?.(e.target.value)}
+            className="w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-xs font-semibold text-neutral-900 focus:border-black focus:outline-none focus:ring-1 focus:ring-black cursor-pointer shadow-2xs"
+          >
+            <option value="">All Categories ({categories.length})</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
     </div>
   );
 
