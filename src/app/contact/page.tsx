@@ -36,12 +36,12 @@ function LinkedInIcon({ className }: { className?: string }) {
 export default function ContactPage() {
   const contactChannels = [
     {
-      title: "Email",
-      value: SITE_CONFIG.contact.email,
-      subtext: "Fastest response for offers, appraisals, and broker mandates",
-      icon: Mail,
-      href: `mailto:${SITE_CONFIG.contact.email}`,
-      actionText: "Send Email",
+      title: "X (Twitter)",
+      value: "x.com/SisoraBrokerage",
+      subtext: "Official brokerage updates, market insights, and deal flow",
+      icon: TwitterIcon,
+      href: "https://x.com/SisoraBrokerage",
+      actionText: "Visit @SisoraBrokerage",
     },
     {
       title: "Telegram",
@@ -52,12 +52,12 @@ export default function ContactPage() {
       actionText: "Chat on Telegram",
     },
     {
-      title: "X (Twitter)",
-      value: "x.com/SisoraBrokerage",
-      subtext: "Official brokerage updates, market insights, and deal flow",
-      icon: TwitterIcon,
-      href: "https://x.com/SisoraBrokerage",
-      actionText: "Visit @SisoraBrokerage",
+      title: "Email",
+      value: SITE_CONFIG.contact.email,
+      subtext: "Fastest response for offers, appraisals, and broker mandates",
+      icon: Mail,
+      href: `mailto:${SITE_CONFIG.contact.email}`,
+      actionText: "Send Email",
     },
     {
       title: "LinkedIn",
