@@ -6,7 +6,12 @@
     "extension": ".si",
     "category": "Fintech & Payments",
     "domainType": "LLL",
-    "tags": ["Fintech", "Payments", "Super Intelligence", "Category Killer"],
+    "tags": [
+      "Fintech",
+      "Payments",
+      "Super Intelligence",
+      "Category Killer"
+    ],
     "price": 150000,
     "priceType": "fixed",
     "featured": true,
@@ -21,7 +26,12 @@
     "extension": ".si",
     "category": "Corporate & Enterprise",
     "domainType": "One-word",
-    "tags": ["Software Licensing", "Legal Tech", "Compliance", "Enterprise"],
+    "tags": [
+      "Software Licensing",
+      "Legal Tech",
+      "Compliance",
+      "Enterprise"
+    ],
     "price": 24995,
     "priceType": "fixed",
     "featured": true,
@@ -36,7 +46,12 @@
     "extension": ".si",
     "category": "Brand & Lifestyle",
     "domainType": "One-word",
-    "tags": ["AI Assistant", "Wellness", "Organic", "Luxury Brand"],
+    "tags": [
+      "AI Assistant",
+      "Wellness",
+      "Organic",
+      "Luxury Brand"
+    ],
     "price": 24995,
     "priceType": "fixed",
     "featured": true,
@@ -51,7 +66,12 @@
     "extension": ".si",
     "category": "Super Intelligence & AI",
     "domainType": "One-word",
-    "tags": ["AI Translation", "Language Tech", "Super Intelligence", "Localization"],
+    "tags": [
+      "AI Translation",
+      "Language Tech",
+      "Super Intelligence",
+      "Localization"
+    ],
     "price": 24995,
     "priceType": "fixed",
     "featured": true,
@@ -66,7 +86,12 @@
     "extension": ".si",
     "category": "Artificial Intelligence",
     "domainType": "LL",
-    "tags": ["AI", "Super Intelligence", "Ultra-Premium", "2-Letter"],
+    "tags": [
+      "AI",
+      "Super Intelligence",
+      "Ultra-Premium",
+      "2-Letter"
+    ],
     "price": 48000,
     "priceType": "fixed",
     "featured": true,
@@ -81,7 +106,12 @@
     "extension": ".si",
     "category": "Language Models & AI",
     "domainType": "LL",
-    "tags": ["LLM", "AI", "2-Letter", "Super Intelligence"],
+    "tags": [
+      "LLM",
+      "AI",
+      "2-Letter",
+      "Super Intelligence"
+    ],
     "price": 38500,
     "priceType": "fixed",
     "featured": false,
@@ -96,7 +126,12 @@
     "extension": ".si",
     "category": "Technology & Cloud",
     "domainType": "LL",
-    "tags": ["Input-Output", "Developer", "Cloud", "2-Letter"],
+    "tags": [
+      "Input-Output",
+      "Developer",
+      "Cloud",
+      "2-Letter"
+    ],
     "price": 42000,
     "priceType": "fixed",
     "featured": false,
@@ -111,7 +146,12 @@
     "extension": ".si",
     "category": "Spatial Computing",
     "domainType": "LL",
-    "tags": ["Virtual Reality", "Spatial", "Gaming", "2-Letter"],
+    "tags": [
+      "Virtual Reality",
+      "Spatial",
+      "Gaming",
+      "2-Letter"
+    ],
     "price": 31000,
     "priceType": "fixed",
     "featured": false,
@@ -126,7 +166,12 @@
     "extension": ".si",
     "category": "Consumer & Marketplace",
     "domainType": "One-word",
-    "tags": ["Marketplace", "E-commerce", "On-Demand", "One-Word"],
+    "tags": [
+      "Marketplace",
+      "E-commerce",
+      "On-Demand",
+      "One-Word"
+    ],
     "price": 29000,
     "priceType": "fixed",
     "featured": false,
@@ -141,7 +186,12 @@
     "extension": ".si",
     "category": "Technology",
     "domainType": "CVCV",
-    "tags": ["Data", "Analytics", "AI", "CVCV"],
+    "tags": [
+      "Data",
+      "Analytics",
+      "AI",
+      "CVCV"
+    ],
     "price": 27500,
     "priceType": "fixed",
     "featured": false,
@@ -156,7 +206,12 @@
     "extension": ".si",
     "category": "Spatial & Web3",
     "domainType": "CVCV",
-    "tags": ["Metaverse", "Spatial", "AI", "CVCV"],
+    "tags": [
+      "Metaverse",
+      "Spatial",
+      "AI",
+      "CVCV"
+    ],
     "price": 55000,
     "priceType": "fixed",
     "featured": false,
@@ -171,7 +226,12 @@
     "extension": ".si",
     "category": "Consumer Brand",
     "domainType": "CVCV",
-    "tags": ["Consumer", "Media", "Brand", "CVCV"],
+    "tags": [
+      "Consumer",
+      "Media",
+      "Brand",
+      "CVCV"
+    ],
     "price": 14500,
     "priceType": "fixed",
     "featured": false,
@@ -186,7 +246,12 @@
     "extension": ".si",
     "category": "Brand & Tech",
     "domainType": "CVCV",
-    "tags": ["Hardware", "Signal", "Brand", "CVCV"],
+    "tags": [
+      "Hardware",
+      "Signal",
+      "Brand",
+      "CVCV"
+    ],
     "price": 22000,
     "priceType": "fixed",
     "featured": false,
@@ -201,7 +266,12 @@
     "extension": ".si",
     "category": "Fintech & SaaS",
     "domainType": "CVCV",
-    "tags": ["Fintech", "Lending", "SaaS", "CVCV"],
+    "tags": [
+      "Fintech",
+      "Lending",
+      "SaaS",
+      "CVCV"
+    ],
     "price": 12500,
     "priceType": "fixed",
     "featured": false,
@@ -216,7 +286,12 @@
     "extension": ".si",
     "category": "Next-Gen Tech",
     "domainType": "LLL",
-    "tags": ["Next", "Venture", "Innovation", "LLL"],
+    "tags": [
+      "Next",
+      "Venture",
+      "Innovation",
+      "LLL"
+    ],
     "price": 18500,
     "priceType": "fixed",
     "featured": false,
@@ -231,7 +306,12 @@
     "extension": ".si",
     "category": "Developer Tools",
     "domainType": "LLL",
-    "tags": ["Developer", "Coding", "Cloud", "LLL"],
+    "tags": [
+      "Developer",
+      "Coding",
+      "Cloud",
+      "LLL"
+    ],
     "price": 34000,
     "priceType": "fixed",
     "featured": false,
@@ -246,7 +326,12 @@
     "extension": ".si",
     "category": "Science & R&D",
     "domainType": "LLL",
-    "tags": ["Research", "Biotech", "AI Lab", "LLL"],
+    "tags": [
+      "Research",
+      "Biotech",
+      "AI Lab",
+      "LLL"
+    ],
     "price": 19500,
     "priceType": "fixed",
     "featured": false,
@@ -261,7 +346,12 @@
     "extension": ".si",
     "category": "Autonomous Agents",
     "domainType": "LLL",
-    "tags": ["Agents", "Automation", "Robotics", "LLL"],
+    "tags": [
+      "Agents",
+      "Automation",
+      "Robotics",
+      "LLL"
+    ],
     "price": 28000,
     "priceType": "fixed",
     "featured": false,
@@ -276,7 +366,12 @@
     "extension": ".si",
     "category": "Technology",
     "domainType": "One-word",
-    "tags": ["Cloud", "SaaS", "Enterprise", "B2B"],
+    "tags": [
+      "Cloud",
+      "SaaS",
+      "Enterprise",
+      "B2B"
+    ],
     "price": 19500,
     "priceType": "fixed",
     "featured": false,
@@ -291,7 +386,12 @@
     "extension": ".si",
     "category": "Finance",
     "domainType": "One-word",
-    "tags": ["Fintech", "Banking", "Neobank", "Category Killer"],
+    "tags": [
+      "Fintech",
+      "Banking",
+      "Neobank",
+      "Category Killer"
+    ],
     "price": 65000,
     "priceType": "fixed",
     "featured": false,
@@ -306,7 +406,12 @@
     "extension": ".si",
     "category": "Technology",
     "domainType": "One-word",
-    "tags": ["Automation", "Workflow", "Fintech", "SaaS"],
+    "tags": [
+      "Automation",
+      "Workflow",
+      "Fintech",
+      "SaaS"
+    ],
     "price": 12500,
     "priceType": "fixed",
     "featured": false,
@@ -321,7 +426,12 @@
     "extension": ".si",
     "category": "Technology",
     "domainType": "One-word",
-    "tags": ["IoT", "AI", "CleanTech", "Smart City"],
+    "tags": [
+      "IoT",
+      "AI",
+      "CleanTech",
+      "Smart City"
+    ],
     "price": 16000,
     "priceType": "fixed",
     "featured": false,
@@ -336,7 +446,12 @@
     "extension": ".si",
     "category": "Premium Dictionary Word",
     "domainType": "One-word",
-    "tags": ["Travel", "Tech", "Climate", "Global Business"],
+    "tags": [
+      "Travel",
+      "Tech",
+      "Climate",
+      "Global Business"
+    ],
     "price": 18500,
     "priceType": "fixed",
     "featured": false,
@@ -351,12 +466,1677 @@
     "extension": ".si",
     "category": "SaaS & HR",
     "domainType": "One-word",
-    "tags": ["HR Tech", "Workforce Management", "SaaS", "Enterprise"],
+    "tags": [
+      "HR Tech",
+      "Workforce Management",
+      "SaaS",
+      "Enterprise"
+    ],
     "price": 14500,
     "priceType": "fixed",
     "featured": false,
     "status": "active",
     "totalVisitors": 4190,
     "description": "The definitive enterprise brand for HR platforms, time-tracking SaaS, leave management, or digital security."
+  },
+  {
+    "id": "d-ndf",
+    "name": "NDF.si",
+    "slug": "ndf",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2100,
+    "description": "Liquid 3-letter .SI acronym asset (NDF) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-fdn",
+    "name": "FDN.si",
+    "slug": "fdn",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2137,
+    "description": "Liquid 3-letter .SI acronym asset (FDN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-lpd",
+    "name": "LPD.si",
+    "slug": "lpd",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2174,
+    "description": "Liquid 3-letter .SI acronym asset (LPD) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-gtn",
+    "name": "GTN.si",
+    "slug": "gtn",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2211,
+    "description": "Liquid 3-letter .SI acronym asset (GTN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-dfn",
+    "name": "DFN.si",
+    "slug": "dfn",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2248,
+    "description": "Liquid 3-letter .SI acronym asset (DFN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-fgn",
+    "name": "FGN.si",
+    "slug": "fgn",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2285,
+    "description": "Liquid 3-letter .SI acronym asset (FGN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-ndp",
+    "name": "NDP.si",
+    "slug": "ndp",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2322,
+    "description": "Liquid 3-letter .SI acronym asset (NDP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-nre",
+    "name": "NRE.si",
+    "slug": "nre",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2359,
+    "description": "Liquid 3-letter .SI acronym asset (NRE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-hpl",
+    "name": "HPL.si",
+    "slug": "hpl",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2396,
+    "description": "Liquid 3-letter .SI acronym asset (HPL) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-ldp",
+    "name": "LDP.si",
+    "slug": "ldp",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2433,
+    "description": "Liquid 3-letter .SI acronym asset (LDP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-hdp",
+    "name": "HDP.si",
+    "slug": "hdp",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2470,
+    "description": "Liquid 3-letter .SI acronym asset (HDP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-kdn",
+    "name": "KDN.si",
+    "slug": "kdn",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2507,
+    "description": "Liquid 3-letter .SI acronym asset (KDN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-lre",
+    "name": "LRE.si",
+    "slug": "lre",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2544,
+    "description": "Liquid 3-letter .SI acronym asset (LRE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-npt",
+    "name": "NPT.si",
+    "slug": "npt",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2581,
+    "description": "Liquid 3-letter .SI acronym asset (NPT) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-hbn",
+    "name": "HBN.si",
+    "slug": "hbn",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2618,
+    "description": "Liquid 3-letter .SI acronym asset (HBN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-mdf",
+    "name": "MDF.si",
+    "slug": "mdf",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2655,
+    "description": "Liquid 3-letter .SI acronym asset (MDF) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-nde",
+    "name": "NDE.si",
+    "slug": "nde",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2692,
+    "description": "Liquid 3-letter .SI acronym asset (NDE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-pne",
+    "name": "PNE.si",
+    "slug": "pne",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2729,
+    "description": "Liquid 3-letter .SI acronym asset (PNE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-fnp",
+    "name": "FNP.si",
+    "slug": "fnp",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2766,
+    "description": "Liquid 3-letter .SI acronym asset (FNP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-zre",
+    "name": "ZRE.si",
+    "slug": "zre",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2803,
+    "description": "Liquid 3-letter .SI acronym asset (ZRE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-lhr",
+    "name": "LHR.si",
+    "slug": "lhr",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2840,
+    "description": "Liquid 3-letter .SI acronym asset (LHR) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-rnp",
+    "name": "RNP.si",
+    "slug": "rnp",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2877,
+    "description": "Liquid 3-letter .SI acronym asset (RNP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-htr",
+    "name": "HTR.si",
+    "slug": "htr",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2914,
+    "description": "Liquid 3-letter .SI acronym asset (HTR) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-rfb",
+    "name": "RFB.si",
+    "slug": "rfb",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2951,
+    "description": "Liquid 3-letter .SI acronym asset (RFB) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-ftd",
+    "name": "FTD.si",
+    "slug": "ftd",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2988,
+    "description": "Liquid 3-letter .SI acronym asset (FTD) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-tlr",
+    "name": "TLR.si",
+    "slug": "tlr",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3025,
+    "description": "Liquid 3-letter .SI acronym asset (TLR) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-lgh",
+    "name": "LGH.si",
+    "slug": "lgh",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3062,
+    "description": "Liquid 3-letter .SI acronym asset (LGH) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-lhg",
+    "name": "LHG.si",
+    "slug": "lhg",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3099,
+    "description": "Liquid 3-letter .SI acronym asset (LHG) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-pnb",
+    "name": "PNB.si",
+    "slug": "pnb",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3136,
+    "description": "Liquid 3-letter .SI acronym asset (PNB) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-knh",
+    "name": "KNH.si",
+    "slug": "knh",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3173,
+    "description": "Liquid 3-letter .SI acronym asset (KNH) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-lhk",
+    "name": "LHK.si",
+    "slug": "lhk",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3210,
+    "description": "Liquid 3-letter .SI acronym asset (LHK) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-fpk",
+    "name": "FPK.si",
+    "slug": "fpk",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3247,
+    "description": "Liquid 3-letter .SI acronym asset (FPK) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-lpo",
+    "name": "LPO.si",
+    "slug": "lpo",
+    "extension": ".si",
+    "category": "Liquid 3-Letter",
+    "domainType": "LLL",
+    "tags": [
+      "LLL",
+      "3-Letter",
+      "Super Intelligence",
+      "Liquid Acronym"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3284,
+    "description": "Liquid 3-letter .SI acronym asset (LPO) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com."
+  },
+  {
+    "id": "d-beda",
+    "name": "BEDA.si",
+    "slug": "beda",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 1900,
+    "description": "Rare 4-letter CVCV pattern (BEDA) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-mede",
+    "name": "MEDE.si",
+    "slug": "mede",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 1943,
+    "description": "Rare 4-letter CVCV pattern (MEDE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-meke",
+    "name": "MEKE.si",
+    "slug": "meke",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 1986,
+    "description": "Rare 4-letter CVCV pattern (MEKE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-leke",
+    "name": "LEKE.si",
+    "slug": "leke",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2029,
+    "description": "Rare 4-letter CVCV pattern (LEKE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-dapa",
+    "name": "DAPA.si",
+    "slug": "dapa",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2072,
+    "description": "Rare 4-letter CVCV pattern (DAPA) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-hepe",
+    "name": "HEPE.si",
+    "slug": "hepe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2115,
+    "description": "Rare 4-letter CVCV pattern (HEPE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-fofa",
+    "name": "FOFA.si",
+    "slug": "fofa",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2158,
+    "description": "Rare 4-letter CVCV pattern (FOFA) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-sote",
+    "name": "SOTE.si",
+    "slug": "sote",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2201,
+    "description": "Rare 4-letter CVCV pattern (SOTE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-hebo",
+    "name": "HEBO.si",
+    "slug": "hebo",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2244,
+    "description": "Rare 4-letter CVCV pattern (HEBO) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-tebo",
+    "name": "TEBO.si",
+    "slug": "tebo",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2287,
+    "description": "Rare 4-letter CVCV pattern (TEBO) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-moce",
+    "name": "MOCE.si",
+    "slug": "moce",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2330,
+    "description": "Rare 4-letter CVCV pattern (MOCE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-bapu",
+    "name": "BAPU.si",
+    "slug": "bapu",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2373,
+    "description": "Rare 4-letter CVCV pattern (BAPU) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-befe",
+    "name": "BEFE.si",
+    "slug": "befe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2416,
+    "description": "Rare 4-letter CVCV pattern (BEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-begi",
+    "name": "BEGI.si",
+    "slug": "begi",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2459,
+    "description": "Rare 4-letter CVCV pattern (BEGI) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-dodi",
+    "name": "DODI.si",
+    "slug": "dodi",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2502,
+    "description": "Rare 4-letter CVCV pattern (DODI) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-faci",
+    "name": "FACI.si",
+    "slug": "faci",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2545,
+    "description": "Rare 4-letter CVCV pattern (FACI) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-fafe",
+    "name": "FAFE.si",
+    "slug": "fafe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2588,
+    "description": "Rare 4-letter CVCV pattern (FAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-fene",
+    "name": "FENE.si",
+    "slug": "fene",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2631,
+    "description": "Rare 4-letter CVCV pattern (FENE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-feso",
+    "name": "FESO.si",
+    "slug": "feso",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2674,
+    "description": "Rare 4-letter CVCV pattern (FESO) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-fige",
+    "name": "FIGE.si",
+    "slug": "fige",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2717,
+    "description": "Rare 4-letter CVCV pattern (FIGE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-foce",
+    "name": "FOCE.si",
+    "slug": "foce",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2760,
+    "description": "Rare 4-letter CVCV pattern (FOCE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-fofe",
+    "name": "FOFE.si",
+    "slug": "fofe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2803,
+    "description": "Rare 4-letter CVCV pattern (FOFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-foge",
+    "name": "FOGE.si",
+    "slug": "foge",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2846,
+    "description": "Rare 4-letter CVCV pattern (FOGE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-gafe",
+    "name": "GAFE.si",
+    "slug": "gafe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2889,
+    "description": "Rare 4-letter CVCV pattern (GAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-gebe",
+    "name": "GEBE.si",
+    "slug": "gebe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2932,
+    "description": "Rare 4-letter CVCV pattern (GEBE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-gefo",
+    "name": "GEFO.si",
+    "slug": "gefo",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2975,
+    "description": "Rare 4-letter CVCV pattern (GEFO) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-gofa",
+    "name": "GOFA.si",
+    "slug": "gofa",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3018,
+    "description": "Rare 4-letter CVCV pattern (GOFA) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-goge",
+    "name": "GOGE.si",
+    "slug": "goge",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3061,
+    "description": "Rare 4-letter CVCV pattern (GOGE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-hace",
+    "name": "HACE.si",
+    "slug": "hace",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3104,
+    "description": "Rare 4-letter CVCV pattern (HACE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-hafe",
+    "name": "HAFE.si",
+    "slug": "hafe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3147,
+    "description": "Rare 4-letter CVCV pattern (HAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-hede",
+    "name": "HEDE.si",
+    "slug": "hede",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3190,
+    "description": "Rare 4-letter CVCV pattern (HEDE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-hefe",
+    "name": "HEFE.si",
+    "slug": "hefe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3233,
+    "description": "Rare 4-letter CVCV pattern (HEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-hege",
+    "name": "HEGE.si",
+    "slug": "hege",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3276,
+    "description": "Rare 4-letter CVCV pattern (HEGE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-kece",
+    "name": "KECE.si",
+    "slug": "kece",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3319,
+    "description": "Rare 4-letter CVCV pattern (KECE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-kice",
+    "name": "KICE.si",
+    "slug": "kice",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3362,
+    "description": "Rare 4-letter CVCV pattern (KICE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-lefe",
+    "name": "LEFE.si",
+    "slug": "lefe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3405,
+    "description": "Rare 4-letter CVCV pattern (LEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-lefo",
+    "name": "LEFO.si",
+    "slug": "lefo",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3448,
+    "description": "Rare 4-letter CVCV pattern (LEFO) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-mebe",
+    "name": "MEBE.si",
+    "slug": "mebe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3491,
+    "description": "Rare 4-letter CVCV pattern (MEBE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-mefi",
+    "name": "MEFI.si",
+    "slug": "mefi",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3534,
+    "description": "Rare 4-letter CVCV pattern (MEFI) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-mife",
+    "name": "MIFE.si",
+    "slug": "mife",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3577,
+    "description": "Rare 4-letter CVCV pattern (MIFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-rofa",
+    "name": "ROFA.si",
+    "slug": "rofa",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3620,
+    "description": "Rare 4-letter CVCV pattern (ROFA) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-toci",
+    "name": "TOCI.si",
+    "slug": "toci",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3663,
+    "description": "Rare 4-letter CVCV pattern (TOCI) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-pife",
+    "name": "PIFE.si",
+    "slug": "pife",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3706,
+    "description": "Rare 4-letter CVCV pattern (PIFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-poce",
+    "name": "POCE.si",
+    "slug": "poce",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3749,
+    "description": "Rare 4-letter CVCV pattern (POCE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-coce",
+    "name": "COCE.si",
+    "slug": "coce",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3792,
+    "description": "Rare 4-letter CVCV pattern (COCE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-nige",
+    "name": "NIGE.si",
+    "slug": "nige",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 1935,
+    "description": "Rare 4-letter CVCV pattern (NIGE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-pafo",
+    "name": "PAFO.si",
+    "slug": "pafo",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 1978,
+    "description": "Rare 4-letter CVCV pattern (PAFO) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-pege",
+    "name": "PEGE.si",
+    "slug": "pege",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2021,
+    "description": "Rare 4-letter CVCV pattern (PEGE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-nafe",
+    "name": "NAFE.si",
+    "slug": "nafe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2064,
+    "description": "Rare 4-letter CVCV pattern (NAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
+  },
+  {
+    "id": "d-nefe",
+    "name": "NEFE.si",
+    "slug": "nefe",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "4-Letter",
+      "Brandable",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 2107,
+    "description": "Rare 4-letter CVCV pattern (NEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition."
   }
 ]
