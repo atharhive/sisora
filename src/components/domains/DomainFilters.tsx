@@ -35,10 +35,10 @@ export const DOMAIN_TYPES = [
 const PRICE_RANGES = [
   { id: "all", label: "All Valuations" },
   { id: "make-offer", label: "Make an Offer" },
-  { id: "25k-50k", label: "$25,000 – $50,000" },
   { id: "under-5k", label: "Under $5,000" },
   { id: "under-10k", label: "Under $10,000" },
   { id: "under-25k", label: "Under $25,000" },
+  { id: "25k-50k", label: "$25,000 – $50,000" },
   { id: "50k-plus", label: "$50,000 and above" },
 ];
 
@@ -213,7 +213,7 @@ export function DomainFilters({
             </span>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="flex flex-col gap-1.5">
           {PRICE_RANGES.map((range) => {
             const isSelected = priceType === range.id;
             const count = priceCounts?.[range.id];
@@ -223,21 +223,20 @@ export function DomainFilters({
                 type="button"
                 onClick={() => onPriceTypeChange?.(isSelected && range.id !== "all" ? "all" : range.id)}
                 className={cn(
-                  "flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-left cursor-pointer active:scale-95",
-                  range.id === "all" ? "col-span-2" : "col-span-1",
+                  "w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-left cursor-pointer active:scale-95",
                   isSelected
                     ? "bg-neutral-950 text-white shadow-xs"
-                    : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100 border border-neutral-200/60"
+                    : "bg-neutral-50/80 text-neutral-800 hover:bg-neutral-100 border border-neutral-200/70"
                 )}
               >
-                <span className="truncate">{range.label}</span>
+                <span className="whitespace-nowrap font-medium">{range.label}</span>
                 {typeof count === "number" && (
                   <span
                     className={cn(
-                      "text-[10px] font-mono px-1.5 py-0.5 rounded ml-1 shrink-0",
+                      "text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ml-2 shrink-0",
                       isSelected
                         ? "bg-neutral-800 text-white"
-                        : "bg-neutral-200/70 text-neutral-500"
+                        : "bg-neutral-200/80 text-neutral-600"
                     )}
                   >
                     {count}
