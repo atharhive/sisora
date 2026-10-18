@@ -289,19 +289,21 @@ export default async function DomainDetailPage({ params }: PageProps) {
                     size="lg"
                     className="w-full justify-center text-sm font-bold py-4 h-13 bg-neutral-950 text-white hover:bg-neutral-800 shadow-sm"
                   >
-                    {isMakeOffer ? "Submit Formal Offer" : `Acquire Now - ${priceDisplay}`}
+                    {isMakeOffer ? "Make an Offer" : `Acquire Now - ${priceDisplay}`}
                   </Button>
                 </a>
 
-                <a href="#inquire" className="block w-full">
-                  <Button
-                    variant="outline"
-                    size="md"
-                    className="w-full justify-center text-xs font-bold h-11 border-neutral-300 hover:border-black text-neutral-900"
-                  >
-                    Submit a Buying Request →
-                  </Button>
-                </a>
+                {!isMakeOffer && (
+                  <a href="#inquire" className="block w-full">
+                    <Button
+                      variant="outline"
+                      size="md"
+                      className="w-full justify-center text-xs font-bold h-11 border-neutral-300 hover:border-black text-neutral-900"
+                    >
+                      Make an Offer →
+                    </Button>
+                  </a>
+                )}
               </div>
 
               {/* Direct Broker Channels: Just Logos in Order (X then Email then Telegram) */}
