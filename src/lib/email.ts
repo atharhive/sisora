@@ -158,3 +158,55 @@ export async function sendInquiryNotificationEmail(payload: InquiryEmailPayload)
     return { sent: false, error: err };
   }
 }
+
+export async function sendDirectReplyEmail(payload: {
+  to: string;
+  subject: string;
+  body: string;
+  domain_name?: string;
+}) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return {
+      sent: false,
+      error: "RESEND_API_KEY is not configured in Vercel. You can still use the 'Open in Gmail' or 'Copy' button!",
+    };
+  }
+
+  const fromEmail = process.env.RESEND_FROM_EMAIL || "Sisora Brokerage <onboarding@resend.dev>";
+  const replyTo = process.env.ADMIN_NOTIFICATION_EMAIL || "sisorasales@gmail.com";
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [payload.to],
+        reply_to: replyTo,
+        subject: payload.subject,
+        text: payload.body,
+        html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #111; line-height: 1.6;">
+          <div style="margin-bottom: 20px; font-weight: bold; font-size: 16px;">SISORA Premium Domain Brokerage</div>
+          <div style="white-space: pre-wrap; font-size: 14px; color: #222;">${payload.body.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+          <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
+          <div style="font-size: 11px; color: #888;">
+            SISORA Brokerage Desk &bull; Contact: <a href="mailto:${replyTo}" style="color: #444;">${replyTo}</a> &bull; <a href="https://sisora.si" style="color: #444;">sisora.si</a>
+          </div>
+        </div>`,
+      }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      return { sent: false, error: data?.message || "Failed to send email via Resend" };
+    }
+    return { sent: true, data };
+  } catch (err) {
+    return { sent: false, error: err instanceof Error ? err.message : "Failed to dispatch email" };
+  }
+}
+

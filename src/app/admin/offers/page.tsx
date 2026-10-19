@@ -21,12 +21,18 @@ import {
   ArrowRight,
   TrendingUp,
   ArrowLeft,
+  Copy,
+  ExternalLink,
+  Send,
+  AlertTriangle,
+  Check,
 } from "lucide-react";
 import {
   getAllOffers,
   saveOffer,
   updateOfferStatus,
   deleteOffer,
+  replyToOfferAction,
   getAllDomains,
 } from "@/lib/actions/admin-actions";
 import { Offer, DbDomain, OfferStatus } from "@/types/database";
@@ -41,6 +47,60 @@ const STATUS_BADGES: Record<OfferStatus, { bg: string; text: string; label: stri
   in_escrow: { bg: "bg-indigo-50 border-indigo-200/80 text-indigo-800", text: "text-indigo-800", label: "In Escrow" },
 };
 
+type ReplyTemplateKey = "general" | "counter" | "accept";
+
+const TEMPLATES: Record<
+  ReplyTemplateKey,
+  (domain: string, name: string, amount: number) => { subject: string; body: string }
+> = {
+  general: (domain, name) => ({
+    subject: `SISORA Brokerage: Regarding your inquiry on ${domain}`,
+    body: `Hi ${name},
+
+Thank you for your interest in ${domain}.
+
+We have received your acquisition inquiry and would be pleased to assist you with pricing terms, escrow transfer options, and the acquisition timeline.
+
+Please let us know your preferred budget range or if you would like to proceed with standard escrow closing via Escrow.com or Atom.com.
+
+Best regards,
+SISORA Domain Brokerage Desk
+sisorasales@gmail.com
+https://sisora.si`,
+  }),
+  counter: (domain, name, amount) => ({
+    subject: `SISORA Brokerage: Counter-Offer for ${domain}`,
+    body: `Hi ${name},
+
+Thank you for submitting your offer on ${domain}.
+
+We have reviewed your proposed terms with the seller. While your initial offer of $${Number(amount).toLocaleString()} USD has been noted, the current reserve price for this premium asset is higher.
+
+Please let us know if you would be open to discussing terms in this range so we can structure a win-win agreement.
+
+Best regards,
+SISORA Domain Brokerage Desk
+sisorasales@gmail.com
+https://sisora.si`,
+  }),
+  accept: (domain, name, amount) => ({
+    subject: `SISORA Brokerage: Offer Accepted for ${domain}`,
+    body: `Hi ${name},
+
+We are pleased to inform you that your offer of $${Number(amount).toLocaleString()} USD for ${domain} has been accepted by the seller!
+
+We will now initiate a secure closing via licensed escrow (Escrow.com / Atom.com). To prepare the escrow agreement, please confirm:
+1. Legal Entity / Buyer Full Name
+2. Registered Business or Personal Address
+3. Designated Registrant / DNS Technical Contact
+
+Best regards,
+SISORA Domain Brokerage Desk
+sisorasales@gmail.com
+https://sisora.si`,
+  }),
+};
+
 export default function OffersAdminPage() {
   const { success, error: toastError } = useToast();
   const [offers, setOffers] = useState<Offer[]>([]);
@@ -49,7 +109,7 @@ export default function OffersAdminPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
-  // Modal states
+  // Edit / Add modal states
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"add" | "edit">("add");
   const [saving, setSaving] = useState(false);
@@ -63,6 +123,20 @@ export default function OffersAdminPage() {
     status: "new",
     notes: "",
   });
+
+  // Dedicated Reply Modal state
+  const [replyModalOpen, setReplyModalOpen] = useState(false);
+  const [replyOffer, setReplyOffer] = useState<Offer | null>(null);
+  const [replySubject, setReplySubject] = useState("");
+  const [replyBody, setReplyBody] = useState("");
+  const [selectedTemplate, setSelectedTemplate] = useState<ReplyTemplateKey>("general");
+  const [sendingReply, setSendingReply] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Dedicated Delete Confirmation Modal state
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [offerToDelete, setOfferToDelete] = useState<Offer | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const loadData = async () => {
     setLoading(true);
@@ -150,14 +224,94 @@ export default function OffersAdminPage() {
     }
   };
 
-  const handleDeleteOffer = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this offer record?")) return;
-    const res = await deleteOffer(id);
+  // Reply handlers
+  const handleOpenReplyModal = (offer: Offer) => {
+    setReplyOffer(offer);
+    const tpl = TEMPLATES.general(offer.domain_name || "Domain Asset", offer.buyer_name, Number(offer.offer_amount) || 0);
+    setReplySubject(tpl.subject);
+    setReplyBody(tpl.body);
+    setSelectedTemplate("general");
+    setCopied(false);
+    setReplyModalOpen(true);
+  };
+
+  const handleApplyTemplate = (tplKey: ReplyTemplateKey) => {
+    if (!replyOffer) return;
+    setSelectedTemplate(tplKey);
+    const tpl = TEMPLATES[tplKey](replyOffer.domain_name || "Domain Asset", replyOffer.buyer_name, Number(replyOffer.offer_amount) || 0);
+    setReplySubject(tpl.subject);
+    setReplyBody(tpl.body);
+  };
+
+  const handleOpenGmail = () => {
+    if (!replyOffer) return;
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(replyOffer.buyer_email)}&su=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
+    window.open(url, "_blank");
+  };
+
+  const handleOpenMailApp = () => {
+    if (!replyOffer) return;
+    // RFC 6068: do NOT encode the recipient email with %40
+    const url = `mailto:${replyOffer.buyer_email}?subject=${encodeURIComponent(replySubject)}&body=${encodeURIComponent(replyBody)}`;
+    window.location.href = url;
+  };
+
+  const handleCopyReply = async () => {
+    if (!replyOffer) return;
+    const fullText = `To: ${replyOffer.buyer_email}\nSubject: ${replySubject}\n\n${replyBody}`;
+    try {
+      await navigator.clipboard.writeText(fullText);
+      setCopied(true);
+      success("Reply message copied to clipboard!");
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      toastError("Could not copy text to clipboard.");
+    }
+  };
+
+  const handleSendDirectEmail = async () => {
+    if (!replyOffer) return;
+    setSendingReply(true);
+    const res = await replyToOfferAction(replyOffer.id, {
+      to: replyOffer.buyer_email,
+      subject: replySubject,
+      body: replyBody,
+      domain_name: replyOffer.domain_name || undefined,
+    });
+    setSendingReply(false);
+
     if (res.error) {
       toastError(res.error);
     } else {
-      success("Offer record deleted.");
+      success(`Email sent directly to ${replyOffer.buyer_email}!`);
+      setReplyModalOpen(false);
       loadData();
+    }
+  };
+
+  // Delete modal handlers
+  const handleOpenDeleteModal = (offer: Offer) => {
+    setOfferToDelete(offer);
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!offerToDelete) return;
+    const targetId = offerToDelete.id;
+    setDeleting(true);
+
+    // Optimistically remove from state so UI updates instantly
+    setOffers((prev) => prev.filter((o) => o.id !== targetId));
+    setDeleteModalOpen(false);
+
+    const res = await deleteOffer(targetId);
+    setDeleting(false);
+
+    if (res.error) {
+      toastError(res.error);
+      loadData(); // Revert back if database reported an error
+    } else {
+      success("Offer record deleted successfully.");
     }
   };
 
@@ -278,15 +432,15 @@ export default function OffersAdminPage() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs min-w-[760px]">
               <thead className="bg-neutral-50 border-b border-neutral-200/70 text-neutral-400 font-bold uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="p-4 pl-6">Target Asset</th>
                   <th className="p-4">Offer Amount</th>
                   <th className="p-4">Buyer Identity</th>
-                  <th className="p-4">Status Stepper</th>
+                  <th className="p-4">Status</th>
                   <th className="p-4">Negotiation Notes</th>
-                  <th className="p-4 pr-6 text-right">Actions</th>
+                  <th className="p-4 pr-6 text-right min-w-[190px]">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-neutral-100">
@@ -349,33 +503,31 @@ export default function OffersAdminPage() {
                         )}
                       </td>
 
-                      <td className="p-4 pr-6 text-right space-x-1.5 whitespace-nowrap">
-                        <a
-                          href={`mailto:${encodeURIComponent(o.buyer_email)}?subject=${encodeURIComponent(
-                            `SISORA Brokerage: Regarding your inquiry on ${o.domain_name || "Domain"}`
-                          )}&body=${encodeURIComponent(
-                            `Hi ${o.buyer_name},\n\nThank you for reaching out to SISORA regarding ${o.domain_name || "the domain"}.\n\nWe have received your inquiry:\n- Domain: ${o.domain_name || "Domain"}\n- Amount / Terms: $${Number(o.offer_amount).toLocaleString()} USD\n\nPlease let us know if you would like to initiate escrow or if you have any questions.\n\nBest regards,\nSISORA Domain Brokerage\nsisorasales@gmail.com`
-                          )}`}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black hover:bg-neutral-800 text-white text-[11px] font-bold transition-all shadow-2xs"
-                          title={`Send email directly to ${o.buyer_email}`}
-                        >
-                          <Mail className="w-3.5 h-3.5 text-neutral-300" />
-                          <span>Reply</span>
-                        </a>
-                        <button
-                          onClick={() => handleOpenEditModal(o)}
-                          className="p-2 rounded-xl text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
-                          title="Edit Offer"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteOffer(o.id)}
-                          className="p-2 rounded-xl text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
-                          title="Delete Offer"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                      <td className="p-4 pr-6 text-right whitespace-nowrap">
+                        <div className="inline-flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => handleOpenReplyModal(o)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black hover:bg-neutral-800 text-white text-[11px] font-bold transition-all shadow-2xs cursor-pointer active:scale-95"
+                            title={`Reply directly to ${o.buyer_email}`}
+                          >
+                            <Mail className="w-3.5 h-3.5 text-neutral-300" />
+                            <span>Reply</span>
+                          </button>
+                          <button
+                            onClick={() => handleOpenEditModal(o)}
+                            className="p-2 rounded-xl text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
+                            title="Edit Offer"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleOpenDeleteModal(o)}
+                            className="p-2 rounded-xl text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                            title="Delete Offer"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -386,9 +538,211 @@ export default function OffersAdminPage() {
         )}
       </div>
 
-      {/* 5. MODAL */}
+      {/* 5. DEDICATED REPLY MODAL */}
+      {replyModalOpen && replyOffer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-neutral-200 overflow-y-auto max-h-[92vh] space-y-5">
+            <div className="flex items-start justify-between pb-3 border-b border-neutral-100">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Broker Outreach &bull; Direct Buyer Reply
+                </span>
+                <h3 className="text-xl font-black text-neutral-950 tracking-tight mt-0.5">
+                  Reply to {replyOffer.buyer_name}
+                </h3>
+                <p className="text-xs text-neutral-500 mt-0.5">
+                  Recipient: <span className="font-semibold text-neutral-900">{replyOffer.buyer_email}</span> &bull; Asset:{" "}
+                  <span className="font-semibold text-neutral-900">{replyOffer.domain_name || "Domain"}</span>
+                </p>
+              </div>
+              <button
+                onClick={() => setReplyModalOpen(false)}
+                className="p-1.5 rounded-full text-neutral-400 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Quick Templates */}
+            <div>
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                Choose Response Template
+              </span>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleApplyTemplate("general")}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer text-left ${
+                    selectedTemplate === "general"
+                      ? "border-black bg-neutral-950 text-white shadow-2xs"
+                      : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
+                  }`}
+                >
+                  <span className="block text-[11px]">General Response</span>
+                  <span className="block text-[10px] opacity-75 font-normal truncate">Acknowledge inquiry</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleApplyTemplate("counter")}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer text-left ${
+                    selectedTemplate === "counter"
+                      ? "border-black bg-neutral-950 text-white shadow-2xs"
+                      : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
+                  }`}
+                >
+                  <span className="block text-[11px]">Counter-Offer</span>
+                  <span className="block text-[10px] opacity-75 font-normal truncate">Negotiate pricing</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleApplyTemplate("accept")}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer text-left ${
+                    selectedTemplate === "accept"
+                      ? "border-black bg-neutral-950 text-white shadow-2xs"
+                      : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:bg-neutral-100"
+                  }`}
+                >
+                  <span className="block text-[11px]">Accept &amp; Escrow</span>
+                  <span className="block text-[10px] opacity-75 font-normal truncate">Start Escrow transfer</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Subject Field */}
+            <div>
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
+                Subject Line
+              </label>
+              <input
+                type="text"
+                value={replySubject}
+                onChange={(e) => setReplySubject(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs font-semibold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
+              />
+            </div>
+
+            {/* Message Body Field */}
+            <div>
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
+                Message Body
+              </label>
+              <textarea
+                rows={8}
+                value={replyBody}
+                onChange={(e) => setReplyBody(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs leading-relaxed text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black font-sans"
+              />
+            </div>
+
+            {/* Actions Grid */}
+            <div className="pt-3 border-t border-neutral-100 space-y-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {/* 1. Open in Gmail Web */}
+                <button
+                  type="button"
+                  onClick={handleOpenGmail}
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors shadow-2xs cursor-pointer"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Open in Gmail Web</span>
+                </button>
+
+                {/* 2. Open in Default Mail App */}
+                <button
+                  type="button"
+                  onClick={handleOpenMailApp}
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-neutral-300 bg-white hover:bg-neutral-100 text-neutral-800 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  <Mail className="w-4 h-4 text-neutral-600" />
+                  <span>Open in Mail App</span>
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between gap-2 pt-1">
+                {/* Copy Button */}
+                <button
+                  type="button"
+                  onClick={handleCopyReply}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-neutral-200 text-xs font-semibold text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copied ? "Copied!" : "Copy Text"}</span>
+                </button>
+
+                {/* Send via Resend Email Button */}
+                <button
+                  type="button"
+                  disabled={sendingReply}
+                  onClick={handleSendDirectEmail}
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-black hover:bg-neutral-800 text-white text-xs font-bold transition-colors disabled:opacity-60 cursor-pointer shadow-xs"
+                >
+                  {sendingReply ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                  <span>Send Direct via Email</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 6. DEDICATED DELETE CONFIRMATION MODAL */}
+      {deleteModalOpen && offerToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-neutral-200 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-base font-bold text-neutral-950">Delete Offer Record</h4>
+                <p className="text-xs text-neutral-500">This action will remove the record from your pipeline.</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-neutral-50 border border-neutral-200 p-3.5 text-xs text-neutral-700 space-y-1">
+              <div>
+                <span className="font-semibold text-neutral-500">Domain:</span>{" "}
+                <span className="font-bold text-black">{offerToDelete.domain_name || "Unassigned"}</span>
+              </div>
+              <div>
+                <span className="font-semibold text-neutral-500">Buyer:</span>{" "}
+                <span className="font-medium text-black">{offerToDelete.buyer_name} ({offerToDelete.buyer_email})</span>
+              </div>
+              <div>
+                <span className="font-semibold text-neutral-500">Offer Amount:</span>{" "}
+                <span className="font-bold text-black">${Number(offerToDelete.offer_amount).toLocaleString()} USD</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-neutral-500">
+              Are you sure you want to permanently delete this offer? This cannot be undone.
+            </p>
+
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-neutral-100">
+              <button
+                type="button"
+                onClick={() => setDeleteModalOpen(false)}
+                className="px-4 py-2 rounded-xl border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={deleting}
+                onClick={handleConfirmDelete}
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition-colors disabled:opacity-60 cursor-pointer shadow-xs"
+              >
+                {deleting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                <span>Delete Record</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 7. ADD / EDIT OFFER MODAL */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 overflow-y-auto max-h-[90vh]">
             <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
               <h3 className="text-xl font-black text-neutral-950 tracking-tight">
@@ -508,15 +862,17 @@ export default function OffersAdminPage() {
 
               <div className="flex items-center justify-between gap-2.5 pt-4 border-t border-neutral-100">
                 {form.buyer_email ? (
-                  <a
-                    href={`mailto:${encodeURIComponent(form.buyer_email)}?subject=${encodeURIComponent(
-                      `SISORA Brokerage: Regarding your inquiry on ${form.domain_name || "Domain"}`
-                    )}`}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-neutral-300 text-xs font-bold text-neutral-850 hover:bg-neutral-100 transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setModalOpen(false);
+                      handleOpenReplyModal(form as Offer);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-neutral-300 text-xs font-bold text-neutral-850 hover:bg-neutral-100 transition-colors cursor-pointer"
                   >
                     <Mail className="w-3.5 h-3.5 text-neutral-600" />
-                    <span>Email Buyer Directly</span>
-                  </a>
+                    <span>Reply to Buyer</span>
+                  </button>
                 ) : <div />}
 
                 <div className="flex items-center gap-2">

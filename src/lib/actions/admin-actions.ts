@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerClient } from "@/lib/supabase/server";
+import { sendDirectReplyEmail } from "@/lib/email";
 import {
   DbDomain,
   DomainType,
@@ -459,15 +460,85 @@ export async function updateOfferStatus(id: string, status: string, notes?: stri
 }
 
 export async function deleteOffer(id: string) {
-  const supabase = createAdminClient();
-  if (!supabase) return { error: "Supabase not configured" };
+  try {
+    const supabase = createAdminClient();
+    if (!supabase) return { error: "Supabase not configured" };
 
-  const { error } = await supabase.from("offers").delete().eq("id", id);
-  if (error) return { error: error.message };
+    const { error } = await supabase.from("offers").delete().eq("id", id);
+    if (error) {
+      console.error("deleteOffer DB error:", error);
+      return { error: error.message };
+    }
 
-  await logAudit("DELETE_OFFER", "offers", id);
-  revalidatePath("/admin/offers");
-  return { success: true };
+    try {
+      await logAudit("DELETE_OFFER", "offers", id);
+    } catch {
+      // audit log error must not block deletion
+    }
+
+    try {
+      revalidatePath("/admin/offers");
+    } catch {
+      // ignore
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error("deleteOffer exception:", err);
+    return { error: err instanceof Error ? err.message : "Failed to delete offer" };
+  }
+}
+
+export async function replyToOfferAction(
+  id: string,
+  payload: {
+    to: string;
+    subject: string;
+    body: string;
+    domain_name?: string;
+  }
+) {
+  try {
+    const emailRes = await sendDirectReplyEmail(payload);
+    if (!emailRes.sent) {
+      return { error: emailRes.error || "Failed to send email." };
+    }
+
+    // Optionally update offer status to reviewing or append note
+    const supabase = createAdminClient();
+    if (supabase && id) {
+      const noteAppend = `\n[Reply Sent to ${payload.to} at ${new Date().toLocaleDateString()}]: ${payload.subject}`;
+      const { data: current } = await supabase.from("offers").select("notes, status").eq("id", id).maybeSingle();
+      if (current) {
+        const nextNotes = (current.notes || "") + noteAppend;
+        await supabase
+          .from("offers")
+          .update({
+            notes: nextNotes.trim(),
+            status: current.status === "new" ? "reviewing" : current.status,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", id);
+      }
+    }
+
+    try {
+      await logAudit("REPLY_TO_OFFER", "offers", id, { to: payload.to, subject: payload.subject });
+    } catch {
+      // ignore
+    }
+
+    try {
+      revalidatePath("/admin/offers");
+    } catch {
+      // ignore
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error("replyToOfferAction exception:", err);
+    return { error: err instanceof Error ? err.message : "An unexpected error occurred while replying." };
+  }
 }
 
 // ============================================================================
