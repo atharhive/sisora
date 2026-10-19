@@ -149,6 +149,42 @@ export async function sendInquiryNotificationEmail(payload: InquiryEmailPayload)
     const data = await res.json();
     if (!res.ok) {
       console.error("[Email Dispatch Error]", data);
+
+      // Auto-fallback for Resend Sandbox restriction:
+      // If Resend only allows sending to the account owner's email, automatically deliver there
+      // so no inquiries are missed while domain verification is pending!
+      const match = data?.message?.match(/your own email address \(([^)]+)\)/i);
+      const allowedOwnerEmail = match ? match[1].trim() : null;
+      if (allowedOwnerEmail && !recipients.every((r) => r.toLowerCase() === allowedOwnerEmail.toLowerCase())) {
+        console.warn(`[Email Dispatch Sandbox Fallback] Resend sandbox restricted to ${allowedOwnerEmail}. Retrying dispatch...`);
+        try {
+          const fallbackRes = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              from: fromEmail,
+              to: [allowedOwnerEmail],
+              reply_to: payload.buyer_email,
+              subject: `${subject} [Sisora Alert to ${allowedOwnerEmail}]`,
+              html,
+            }),
+          });
+          const fallbackData = await fallbackRes.json();
+          if (fallbackRes.ok) {
+            return {
+              sent: true,
+              data: fallbackData,
+              note: `Delivered to Resend verified account (${allowedOwnerEmail}). Verify sisora.si in resend.com/domains to enable multi-recipient delivery.`,
+            };
+          }
+        } catch (fallbackErr) {
+          console.error("[Email Dispatch Fallback Error]", fallbackErr);
+        }
+      }
+
       return { sent: false, error: data };
     }
 
@@ -202,6 +238,13 @@ export async function sendDirectReplyEmail(payload: {
 
     const data = await res.json();
     if (!res.ok) {
+      if (data?.message?.includes("You can only send testing emails to your own email address")) {
+        return {
+          sent: false,
+          error:
+            "Resend Sandbox Restriction: Because your account is sending from 'onboarding@resend.dev', Resend only allows sending to your account owner email (not to external buyers yet). Please verify your domain (e.g. sisora.si) at resend.com/domains to unlock direct sending, or click 'Open in Gmail' to reply right now!",
+        };
+      }
       return { sent: false, error: data?.message || "Failed to send email via Resend" };
     }
     return { sent: true, data };

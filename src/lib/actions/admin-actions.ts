@@ -580,6 +580,48 @@ export async function testBrokerEmailAction() {
 
     const data = await res.json();
     if (!res.ok) {
+      const match = data?.message?.match(/your own email address \(([^)]+)\)/i);
+      const ownerEmail = match ? match[1].trim() : null;
+
+      if (ownerEmail) {
+        // Attempt sending test to the account owner directly
+        try {
+          const retryRes = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              from: fromEmail,
+              to: [ownerEmail],
+              subject: `[Sisora Brokerage] Live Test Email (${new Date().toLocaleTimeString()})`,
+              html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 24px; color: #111; max-width: 500px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px;">
+                <h2 style="margin-top: 0; color: #000;">Sisora Email Dispatch Connected!</h2>
+                <p style="font-size: 14px; line-height: 1.5; color: #333;">
+                  Your <strong>RESEND_API_KEY</strong> is valid and working!
+                </p>
+                <div style="background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 8px; font-size: 13px; color: #856404; margin: 16px 0;">
+                  <strong>Resend Sandbox Mode:</strong> You are currently using <code>onboarding@resend.dev</code>, which can only deliver to your Resend account email (<code>${ownerEmail}</code>).
+                  <br /><br />
+                  To send notifications to <code>${firstRecipient}</code> and email buyers directly, verify your custom domain (<code>sisora.si</code>) at <a href="https://resend.com/domains" target="_blank" style="color: #533f03; font-weight: bold;">resend.com/domains</a>.
+                </div>
+                <div style="font-size: 11px; color: #888;">
+                  Timestamp: ${new Date().toISOString()}
+                </div>
+              </div>`,
+            }),
+          });
+          const retryData = await retryRes.json();
+          if (retryRes.ok) {
+            return {
+              success: true,
+              message: `✅ RESEND_API_KEY is working! Delivered test email to your Resend account email (${ownerEmail}). To deliver to ${firstRecipient} and external buyers, verify your domain at resend.com/domains.`,
+            };
+          }
+        } catch {}
+      }
+
       return {
         success: false,
         error: `Resend returned: ${data.message || JSON.stringify(data)}`,
