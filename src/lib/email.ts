@@ -125,6 +125,11 @@ export async function sendInquiryNotificationEmail(payload: InquiryEmailPayload)
     };
   }
 
+  const recipients = toEmail
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -134,7 +139,7 @@ export async function sendInquiryNotificationEmail(payload: InquiryEmailPayload)
       },
       body: JSON.stringify({
         from: fromEmail,
-        to: [toEmail],
+        to: recipients,
         reply_to: payload.buyer_email,
         subject,
         html,
