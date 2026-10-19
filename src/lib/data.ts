@@ -88,12 +88,13 @@ export function getFeaturedDomains(): DomainItem[] {
   return DOMAINS.filter((d) => d.featured);
 }
 
-export function getDomainType(domain: DomainItem): "One-word" | "LL" | "LLL" | "CVCV" {
+export function getDomainType(domain: DomainItem): "One-word" | "Two-Word" | "LL" | "LLL" | "CVCV" {
   if (domain.domainType) {
     const dt = domain.domainType.toLowerCase().replace(/[^a-z0-9]/g, "");
     if (dt === "ll" || dt === "2l") return "LL";
     if (dt === "lll" || dt === "3l") return "LLL";
     if (dt === "cvcv" || dt === "4l") return "CVCV";
+    if (dt === "twoword" || dt === "2word") return "Two-Word";
     if (dt === "oneword" || dt === "word") return "One-word";
   }
   const clean = (domain.slug || domain.name.replace(/\.si$/i, "")).trim().toLowerCase();

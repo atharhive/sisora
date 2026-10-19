@@ -100,6 +100,311 @@
     "description": "Premium dictionary keyword for artificial intelligence translation engines, global localization platforms, or neural speech tech."
   },
   {
+    "id": "d-toronto",
+    "name": "Toronto.si",
+    "slug": "toronto",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Toronto",
+      "Canada",
+      "Metro",
+      "Geo",
+      "Super Intelligence"
+    ],
+    "price": 100000,
+    "priceType": "fixed",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 8240,
+    "description": "Ultra-premium geographic capital brand for Canada's financial powerhouse, major tech hub, and cultural capital on the .SI extension."
+  },
+  {
+    "id": "d-determined",
+    "name": "Determined.si",
+    "slug": "determined",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Brand",
+      "Leadership",
+      "Enterprise",
+      "Super Intelligence"
+    ],
+    "price": 13750,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 4120,
+    "description": "Powerful, evocative dictionary brand representing grit, conviction, artificial intelligence agency, and high-performance execution."
+  },
+  {
+    "id": "d-humility",
+    "name": "Humility.si",
+    "slug": "humility",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Virtue",
+      "Brand",
+      "Leadership",
+      "Super Intelligence"
+    ],
+    "price": 13750,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3890,
+    "description": "Virtue-defining dictionary asset suitable for leadership institutes, ethical AI governance, human-centric tech, or foundation platforms."
+  },
+  {
+    "id": "d-persevere",
+    "name": "Persevere.si",
+    "slug": "persevere",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Brand",
+      "Resilience",
+      "Health",
+      "Super Intelligence"
+    ],
+    "price": 13750,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 3760,
+    "description": "Authoritative English verb domain embodying endurance, athletic performance, mental health, deep-tech research, and resilience."
+  },
+  {
+    "id": "d-disciplined",
+    "name": "Disciplined.si",
+    "slug": "disciplined",
+    "extension": ".si",
+    "category": "Corporate & Enterprise",
+    "domainType": "One-word",
+    "tags": [
+      "Enterprise",
+      "Finance",
+      "Trading",
+      "Super Intelligence"
+    ],
+    "price": 13750,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 4050,
+    "description": "Category-defining corporate term for institutional asset management, systematic trading, operational excellence, or elite coaching."
+  },
+  {
+    "id": "d-straight",
+    "name": "Straight.si",
+    "slug": "straight",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Finance",
+      "Direct",
+      "Brand",
+      "Super Intelligence"
+    ],
+    "price": 24995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 5120,
+    "description": "Punchy, multi-purpose English dictionary keyword ideal for fintech payments, direct-to-consumer commerce, dental health, or logistics."
+  },
+  {
+    "id": "d-deta",
+    "name": "Deta.si",
+    "slug": "deta",
+    "extension": ".si",
+    "category": "CVCV Brand",
+    "domainType": "CVCV",
+    "tags": [
+      "CVCV",
+      "Cloud",
+      "Developer Tools",
+      "Tech",
+      "Super Intelligence"
+    ],
+    "price": 4995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 6420,
+    "description": "Ultra-liquid 4-letter CVCV brand asset with massive developer recognition in personal cloud, compute infrastructure, and modern software."
+  },
+  {
+    "id": "d-wilson",
+    "name": "Wilson.si",
+    "slug": "wilson",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Surname",
+      "Brand",
+      "Heritage",
+      "Super Intelligence"
+    ],
+    "price": 14999,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 4680,
+    "description": "Tier-1 global surname and heritage brand asset. Universal authority for consumer goods, luxury manufacturing, legal, or advisory firms."
+  },
+  {
+    "id": "d-smartreach",
+    "name": "SmartReach.si",
+    "slug": "smartreach",
+    "extension": ".si",
+    "category": "Two-Word",
+    "domainType": "Two-Word",
+    "tags": [
+      "Two-Word",
+      "Marketing",
+      "Outreach",
+      "SaaS",
+      "Super Intelligence"
+    ],
+    "price": null,
+    "priceType": "make_offer",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 6890,
+    "description": "High-intent B2B SaaS brand for AI sales engagement, multichannel outreach, marketing automation, or customer acquisition technology."
+  },
+  {
+    "id": "d-securelab",
+    "name": "SecureLab.si",
+    "slug": "securelab",
+    "extension": ".si",
+    "category": "Two-Word",
+    "domainType": "Two-Word",
+    "tags": [
+      "Two-Word",
+      "Cybersecurity",
+      "Infosec",
+      "Crypto",
+      "Super Intelligence"
+    ],
+    "price": null,
+    "priceType": "make_offer",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 7210,
+    "description": "Institutional-grade digital asset for cybersecurity research, penetration testing, smart contract auditing, or cryptographic infrastructure."
+  },
+  {
+    "id": "d-corrupted",
+    "name": "Corrupted.si",
+    "slug": "corrupted",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Gaming",
+      "Entertainment",
+      "Cyber",
+      "Super Intelligence"
+    ],
+    "price": null,
+    "priceType": "make_offer",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 5430,
+    "description": "Impactful, culturally loaded dictionary asset commanding attention in gaming studios, cyberpunk IP, streetwear, or security auditing."
+  },
+  {
+    "id": "d-either",
+    "name": "Either.si",
+    "slug": "either",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Decision",
+      "Fintech",
+      "Consumer",
+      "Super Intelligence"
+    ],
+    "price": 4995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 4320,
+    "description": "Concise English dictionary keyword representing choice, binary options, A/B testing, decision intelligence, or modern fintech."
+  },
+  {
+    "id": "d-conver",
+    "name": "Conver.si",
+    "slug": "conver",
+    "extension": ".si",
+    "category": "Brand & Lifestyle",
+    "domainType": "One-word",
+    "tags": [
+      "Domain Hack",
+      "Conversion",
+      "SaaS",
+      "Super Intelligence"
+    ],
+    "price": 2995,
+    "priceType": "fixed",
+    "featured": false,
+    "status": "active",
+    "totalVisitors": 5180,
+    "description": "Brilliant natural domain hack forming 'Conversi' (Conversation / Conversion) for conversational AI agents, chatbots, and CRO platforms."
+  },
+  {
+    "id": "d-molecule",
+    "name": "Molecule.si",
+    "slug": "molecule",
+    "extension": ".si",
+    "category": "Super Intelligence & AI",
+    "domainType": "One-word",
+    "tags": [
+      "Biotech",
+      "Science",
+      "Pharma",
+      "AI",
+      "Super Intelligence"
+    ],
+    "price": 49999,
+    "priceType": "fixed",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 8320,
+    "description": "Elite scientific dictionary asset commanding instant authority for AI drug discovery, computational biology, materials science, or chemistry."
+  },
+  {
+    "id": "d-operation",
+    "name": "Operation.si",
+    "slug": "operation",
+    "extension": ".si",
+    "category": "Corporate & Enterprise",
+    "domainType": "One-word",
+    "tags": [
+      "Enterprise",
+      "Logistics",
+      "Cloud Ops",
+      "Super Intelligence"
+    ],
+    "price": 49999,
+    "priceType": "fixed",
+    "featured": true,
+    "status": "active",
+    "totalVisitors": 8140,
+    "description": "Universal corporate noun for enterprise workflow management, IT operations, cloud orchestration, surgical tech, or defense logistics."
+  },
+  {
     "id": "d-ndf",
     "name": "NDF.si",
     "slug": "ndf",

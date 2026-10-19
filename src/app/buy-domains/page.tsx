@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 const TYPE_TABS = [
   { id: "all", label: "All" },
   { id: "one-word", label: "One-word" },
+  { id: "two-word", label: "Two-Word" },
   { id: "ll", label: "LL" },
   { id: "lll", label: "LLL" },
   { id: "cvcv", label: "CVCV" },
@@ -75,6 +76,7 @@ function BuyDomainsContent() {
     const counts: Record<string, number> = {
       all: DOMAINS.length,
       "one-word": 0,
+      "two-word": 0,
       ll: 0,
       lll: 0,
       cvcv: 0,
@@ -82,6 +84,7 @@ function BuyDomainsContent() {
     DOMAINS.forEach((d) => {
       const t = getDomainType(d).toLowerCase().replace(/[^a-z0-9]/g, "");
       if (t === "oneword" || t === "word") counts["one-word"]++;
+      else if (t === "twoword" || t === "2word") counts["two-word"]++;
       else if (t === "ll") counts["ll"]++;
       else if (t === "lll") counts["lll"]++;
       else if (t === "cvcv") counts["cvcv"]++;
@@ -246,7 +249,7 @@ function BuyDomainsContent() {
                     Domains for Sale
                   </h2>
                   <p className="text-xs sm:text-sm text-neutral-600 mt-0.5">
-                    A curated selection of premium One-word, LL, LLL, and CVCV .SI domains.
+                    A curated selection of premium One-word, Two-Word, LL, LLL, and CVCV .SI domains.
                   </p>
                 </div>
 

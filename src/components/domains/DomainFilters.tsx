@@ -27,6 +27,7 @@ export interface DomainFiltersProps {
 export const DOMAIN_TYPES = [
   { id: "all", label: "All Types" },
   { id: "one-word", label: "One-word" },
+  { id: "two-word", label: "Two-Word" },
   { id: "ll", label: "LL" },
   { id: "lll", label: "LLL" },
   { id: "cvcv", label: "CVCV" },
