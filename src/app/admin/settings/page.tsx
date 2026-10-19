@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Phone,
   Mail,
@@ -23,6 +24,7 @@ import {
   Lock,
   Database,
   Radio,
+  ArrowLeft,
 } from "lucide-react";
 import { getSiteSettings, saveSiteSettings } from "@/lib/actions/admin-actions";
 import { SiteSettings } from "@/types/database";
@@ -106,16 +108,19 @@ export default function AdminSettingsPage() {
   return (
     <form onSubmit={handleSave} className="space-y-6">
       {/* 1. LUXURY HEADER DECK */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-neutral-200/80 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-2xl border border-neutral-200/80 shadow-xs">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 text-[11px] font-bold uppercase tracking-wider text-neutral-700">
-            <Settings className="w-3.5 h-3.5 text-neutral-900" />
-            <span>Brokerage &amp; Site Governance</span>
-          </div>
-          <h2 className="text-2xl font-black tracking-tight text-neutral-950">
+          <Link
+            href="/admin"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-black transition-colors mb-1 group"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            <span>Back to Dashboard</span>
+          </Link>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900">
             Brokerage Operations &amp; Configuration
           </h2>
-          <p className="text-xs text-neutral-500 font-medium max-w-xl">
+          <p className="text-xs sm:text-[13px] text-neutral-500 font-normal max-w-xl">
             Configure commercial terms, lead routing endpoints, direct contact channels, and homepage metric counters.
           </p>
         </div>
@@ -123,17 +128,15 @@ export default function AdminSettingsPage() {
         <button
           type="submit"
           disabled={saving}
-          className="group inline-flex items-center gap-2.5 rounded-full bg-black px-7 py-3 text-xs font-bold text-white hover:bg-neutral-800 transition-all shadow-md active:scale-[0.98] cursor-pointer disabled:opacity-60"
+          className="group inline-flex items-center gap-2 rounded-full bg-black px-4 sm:px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-all shadow-xs active:scale-[0.98] cursor-pointer disabled:opacity-60 shrink-0"
         >
           {saving ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Loader2 className="w-3.5 h-3.5 animate-spin" />
           ) : (
-            <Check className="w-4 h-4 text-neutral-300" />
+            <Check className="w-3.5 h-3.5 text-neutral-300" />
           )}
           <span>Save All Settings</span>
-          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-            <ArrowRight className="w-3 h-3 text-white" />
-          </div>
+          <ArrowRight className="w-3.5 h-3.5 text-neutral-300 group-hover:translate-x-0.5 transition-transform" />
         </button>
       </div>
 
