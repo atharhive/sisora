@@ -33,6 +33,7 @@ import {
   updateOfferStatus,
   deleteOffer,
   replyToOfferAction,
+  testBrokerEmailAction,
   getAllDomains,
 } from "@/lib/actions/admin-actions";
 import { Offer, DbDomain, OfferStatus } from "@/types/database";
@@ -108,6 +109,7 @@ export default function OffersAdminPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [testingEmail, setTestingEmail] = useState(false);
 
   // Edit / Add modal states
   const [modalOpen, setModalOpen] = useState(false);
@@ -133,6 +135,9 @@ export default function OffersAdminPage() {
   const [sendingReply, setSendingReply] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // Dedicated Full Note View Modal
+  const [viewNoteOffer, setViewNoteOffer] = useState<Offer | null>(null);
+
   // Dedicated Delete Confirmation Modal state
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [offerToDelete, setOfferToDelete] = useState<Offer | null>(null);
@@ -155,7 +160,11 @@ export default function OffersAdminPage() {
     loadData();
   }, []);
 
-  const totalVolume = offers.reduce((acc, o) => acc + (Number(o.offer_amount) || 0), 0);
+  // Only sum verified cash offers (> 1) so $1 or $0 inquiries don't skew the metric
+  const totalVolume = offers.reduce(
+    (acc, o) => acc + (Number(o.offer_amount) > 1 ? Number(o.offer_amount) : 0),
+    0
+  );
   const newCount = offers.filter((o) => o.status === "new").length;
   const escrowCount = offers.filter((o) => o.status === "in_escrow").length;
 
@@ -191,7 +200,7 @@ export default function OffersAdminPage() {
 
   const handleSaveOffer = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.domain_id || !form.buyer_name || !form.buyer_email || !form.offer_amount) {
+    if (!form.domain_id || !form.buyer_name || !form.buyer_email || form.offer_amount === undefined) {
       toastError("Please fill out all required fields.");
       return;
     }
@@ -221,6 +230,18 @@ export default function OffersAdminPage() {
     } else {
       success(`Offer marked as ${STATUS_BADGES[status].label}`);
       loadData();
+    }
+  };
+
+  // Test email delivery
+  const handleTestEmail = async () => {
+    setTestingEmail(true);
+    const res = await testBrokerEmailAction();
+    setTestingEmail(false);
+    if (res.success) {
+      success(res.message || "Test email delivered successfully!");
+    } else {
+      toastError(res.error || "Failed to deliver test email.");
     }
   };
 
@@ -335,14 +356,30 @@ export default function OffersAdminPage() {
           </p>
         </div>
 
-        <button
-          onClick={handleOpenAddModal}
-          className="group inline-flex items-center gap-2 rounded-full bg-black px-4 sm:px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-all shadow-xs active:scale-[0.98] cursor-pointer shrink-0"
-        >
-          <Plus className="w-3.5 h-3.5 text-neutral-300" />
-          <span>Record New Offer</span>
-          <ArrowRight className="w-3.5 h-3.5 text-neutral-300 group-hover:translate-x-0.5 transition-transform" />
-        </button>
+        <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+          <button
+            onClick={handleTestEmail}
+            disabled={testingEmail}
+            className="group inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-white px-3.5 py-2 text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-all shadow-2xs cursor-pointer active:scale-[0.98] disabled:opacity-60"
+            title="Send test email to verify Resend setup"
+          >
+            {testingEmail ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <Mail className="w-3.5 h-3.5 text-neutral-600" />
+            )}
+            <span>Test Email Setup</span>
+          </button>
+
+          <button
+            onClick={handleOpenAddModal}
+            className="group inline-flex items-center gap-2 rounded-full bg-black px-4 sm:px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-all shadow-xs active:scale-[0.98] cursor-pointer shrink-0"
+          >
+            <Plus className="w-3.5 h-3.5 text-neutral-300" />
+            <span>Record New Offer</span>
+            <ArrowRight className="w-3.5 h-3.5 text-neutral-300 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        </div>
       </div>
 
       {/* 2. THREE PIPELINE METRIC TILES */}
@@ -357,7 +394,7 @@ export default function OffersAdminPage() {
             </span>
             <span className="text-xs font-mono font-bold text-neutral-400">USD</span>
           </div>
-          <p className="text-[11px] text-neutral-500 font-medium">Sum of all active buyer inquiries</p>
+          <p className="text-[11px] text-neutral-500 font-medium">Sum of all verified buyer cash offers</p>
         </div>
 
         <div className="p-6 rounded-3xl bg-white border border-neutral-200/80 shadow-xs space-y-2">
@@ -458,12 +495,25 @@ export default function OffersAdminPage() {
                       </td>
 
                       <td className="p-4">
-                        <span className="font-black text-neutral-950 text-base font-sans block">
-                          ${Number(o.offer_amount).toLocaleString()}
-                        </span>
-                        <span className="text-[10px] text-neutral-400 font-mono">
-                          {o.currency} verified
-                        </span>
+                        {Number(o.offer_amount) > 1 ? (
+                          <>
+                            <span className="font-black text-neutral-950 text-base font-sans block">
+                              ${Number(o.offer_amount).toLocaleString()}
+                            </span>
+                            <span className="text-[10px] text-neutral-400 font-mono">
+                              {o.currency} verified
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="inline-block px-2.5 py-0.5 rounded-md bg-amber-50 border border-amber-200/80 text-amber-800 font-bold text-xs">
+                              Price on Request
+                            </span>
+                            <span className="text-[10px] text-neutral-400 font-mono block mt-0.5">
+                              Make offer inquiry
+                            </span>
+                          </>
+                        )}
                       </td>
 
                       <td className="p-4 space-y-0.5">
@@ -495,11 +545,23 @@ export default function OffersAdminPage() {
                         </select>
                       </td>
 
-                      <td className="p-4 max-w-xs text-neutral-600 truncate" title={o.notes || ""}>
+                      <td className="p-4 max-w-xs">
                         {o.notes ? (
-                          <span className="font-medium text-xs">{o.notes}</span>
+                          <div className="space-y-1">
+                            <p className="font-medium text-xs text-neutral-700 line-clamp-2">
+                              {o.notes}
+                            </p>
+                            <button
+                              type="button"
+                              onClick={() => setViewNoteOffer(o)}
+                              className="inline-flex items-center gap-1 text-[11px] font-bold text-neutral-900 hover:text-black hover:underline transition-colors cursor-pointer"
+                            >
+                              <FileText className="w-3 h-3 text-neutral-500" />
+                              <span>View Full Notes</span>
+                            </button>
+                          </div>
                         ) : (
-                          <span className="text-neutral-400 italic">No notes</span>
+                          <span className="text-neutral-400 italic text-xs">No notes</span>
                         )}
                       </td>
 
@@ -538,7 +600,84 @@ export default function OffersAdminPage() {
         )}
       </div>
 
-      {/* 5. DEDICATED REPLY MODAL */}
+      {/* 5. DEDICATED FULL NOTE & INQUIRY MODAL */}
+      {viewNoteOffer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-neutral-200 space-y-4">
+            <div className="flex items-start justify-between pb-3 border-b border-neutral-100">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Inquiry &amp; Deal Dossier
+                </span>
+                <h3 className="text-xl font-black text-neutral-950 tracking-tight mt-0.5">
+                  {viewNoteOffer.domain_name || "Domain Asset"}
+                </h3>
+              </div>
+              <button
+                onClick={() => setViewNoteOffer(null)}
+                className="p-1.5 rounded-full text-neutral-400 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200/80">
+                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">Buyer Details</span>
+                <span className="font-bold text-neutral-950 block mt-0.5">{viewNoteOffer.buyer_name}</span>
+                <span className="text-neutral-500 block truncate">{viewNoteOffer.buyer_email}</span>
+                {viewNoteOffer.buyer_phone && <span className="text-neutral-500 block">{viewNoteOffer.buyer_phone}</span>}
+              </div>
+
+              <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200/80">
+                <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">Offer Status</span>
+                <span className="font-extrabold text-neutral-950 text-sm block mt-0.5">
+                  {Number(viewNoteOffer.offer_amount) > 1
+                    ? `$${Number(viewNoteOffer.offer_amount).toLocaleString()} USD`
+                    : "Price on Request"}
+                </span>
+                <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-extrabold mt-1 border capitalize bg-neutral-100 text-neutral-800">
+                  {viewNoteOffer.status.replace("_", " ")}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                Full Inquiry Message &amp; Broker Notes
+              </span>
+              <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 text-xs text-neutral-800 whitespace-pre-wrap leading-relaxed max-h-60 overflow-y-auto font-sans">
+                {viewNoteOffer.notes || "No additional notes recorded."}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-3 border-t border-neutral-100">
+              <button
+                type="button"
+                onClick={() => {
+                  const target = viewNoteOffer;
+                  setViewNoteOffer(null);
+                  handleOpenReplyModal(target);
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black hover:bg-neutral-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
+              >
+                <Mail className="w-3.5 h-3.5 text-neutral-300" />
+                <span>Reply to Buyer</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setViewNoteOffer(null)}
+                className="px-4 py-2 rounded-xl border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 6. DEDICATED REPLY MODAL */}
       {replyModalOpen && replyOffer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
           <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-neutral-200 overflow-y-auto max-h-[92vh] space-y-5">
@@ -685,7 +824,7 @@ export default function OffersAdminPage() {
         </div>
       )}
 
-      {/* 6. DEDICATED DELETE CONFIRMATION MODAL */}
+      {/* 7. DEDICATED DELETE CONFIRMATION MODAL */}
       {deleteModalOpen && offerToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
           <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-neutral-200 space-y-4">
@@ -710,7 +849,11 @@ export default function OffersAdminPage() {
               </div>
               <div>
                 <span className="font-semibold text-neutral-500">Offer Amount:</span>{" "}
-                <span className="font-bold text-black">${Number(offerToDelete.offer_amount).toLocaleString()} USD</span>
+                <span className="font-bold text-black">
+                  {Number(offerToDelete.offer_amount) > 1
+                    ? `$${Number(offerToDelete.offer_amount).toLocaleString()} USD`
+                    : "Price on Request"}
+                </span>
               </div>
             </div>
 
@@ -740,7 +883,7 @@ export default function OffersAdminPage() {
         </div>
       )}
 
-      {/* 7. ADD / EDIT OFFER MODAL */}
+      {/* 8. ADD / EDIT OFFER MODAL */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 overflow-y-auto max-h-[90vh]">
@@ -852,7 +995,7 @@ export default function OffersAdminPage() {
                   Broker Notes &amp; Counter-Offer Strategy
                 </label>
                 <textarea
-                  rows={3}
+                  rows={4}
                   value={form.notes || ""}
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
                   placeholder="Private broker notes, counter-offer details, Escrow link reference..."

@@ -541,6 +541,60 @@ export async function replyToOfferAction(
   }
 }
 
+export async function testBrokerEmailAction() {
+  const apiKey = process.env.RESEND_API_KEY;
+  const toEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "sisorasales@gmail.com";
+
+  if (!apiKey) {
+    return {
+      success: false,
+      error: "RESEND_API_KEY is missing in your Vercel Environment Variables. Please add RESEND_API_KEY in Vercel Settings -> Environment Variables and redeploy.",
+    };
+  }
+
+  const fromEmail = process.env.RESEND_FROM_EMAIL || "Sisora Inquiries <onboarding@resend.dev>";
+  const firstRecipient = toEmail.split(",")[0].trim();
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [firstRecipient],
+        subject: `[Sisora Brokerage] Live Test Email (${new Date().toLocaleTimeString()})`,
+        html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 24px; color: #111; max-width: 500px; margin: 0 auto; border: 1px solid #e5e5e5; border-radius: 12px;">
+          <h2 style="margin-top: 0; color: #000;">Sisora Email Dispatch Connected!</h2>
+          <p style="font-size: 14px; line-height: 1.5; color: #333;">
+            This confirms that your <strong>RESEND_API_KEY</strong> is working and your server can successfully send notifications to <strong>${firstRecipient}</strong>.
+          </p>
+          <div style="background: #f5f5f5; padding: 12px; border-radius: 8px; font-size: 12px; color: #666;">
+            Timestamp: ${new Date().toISOString()}
+          </div>
+        </div>`,
+      }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      return {
+        success: false,
+        error: `Resend returned: ${data.message || JSON.stringify(data)}`,
+      };
+    }
+
+    return { success: true, message: `Live test email delivered to ${firstRecipient}!` };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Network error contacting Resend API",
+    };
+  }
+}
+
 // ============================================================================
 // 6. TRACK RECORD (CATEGORIES, DEALS, SETTINGS)
 // ============================================================================

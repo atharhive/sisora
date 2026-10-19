@@ -32,6 +32,7 @@ export function InquiryForm({
     name: "",
     email: "",
     phone: "",
+    offerPrice: "",
     message: "",
     type: initialType,
   });
@@ -48,6 +49,7 @@ export function InquiryForm({
       name: formData.name.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim() || undefined,
+      offerPrice: formData.offerPrice.trim() || undefined,
       message: formData.message.trim() || undefined,
       type: formData.type || "buy",
     };
@@ -72,6 +74,11 @@ export function InquiryForm({
   const getMailtoLink = () => {
     const targetDomain = formData.domainName || initialDomainName || "SISORA Domain";
     const subject = `[Domain Inquiry] ${targetDomain} - from ${formData.name || "Buyer"}`;
+    const cleanPrice = formData.offerPrice.trim()
+      ? parseFloat(formData.offerPrice.replace(/[^0-9.]/g, "")) || 0
+      : 0;
+    const priceStr = cleanPrice > 0 ? `$${cleanPrice.toLocaleString()} USD` : "Price on Request / Inquire";
+
     const body = `Hello SISORA Brokerage Team,
 
 I am interested in inquiring about the domain: ${targetDomain}
@@ -81,6 +88,7 @@ Name: ${formData.name}
 Email: ${formData.email}
 Phone / Telegram: ${formData.phone || "Not provided"}
 Inquiry Type: ${formData.type.toUpperCase()}
+Offer / Target Budget: ${priceStr}
 
 --- Message / Offer Details ---
 ${formData.message || "Please provide acquisition terms, pricing, and escrow options."}
@@ -108,6 +116,9 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
 
     try {
       const targetDomain = formData.domainName || initialDomainName || "General Inquiry";
+      const cleanPrice = formData.offerPrice.trim()
+        ? parseFloat(formData.offerPrice.replace(/[^0-9.]/g, "")) || 0
+        : 0;
 
       // 1. Save directly into Supabase database / Admin Panel Offers pipeline
       const res = await submitOfferAction({
@@ -116,8 +127,8 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
         buyer_name: formData.name.trim(),
         buyer_email: formData.email.trim(),
         buyer_phone: formData.phone.trim() || undefined,
-        offer_amount: 1, // Represents inquiry / make offer status
-        notes: `[Inquiry Type: ${formData.type}] ${formData.message.trim() || "General acquisition request"}`,
+        offer_amount: cleanPrice, // 0 = Price on Request
+        notes: `[Inquiry Type: ${formData.type}]${cleanPrice > 0 ? ` [Proposed Offer: $${cleanPrice.toLocaleString()} USD]` : " [Pricing: On Request]"} ${formData.message.trim() || "General acquisition request"}`,
       });
 
       if (res?.error) {
@@ -160,6 +171,17 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
             <span>Open Email App</span>
           </a>
           <a
+            href={SITE_CONFIG.social.twitter || "https://x.com/SisoraBrokerage"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-900 hover:bg-neutral-100 transition-colors shadow-2xs"
+          >
+            <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            <span>Chat on X</span>
+          </a>
+          <a
             href={getTelegramLink()}
             target="_blank"
             rel="noopener noreferrer"
@@ -180,6 +202,7 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
                 name: "",
                 email: "",
                 phone: "",
+                offerPrice: "",
                 message: "",
                 type: initialType,
               });
@@ -242,13 +265,21 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
         />
       </div>
 
-      <Input
-        label="Phone / Telegram (Optional)"
-        placeholder="+1 (555) 000-0000 or @handle"
-        value={formData.phone}
-        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-        error={errors.phone}
-      />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Input
+          label="Offer Amount / Budget ($ USD)"
+          placeholder="e.g. 5,000 (Optional - leave blank for price quote)"
+          value={formData.offerPrice}
+          onChange={(e) => setFormData({ ...formData, offerPrice: e.target.value })}
+        />
+        <Input
+          label="Phone / Telegram (Optional)"
+          placeholder="+1 (555) 000-0000 or @handle"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          error={errors.phone}
+        />
+      </div>
 
       <Textarea
         label="Inquiry Message (Optional)"

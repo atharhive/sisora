@@ -11,7 +11,7 @@ const offerSchema = z.object({
   buyer_name: z.string().min(2, "Please enter your full name"),
   buyer_email: z.string().email("Please enter a valid email address"),
   buyer_phone: z.string().optional(),
-  offer_amount: z.number().positive("Offer amount must be greater than zero"),
+  offer_amount: z.number().min(0, "Offer amount must be zero or positive"),
   notes: z.string().max(2000).optional(),
 });
 

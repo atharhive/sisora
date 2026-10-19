@@ -17,6 +17,7 @@ export const inquiryFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
   email: z.email("Please enter a valid email"),
   phone: z.string().max(60).optional(),
+  offerPrice: z.string().max(100).optional(),
   message: z.string().max(2000).optional(),
   type: z.enum(["buy", "sell", "general"]).default("buy"),
 });

@@ -136,6 +136,17 @@ Submitted via SISORA Investor Portal (sisora.si)`;
             <span>Open Email Client</span>
           </a>
           <a
+            href={SITE_CONFIG.social.twitter || "https://x.com/SisoraBrokerage"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors shadow-2xs"
+          >
+            <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            <span>Chat on X</span>
+          </a>
+          <a
             href={getTelegramLink()}
             target="_blank"
             rel="noopener noreferrer"
