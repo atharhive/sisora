@@ -14,6 +14,8 @@ import {
   DollarSign,
   ArrowUpDown,
   AlertCircle,
+  ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import {
   getDomainTypes,
@@ -200,19 +202,19 @@ export default function FiltersTaxonomyPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-6xl">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-neutral-200 shadow-xs">
-        <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-neutral-100 text-[11px] font-semibold text-neutral-700 mb-2">
-            <SlidersHorizontal className="w-3.5 h-3.5" />
-            <span>Dynamic Taxonomies &amp; Search Engine</span>
+    <div className="space-y-6">
+      {/* 1. HEADER DECK */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-neutral-200/80 shadow-xs">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 text-[11px] font-bold uppercase tracking-wider text-neutral-700">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-900" />
+            <span>Search Engine &amp; Marketplace Filters</span>
           </div>
-          <h2 className="text-xl font-bold tracking-tight text-neutral-900">
-            Filter &amp; Taxonomy Configuration
+          <h2 className="text-2xl font-black tracking-tight text-neutral-950">
+            Taxonomy &amp; Filter Architecture
           </h2>
-          <p className="mt-1 text-xs text-neutral-500">
-            Manage domain types, industry sectors, and valuation brackets. All changes reflect live on the website immediately.
+          <p className="text-xs text-neutral-500 font-medium">
+            Customize domain types, industry sectors, and valuation brackets without touching any code.
           </p>
         </div>
 
@@ -220,41 +222,50 @@ export default function FiltersTaxonomyPage() {
           {activeTab === "types" && (
             <button
               onClick={() => handleOpenTypeModal()}
-              className="inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors shadow-xs cursor-pointer"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 text-xs font-bold text-white hover:bg-neutral-800 transition-all shadow-md active:scale-[0.98] cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-4 h-4 text-neutral-300" />
               <span>Add Domain Type</span>
+              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                <ArrowRight className="w-3 h-3 text-white" />
+              </div>
             </button>
           )}
           {activeTab === "categories" && (
             <button
               onClick={() => handleOpenCatModal()}
-              className="inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors shadow-xs cursor-pointer"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 text-xs font-bold text-white hover:bg-neutral-800 transition-all shadow-md active:scale-[0.98] cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
-              <span>Add Category</span>
+              <Plus className="w-4 h-4 text-neutral-300" />
+              <span>Add Filter Category</span>
+              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                <ArrowRight className="w-3 h-3 text-white" />
+              </div>
             </button>
           )}
           {activeTab === "valuations" && (
             <button
               onClick={() => handleOpenValModal()}
-              className="inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors shadow-xs cursor-pointer"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 text-xs font-bold text-white hover:bg-neutral-800 transition-all shadow-md active:scale-[0.98] cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
-              <span>Add Valuation Range</span>
+              <Plus className="w-4 h-4 text-neutral-300" />
+              <span>Add Valuation Bracket</span>
+              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                <ArrowRight className="w-3 h-3 text-white" />
+              </div>
             </button>
           )}
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-neutral-200 pb-px">
+      {/* 2. PILL SEGMENT TABS */}
+      <div className="flex items-center gap-2 p-1.5 bg-neutral-200/60 rounded-2xl w-fit">
         <button
           onClick={() => setActiveTab("types")}
-          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all border-b-2 cursor-pointer ${
+          className={`flex items-center gap-2 px-5 py-2.5 text-xs font-extrabold rounded-xl transition-all cursor-pointer ${
             activeTab === "types"
-              ? "border-black text-black bg-white shadow-2xs"
-              : "border-transparent text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100/50"
+              ? "bg-white text-black shadow-sm"
+              : "text-neutral-600 hover:text-black hover:bg-white/40"
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -263,208 +274,206 @@ export default function FiltersTaxonomyPage() {
 
         <button
           onClick={() => setActiveTab("categories")}
-          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all border-b-2 cursor-pointer ${
+          className={`flex items-center gap-2 px-5 py-2.5 text-xs font-extrabold rounded-xl transition-all cursor-pointer ${
             activeTab === "categories"
-              ? "border-black text-black bg-white shadow-2xs"
-              : "border-transparent text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100/50"
+              ? "bg-white text-black shadow-sm"
+              : "text-neutral-600 hover:text-black hover:bg-white/40"
           }`}
         >
           <FolderTree className="w-4 h-4" />
-          <span>Filter Categories ({categories.length})</span>
+          <span>Industry Categories ({categories.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab("valuations")}
-          className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all border-b-2 cursor-pointer ${
+          className={`flex items-center gap-2 px-5 py-2.5 text-xs font-extrabold rounded-xl transition-all cursor-pointer ${
             activeTab === "valuations"
-              ? "border-black text-black bg-white shadow-2xs"
-              : "border-transparent text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100/50"
+              ? "bg-white text-black shadow-sm"
+              : "text-neutral-600 hover:text-black hover:bg-white/40"
           }`}
         >
           <DollarSign className="w-4 h-4" />
-          <span>Valuation Ranges ({valuations.length})</span>
+          <span>Valuation Brackets ({valuations.length})</span>
         </button>
       </div>
 
-      {/* Tab 1: Types */}
-      {activeTab === "types" && (
-        <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden shadow-xs">
-          <div className="p-4 border-b border-neutral-100 bg-neutral-50/50 flex items-center justify-between text-xs text-neutral-500 font-semibold">
-            <span>Type Label</span>
-            <span>Display Order / Actions</span>
-          </div>
-
-          {loading ? (
-            <div className="p-12 text-center">
-              <Loader2 className="w-6 h-6 animate-spin mx-auto text-neutral-400 mb-2" />
-              <p className="text-xs text-neutral-500">Loading domain types...</p>
-            </div>
-          ) : types.length === 0 ? (
-            <div className="p-8 text-center text-xs text-neutral-500">No domain types defined yet.</div>
-          ) : (
-            <div className="divide-y divide-neutral-100">
+      {/* 3. CONTENT AREA */}
+      {loading ? (
+        <div className="p-20 text-center bg-white rounded-3xl border border-neutral-200/80">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto text-neutral-400 mb-3" />
+          <p className="text-xs text-neutral-500 font-mono">Loading filter definitions...</p>
+        </div>
+      ) : (
+        <>
+          {/* TAB 1: DOMAIN TYPES */}
+          {activeTab === "types" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {types.map((t) => (
-                <div key={t.id} className="p-4 flex items-center justify-between hover:bg-neutral-50/60 transition-colors">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-neutral-900">{t.label}</span>
-                      <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded">
+                <div
+                  key={t.id}
+                  className="p-5 rounded-3xl bg-white border border-neutral-200/80 hover:border-black transition-all flex flex-col justify-between space-y-4 shadow-xs"
+                >
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400 bg-neutral-100 px-2 py-0.5 rounded-md">
+                        Order #{t.display_order}
+                      </span>
+                      <span className="text-[10px] font-mono text-neutral-500">
                         slug: {t.slug}
                       </span>
                     </div>
+                    <h4 className="text-lg font-black text-neutral-950 tracking-tight">
+                      {t.label}
+                    </h4>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs text-neutral-400 font-medium">Order: {t.display_order}</span>
-                    <button
-                      onClick={() => handleOpenTypeModal(t)}
-                      className="p-1.5 rounded-lg text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
-                      title="Edit"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteType(t.id, t.label)}
-                      className="p-1.5 rounded-lg text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                  <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      ● Active Filter
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handleOpenTypeModal(t)}
+                        className="p-2 rounded-xl text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
+                        title="Edit Type"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteType(t.id, t.label)}
+                        className="p-2 rounded-xl text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                        title="Delete Type"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </div>
-      )}
 
-      {/* Tab 2: Categories */}
-      {activeTab === "categories" && (
-        <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden shadow-xs">
-          <div className="p-4 border-b border-neutral-100 bg-neutral-50/50 flex items-center justify-between text-xs text-neutral-500 font-semibold">
-            <span>Category Name</span>
-            <span>Display Order / Actions</span>
-          </div>
-
-          {loading ? (
-            <div className="p-12 text-center">
-              <Loader2 className="w-6 h-6 animate-spin mx-auto text-neutral-400 mb-2" />
-              <p className="text-xs text-neutral-500">Loading categories...</p>
-            </div>
-          ) : categories.length === 0 ? (
-            <div className="p-8 text-center text-xs text-neutral-500">No categories found.</div>
-          ) : (
-            <div className="divide-y divide-neutral-100">
+          {/* TAB 2: CATEGORIES */}
+          {activeTab === "categories" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {categories.map((c) => (
-                <div key={c.id} className="p-4 flex items-center justify-between hover:bg-neutral-50/60 transition-colors">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-neutral-900">{c.name}</span>
-                      <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded">
+                <div
+                  key={c.id}
+                  className="p-5 rounded-3xl bg-white border border-neutral-200/80 hover:border-black transition-all flex flex-col justify-between space-y-4 shadow-xs"
+                >
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400 bg-neutral-100 px-2 py-0.5 rounded-md">
+                        Order #{c.display_order}
+                      </span>
+                      <span className="text-[10px] font-mono text-neutral-500">
                         slug: {c.slug}
                       </span>
                     </div>
+                    <h4 className="text-lg font-black text-neutral-950 tracking-tight">
+                      {c.name}
+                    </h4>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs text-neutral-400 font-medium">Order: {c.display_order}</span>
-                    <button
-                      onClick={() => handleOpenCatModal(c)}
-                      className="p-1.5 rounded-lg text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
-                      title="Edit"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteCategory(c.id, c.name)}
-                      className="p-1.5 rounded-lg text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                  <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      ● Live Category
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handleOpenCatModal(c)}
+                        className="p-2 rounded-xl text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
+                        title="Edit Category"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCategory(c.id, c.name)}
+                        className="p-2 rounded-xl text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                        title="Delete Category"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </div>
-      )}
 
-      {/* Tab 3: Valuations */}
-      {activeTab === "valuations" && (
-        <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden shadow-xs">
-          <div className="p-4 border-b border-neutral-100 bg-neutral-50/50 flex items-center justify-between text-xs text-neutral-500 font-semibold">
-            <span>Valuation Bracket</span>
-            <span>Range Details &amp; Actions</span>
-          </div>
-
-          {loading ? (
-            <div className="p-12 text-center">
-              <Loader2 className="w-6 h-6 animate-spin mx-auto text-neutral-400 mb-2" />
-              <p className="text-xs text-neutral-500">Loading valuation ranges...</p>
-            </div>
-          ) : valuations.length === 0 ? (
-            <div className="p-8 text-center text-xs text-neutral-500">No valuation categories found.</div>
-          ) : (
-            <div className="divide-y divide-neutral-100">
+          {/* TAB 3: VALUATIONS */}
+          {activeTab === "valuations" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {valuations.map((v) => (
-                <div key={v.id} className="p-4 flex items-center justify-between hover:bg-neutral-50/60 transition-colors">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-neutral-900">{v.label}</span>
+                <div
+                  key={v.id}
+                  className="p-5 rounded-3xl bg-white border border-neutral-200/80 hover:border-black transition-all flex flex-col justify-between space-y-4 shadow-xs"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400 bg-neutral-100 px-2 py-0.5 rounded-md">
+                        Order #{v.display_order}
+                      </span>
                       {v.is_make_offer && (
-                        <span className="text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 rounded">
-                          Make an Offer Bracket
+                        <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                          Make Offer Bracket
                         </span>
                       )}
                     </div>
-                    <p className="mt-0.5 text-xs text-neutral-500">
+                    <h4 className="text-lg font-black text-neutral-950 tracking-tight">
+                      {v.label}
+                    </h4>
+                    <p className="text-xs text-neutral-500">
                       {v.is_make_offer
-                        ? "Catches all domains with no fixed price"
-                        : `$${(v.min_price || 0).toLocaleString()} – ${v.max_price ? `$${v.max_price.toLocaleString()}` : "Above"}`}
+                        ? "Filters domains with unlisted/negotiable prices"
+                        : `$${(v.min_price || 0).toLocaleString()} – ${v.max_price ? `$${v.max_price.toLocaleString()}` : "Unlimited"}`}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs text-neutral-400 font-medium">Order: {v.display_order}</span>
-                    <button
-                      onClick={() => handleOpenValModal(v)}
-                      className="p-1.5 rounded-lg text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
-                      title="Edit"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteValuation(v.id, v.label)}
-                      className="p-1.5 rounded-lg text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                  <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      ● Active Bracket
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handleOpenValModal(v)}
+                        className="p-2 rounded-xl text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
+                        title="Edit Range"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteValuation(v.id, v.label)}
+                        className="p-2 rounded-xl text-neutral-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                        title="Delete Range"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </div>
+        </>
       )}
 
       {/* MODAL FOR TYPES */}
       {modalOpen && activeTab === "types" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-neutral-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-neutral-200">
             <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <h3 className="text-base font-bold text-neutral-900">
-                {modalMode === "add" ? "Add Domain Type" : "Edit Domain Type"}
+              <h3 className="text-lg font-black text-neutral-950 tracking-tight">
+                {modalMode === "add" ? "Create Domain Type" : "Edit Domain Type"}
               </h3>
               <button onClick={() => setModalOpen(false)} className="text-neutral-400 hover:text-black cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveType} className="mt-4 space-y-4">
+            <form onSubmit={handleSaveType} className="mt-5 space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
                   Type Label (e.g. One-word, Two-Word, LL, Brandable)
                 </label>
                 <input
@@ -472,13 +481,13 @@ export default function FiltersTaxonomyPage() {
                   required
                   value={typeForm.label || ""}
                   onChange={(e) => setTypeForm({ ...typeForm, label: e.target.value })}
-                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm font-semibold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
                   placeholder="e.g. 4-Letter Brandable"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
                   Display Order
                 </label>
                 <input
@@ -493,14 +502,14 @@ export default function FiltersTaxonomyPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
+                  className="px-4 py-2 rounded-full border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer shadow-md"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{modalMode === "add" ? "Create Type" : "Save Changes"}</span>
@@ -513,34 +522,34 @@ export default function FiltersTaxonomyPage() {
 
       {/* MODAL FOR CATEGORIES */}
       {modalOpen && activeTab === "categories" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-neutral-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-neutral-200">
             <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <h3 className="text-base font-bold text-neutral-900">
-                {modalMode === "add" ? "Add Filter Category" : "Edit Filter Category"}
+              <h3 className="text-lg font-black text-neutral-950 tracking-tight">
+                {modalMode === "add" ? "Create Filter Category" : "Edit Filter Category"}
               </h3>
               <button onClick={() => setModalOpen(false)} className="text-neutral-400 hover:text-black cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveCategory} className="mt-4 space-y-4">
+            <form onSubmit={handleSaveCategory} className="mt-5 space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                  Category Name (e.g. Fintech &amp; Wealth, AI &amp; Robotics)
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
+                  Category Name
                 </label>
                 <input
                   type="text"
                   required
                   value={catForm.name || ""}
                   onChange={(e) => setCatForm({ ...catForm, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm font-semibold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
                   placeholder="e.g. Artificial Intelligence"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
                   Display Order
                 </label>
                 <input
@@ -555,14 +564,14 @@ export default function FiltersTaxonomyPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
+                  className="px-4 py-2 rounded-full border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer shadow-md"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>{modalMode === "add" ? "Create Category" : "Save Changes"}</span>
@@ -573,30 +582,30 @@ export default function FiltersTaxonomyPage() {
         </div>
       )}
 
-      {/* MODAL FOR VALUATION RANGES */}
+      {/* MODAL FOR VALUATIONS */}
       {modalOpen && activeTab === "valuations" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-neutral-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-neutral-200">
             <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <h3 className="text-base font-bold text-neutral-900">
-                {modalMode === "add" ? "Add Valuation Range" : "Edit Valuation Range"}
+              <h3 className="text-lg font-black text-neutral-950 tracking-tight">
+                {modalMode === "add" ? "Create Valuation Bracket" : "Edit Valuation Bracket"}
               </h3>
               <button onClick={() => setModalOpen(false)} className="text-neutral-400 hover:text-black cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveValuation} className="mt-4 space-y-4">
+            <form onSubmit={handleSaveValuation} className="mt-5 space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                  Range Label (e.g. Under $10,000, $25,000 – $50,000, Make an Offer)
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
+                  Range Label
                 </label>
                 <input
                   type="text"
                   required
                   value={valForm.label || ""}
                   onChange={(e) => setValForm({ ...valForm, label: e.target.value })}
-                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm font-semibold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
                   placeholder="e.g. $10,000 – $25,000"
                 />
               </div>
@@ -607,17 +616,17 @@ export default function FiltersTaxonomyPage() {
                   id="make_offer_check"
                   checked={valForm.is_make_offer || false}
                   onChange={(e) => setValForm({ ...valForm, is_make_offer: e.target.checked })}
-                  className="rounded text-black focus:ring-black"
+                  className="w-4 h-4 rounded text-black focus:ring-black cursor-pointer"
                 />
-                <label htmlFor="make_offer_check" className="text-xs font-semibold text-neutral-800 cursor-pointer">
-                  This is the &quot;Make an Offer&quot; category (No price bounds)
+                <label htmlFor="make_offer_check" className="text-xs font-bold text-neutral-800 cursor-pointer">
+                  &quot;Make an Offer&quot; bracket (No fixed price bounds)
                 </label>
               </div>
 
               {!valForm.is_make_offer && (
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
                       Min Price ($ USD)
                     </label>
                     <input
@@ -630,12 +639,12 @@ export default function FiltersTaxonomyPage() {
                         })
                       }
                       placeholder="0"
-                      className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                      className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs font-semibold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
                       Max Price ($ USD)
                     </label>
                     <input
@@ -648,21 +657,21 @@ export default function FiltersTaxonomyPage() {
                         })
                       }
                       placeholder="Leave empty for unlimited"
-                      className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                      className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs font-semibold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-700 mb-1">
                   Display Order
                 </label>
                 <input
                   type="number"
                   value={valForm.display_order ?? 0}
                   onChange={(e) => setValForm({ ...valForm, display_order: Number(e.target.value) })}
-                  className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs font-semibold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
 
@@ -670,17 +679,17 @@ export default function FiltersTaxonomyPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
+                  className="px-4 py-2 rounded-full border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer shadow-md"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-                  <span>{modalMode === "add" ? "Create Valuation Range" : "Save Changes"}</span>
+                  <span>{modalMode === "add" ? "Create Bracket" : "Save Changes"}</span>
                 </button>
               </div>
             </form>
