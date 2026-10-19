@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const { email, password } = await req.json();
+    const { email, password, rememberDevice } = await req.json();
 
     if (!password) {
       return NextResponse.json({ error: "Password is required." }, { status: 400 });
@@ -102,16 +102,23 @@ export async function POST(req: NextRequest) {
     // Reset failed attempts on success
     loginAttempts.delete(ip);
 
-    // Set secure HTTP-only session cookie
-    response.cookies.set({
+    // Set secure HTTP-only session cookie.
+    // If rememberDevice is true: persist for 30 days.
+    // If rememberDevice is false (default): standard browser session cookie (cleared when browser closes).
+    const cookieOptions: Record<string, unknown> = {
       name: "sisora_admin_session",
       value: "authenticated",
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
       path: "/",
-    });
+    };
+
+    if (rememberDevice) {
+      cookieOptions.maxAge = 60 * 60 * 24 * 30; // 30 days
+    }
+
+    response.cookies.set(cookieOptions as any);
 
     return response;
   } catch (err: any) {

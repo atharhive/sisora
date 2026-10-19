@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Lock,
@@ -11,8 +12,9 @@ import {
   EyeOff,
   ShieldCheck,
   Mail,
-  Sparkles,
-  KeyRound,
+  ArrowLeft,
+  CheckSquare,
+  Square,
 } from "lucide-react";
 
 function LoginForm() {
@@ -22,6 +24,7 @@ function LoginForm() {
 
   const [email, setEmail] = useState("admin@sisora.si");
   const [password, setPassword] = useState("");
+  const [rememberDevice, setRememberDevice] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +44,7 @@ function LoginForm() {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, rememberDevice }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -62,6 +65,20 @@ function LoginForm() {
 
   return (
     <div className="relative w-full max-w-md mx-auto">
+      {/* Return to website link */}
+      <div className="mb-4 flex items-center justify-between">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-400 hover:text-white transition-colors group"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+          <span>Back to Sisora Website</span>
+        </Link>
+        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
+          v2.4 SECURE
+        </span>
+      </div>
+
       {/* Outer subtle glow */}
       <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-b from-neutral-800 to-neutral-900 opacity-60 blur-xl pointer-events-none" />
 
@@ -85,7 +102,7 @@ function LoginForm() {
               <span>Restricted Terminal</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            <h1 className="text-2xl font-black tracking-tight text-white">
               SISORA Console
             </h1>
             <p className="mt-1 text-xs text-neutral-400 font-medium">
@@ -166,7 +183,27 @@ function LoginForm() {
                 </div>
               </div>
 
-              <div className="pt-2">
+              {/* Remember this device option */}
+              <div className="pt-1">
+                <label className="flex items-start gap-2.5 cursor-pointer select-none group">
+                  <input
+                    type="checkbox"
+                    checked={rememberDevice}
+                    onChange={(e) => setRememberDevice(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 rounded border-neutral-700 bg-neutral-900 text-white focus:ring-0 focus:outline-none cursor-pointer"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-neutral-300 group-hover:text-white transition-colors">
+                      Save login on this device
+                    </span>
+                    <span className="text-[10px] text-neutral-500 font-normal leading-tight">
+                      Leave unchecked to require email &amp; password every session.
+                    </span>
+                  </div>
+                </label>
+              </div>
+
+              <div className="pt-3">
                 <button
                   type="submit"
                   disabled={loading}

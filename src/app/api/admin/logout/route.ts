@@ -25,8 +25,15 @@ export async function POST(req: NextRequest) {
     await supabase.auth.signOut();
   }
 
-  // Clear legacy cookie
+  // Clear legacy and SSR session cookies
   response.cookies.delete("sisora_admin_session");
+  response.cookies.set("sisora_admin_session", "", {
+    path: "/",
+    maxAge: 0,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
 
   return response;
 }

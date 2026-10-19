@@ -14,7 +14,8 @@ import {
   X,
   ExternalLink,
   ShieldCheck,
-  Sparkles,
+  ArrowLeft,
+  ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdmin } from "./AdminContext";
@@ -80,45 +81,62 @@ export function Sidebar() {
   const navContent = (
     <div className="flex flex-col h-full bg-[#090b0e] text-white select-none border-r border-neutral-800/80">
       {/* Brand Header */}
-      <div className="flex items-center justify-between px-6 h-20 border-b border-neutral-800/70">
+      <div className="flex items-center justify-between px-5 h-16 border-b border-neutral-800/70">
         <Link
           href="/admin"
           onClick={() => setSidebarOpen(false)}
-          className="flex items-center gap-3 group"
+          className="flex items-center gap-2.5 group"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-b from-neutral-800 to-neutral-900 border border-neutral-700/80 flex items-center justify-center text-white font-black text-base tracking-tight shadow-md group-hover:scale-105 transition-all">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-neutral-800 to-neutral-900 border border-neutral-700/80 flex items-center justify-center text-white font-black text-sm tracking-tight shadow-md group-hover:scale-105 transition-all">
             <span className="bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent">
               S
             </span>
           </div>
           <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold tracking-tight text-base text-white">
+            <div className="flex items-center gap-1.5">
+              <span className="font-extrabold tracking-tight text-sm text-white">
                 SISORA
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
-            <span className="text-[10px] text-neutral-400 font-mono tracking-wider uppercase -mt-0.5">
-              .SI BROKERAGE TERMINAL
+            <span className="text-[9px] text-neutral-400 font-mono tracking-wider uppercase">
+              Admin Terminal
             </span>
           </div>
         </Link>
 
-        {/* Mobile close */}
+        {/* Mobile close button */}
         <button
           type="button"
           onClick={() => setSidebarOpen(false)}
-          className="lg:hidden p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
-          aria-label="Close menu"
+          className="lg:hidden p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+          aria-label="Close navigation"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Navigation Group */}
-      <div className="flex-1 py-6 px-3.5 space-y-1.5 overflow-y-auto">
-        <div className="px-3 pb-2 text-[10px] font-bold tracking-[0.2em] text-neutral-500 uppercase">
-          Workspace
+      {/* Primary Return to Live Website Action */}
+      <div className="p-3 border-b border-neutral-800/60 bg-white/[0.02]">
+        <Link
+          href="/"
+          onClick={() => setSidebarOpen(false)}
+          className="group flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-neutral-300 hover:text-white hover:bg-white/10 transition-all border border-neutral-800/80 hover:border-neutral-700"
+        >
+          <div className="flex items-center gap-2">
+            <ArrowLeft className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white group-hover:-translate-x-0.5 transition-transform" />
+            <span>Back to Public Site</span>
+          </div>
+          <span className="text-[9px] font-mono text-neutral-400 bg-neutral-800 px-1.5 py-0.5 rounded">
+            sisora.si
+          </span>
+        </Link>
+      </div>
+
+      {/* Navigation Links */}
+      <div className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+        <div className="px-3 pb-2 text-[9px] font-bold tracking-[0.2em] text-neutral-500 uppercase">
+          Navigation
         </div>
 
         {navItems.map((item) => {
@@ -130,13 +148,13 @@ export function Sidebar() {
               href={item.href}
               onClick={() => setSidebarOpen(false)}
               className={cn(
-                "relative group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150",
+                "relative group flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150",
                 active
-                  ? "bg-white text-black shadow-md font-bold"
+                  ? "bg-white text-black shadow-sm font-bold"
                   : "text-neutral-400 hover:text-white hover:bg-white/5"
               )}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <Icon
                   className={cn(
                     "w-4 h-4 shrink-0 transition-colors",
@@ -163,27 +181,11 @@ export function Sidebar() {
         })}
       </div>
 
-      {/* Footer / Live Website & User Card */}
-      <div className="p-3.5 border-t border-neutral-800/70 space-y-2 bg-black/20">
-        <Link
-          href="/"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs text-neutral-400 hover:text-white hover:bg-white/5 transition-colors font-medium border border-transparent hover:border-white/10"
-        >
-          <span className="flex items-center gap-2">
-            <ExternalLink className="w-3.5 h-3.5 text-neutral-500" />
-            <span>Open Public Portal</span>
-          </span>
-          <span className="text-[10px] font-mono text-neutral-400 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded">
-            sisora.si ↗
-          </span>
-        </Link>
-
-        {/* User Card */}
-        <div className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-neutral-800 border border-neutral-700/80 flex items-center justify-center text-xs font-bold text-white shrink-0">
+      {/* Footer / User Card & Sign Out */}
+      <div className="p-3 border-t border-neutral-800/70 space-y-2 bg-black/20">
+        <div className="p-2 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-7 h-7 rounded-lg bg-neutral-800 border border-neutral-700/80 flex items-center justify-center text-xs font-bold text-white shrink-0">
               A
             </div>
             <div className="flex flex-col min-w-0">
@@ -202,7 +204,7 @@ export function Sidebar() {
             title="Sign out of console"
             className="p-1.5 text-neutral-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer shrink-0"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
@@ -212,15 +214,15 @@ export function Sidebar() {
   return (
     <>
       {/* Desktop Persistent Sidebar */}
-      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 z-30">
-        <div className="sticky top-0 h-screen w-64">{navContent}</div>
+      <aside className="hidden lg:flex lg:flex-col lg:w-60 lg:shrink-0 z-30">
+        <div className="sticky top-0 h-screen w-60">{navContent}</div>
       </aside>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Navigation Drawer */}
       {sidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
+            className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
             onClick={() => setSidebarOpen(false)}
           />
           <div className="relative w-72 max-w-[85vw] h-full shadow-2xl z-10 animate-in slide-in-from-left duration-200">
