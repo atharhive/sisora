@@ -542,8 +542,10 @@ export async function replyToOfferAction(
 }
 
 export async function testBrokerEmailAction() {
-  const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "sisorasales@gmail.com";
+  const rawKey = process.env.RESEND_API_KEY || "";
+  const apiKey = rawKey.trim().replace(/^["']|["']$/g, "").trim();
+  const rawTo = process.env.ADMIN_NOTIFICATION_EMAIL || "atharjamalmakki@gmail.com";
+  const toEmail = rawTo.replace(/["']/g, "").trim();
 
   if (!apiKey) {
     return {
@@ -552,7 +554,7 @@ export async function testBrokerEmailAction() {
     };
   }
 
-  const fromEmail = process.env.RESEND_FROM_EMAIL || "Sisora Inquiries <onboarding@resend.dev>";
+  const fromEmail = (process.env.RESEND_FROM_EMAIL || "Sisora Inquiries <onboarding@resend.dev>").replace(/^["']|["']$/g, "").trim();
   const firstRecipient = toEmail.split(",")[0].trim();
 
   try {

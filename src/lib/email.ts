@@ -19,10 +19,18 @@ export interface InquiryEmailPayload {
  * - ADMIN_NOTIFICATION_EMAIL: Recipient email (defaults to sisorasales@gmail.com)
  * - RESEND_FROM_EMAIL: Sender email (defaults to "Sisora Inquiries <onboarding@resend.dev>")
  */
+function getCleanApiKey(): string | undefined {
+  const raw = process.env.RESEND_API_KEY;
+  if (!raw) return undefined;
+  const cleaned = raw.trim().replace(/^["']|["']$/g, "").trim();
+  return cleaned || undefined;
+}
+
 export async function sendInquiryNotificationEmail(payload: InquiryEmailPayload) {
-  const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.ADMIN_NOTIFICATION_EMAIL || SITE_CONFIG.contact.email || "sisorasales@gmail.com";
-  const fromEmail = process.env.RESEND_FROM_EMAIL || "Sisora Inquiries <onboarding@resend.dev>";
+  const apiKey = getCleanApiKey();
+  const rawToEmail = process.env.ADMIN_NOTIFICATION_EMAIL || SITE_CONFIG.contact.email || "sisorasales@gmail.com";
+  const toEmail = rawToEmail.replace(/["']/g, "").trim();
+  const fromEmail = (process.env.RESEND_FROM_EMAIL || "Sisora Inquiries <onboarding@resend.dev>").replace(/^["']|["']$/g, "").trim();
 
   const domain = payload.domain_name || "Domain Asset";
   const amountStr =
@@ -201,7 +209,7 @@ export async function sendDirectReplyEmail(payload: {
   body: string;
   domain_name?: string;
 }) {
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = getCleanApiKey();
   if (!apiKey) {
     return {
       sent: false,
@@ -209,8 +217,8 @@ export async function sendDirectReplyEmail(payload: {
     };
   }
 
-  const fromEmail = process.env.RESEND_FROM_EMAIL || "Sisora Brokerage <onboarding@resend.dev>";
-  const replyTo = process.env.ADMIN_NOTIFICATION_EMAIL || "sisorasales@gmail.com";
+  const fromEmail = (process.env.RESEND_FROM_EMAIL || "Sisora Brokerage <onboarding@resend.dev>").replace(/^["']|["']$/g, "").trim();
+  const replyTo = (process.env.ADMIN_NOTIFICATION_EMAIL || "sisorasales@gmail.com").replace(/["']/g, "").trim();
 
   try {
     const res = await fetch("https://api.resend.com/emails", {

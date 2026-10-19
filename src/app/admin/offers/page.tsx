@@ -302,7 +302,15 @@ export default function OffersAdminPage() {
     setSendingReply(false);
 
     if (res.error) {
-      toastError(res.error);
+      const isSandboxIssue =
+        res.error.includes("Sandbox") ||
+        res.error.includes("own email address") ||
+        res.error.includes("validation_error");
+      toastError(
+        isSandboxIssue
+          ? "Resend test sandbox cannot email external buyers. Click 'Open in Gmail Web' to reply instantly!"
+          : res.error
+      );
     } else {
       success(`Email sent directly to ${replyOffer.buyer_email}!`);
       setReplyModalOpen(false);
@@ -775,6 +783,10 @@ export default function OffersAdminPage() {
 
             {/* Actions Grid */}
             <div className="pt-3 border-t border-neutral-100 space-y-2.5">
+              <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-[11px] text-neutral-600 leading-relaxed">
+                <span className="font-semibold text-neutral-900">Recommended:</span> Use <strong>&ldquo;Open in Gmail Web&rdquo;</strong> to reply directly from your email to the buyer with this message pre-filled. <em>(Direct API sending requires custom domain verification)</em>.
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {/* 1. Open in Gmail Web */}
                 <button
