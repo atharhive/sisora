@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, ShieldCheck, ArrowRight, Mail, MessageSquare, Loader2 } from "lucide-react";
+import { CheckCircle2, ShieldCheck, ArrowRight, Mail, MessageSquare, Loader2, AlertCircle } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
@@ -30,6 +30,7 @@ export function SellDomainForm({ onSuccess, className }: SellDomainFormProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validate = () => {
     const payload = {
@@ -93,9 +94,11 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
     }
 
     setIsSubmitting(true);
+    setSubmitError(null);
+
     try {
-      const cleanPrice = parseFloat(formData.askingPrice.replace(/[^0-9.]/g, "")) || 1;
-      await submitOfferAction({
+      const cleanPrice = parseFloat(formData.askingPrice.replace(/[^0-9.]/g, "")) || 0;
+      const res = await submitOfferAction({
         domain_id: "seller-submission",
         domain_name: formData.domainName.trim(),
         buyer_name: formData.ownerName.trim(),
@@ -105,6 +108,12 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
         notes: `[Domain Seller Submission] Asking Price: ${formData.askingPrice || "Open to offers"}\n${formData.description.trim()}`,
       });
 
+      if (res?.error) {
+        setSubmitError(res.error);
+        error(res.error, "Submission Issue");
+        return;
+      }
+
       setIsSubmitted(true);
       success(
         `Listing submission recorded & dispatched to ${SITE_CONFIG.contact.email}!`,
@@ -112,7 +121,8 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
       );
       onSuccess?.();
     } catch {
-      error("Could not record submission. Please email sisorasales@gmail.com directly.");
+      setSubmitError("Could not connect to the database. Use the direct email or chat button below!");
+      error("Could not record submission. Please use direct email or X below.", "Notice");
     } finally {
       setIsSubmitting(false);
     }
@@ -236,6 +246,53 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
           No upfront listing fees. We operate on a standard success-based commission model upon successful escrow closing.
         </span>
       </div>
+
+      {submitError && (
+        <div className="rounded-2xl border border-amber-300 bg-amber-50/90 p-4 sm:p-5 text-left space-y-3 animate-in fade-in duration-200 shadow-xs">
+          <div className="flex items-start gap-2.5">
+            <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <div className="text-sm font-bold text-neutral-900">
+                Direct Broker Channel Ready
+              </div>
+              <p className="text-xs text-neutral-600 mt-1 leading-relaxed">
+                Automated logging had a connection hiccup, but your submission for{" "}
+                <span className="font-semibold text-neutral-900">{formData.domainName || "your domain"}</span> is preserved! Click below to send directly to our desk:
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            <a
+              href={getMailtoLink()}
+              className="inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors shadow-xs"
+            >
+              <Mail className="h-3.5 w-3.5" />
+              <span>Send Pre-filled Email to {SITE_CONFIG.contact.email}</span>
+            </a>
+            <a
+              href={SITE_CONFIG.social.twitter || "https://x.com/SisoraBrokerage"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 text-xs font-bold text-neutral-900 hover:bg-neutral-100 transition-colors shadow-2xs"
+            >
+              <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              <span>Chat on X</span>
+            </a>
+            <a
+              href={getTelegramLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors shadow-2xs"
+            >
+              <MessageSquare className="h-3.5 w-3.5 text-sky-500" />
+              <span>Telegram Desk</span>
+            </a>
+          </div>
+        </div>
+      )}
 
       <Button
         type="submit"

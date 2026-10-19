@@ -70,7 +70,21 @@ export async function submitOfferAction(input: {
 
     if (error) {
       console.error("Offer submission DB error:", error);
-      return { error: "Failed to record your offer. Please reach out via our contact channels." };
+      // Fallback: If DB insert hits an issue, still send email notification to broker
+      try {
+        await sendInquiryNotificationEmail({
+          domain_name: validated.domain_name || validated.domain_id,
+          buyer_name: validated.buyer_name,
+          buyer_email: validated.buyer_email,
+          buyer_phone: validated.buyer_phone,
+          offer_amount: validated.offer_amount,
+          notes: `${validated.notes || ""} [Note: Direct Email Fallback - DB Error]`,
+        });
+        return { success: true, message: "Inquiry received and routed to our brokerage desk." };
+      } catch (fallbackEmailErr) {
+        console.error("Fallback email dispatch failed:", fallbackEmailErr);
+        return { error: "Failed to record your offer. Please reach out via our contact channels." };
+      }
     }
 
     // Trigger broker notification email asynchronously (with Reply-To set to buyer)
@@ -87,12 +101,17 @@ export async function submitOfferAction(input: {
       console.warn("Failed to dispatch email notification:", emailErr);
     }
 
-    revalidatePath("/admin/offers");
+    try {
+      revalidatePath("/admin/offers");
+    } catch {
+      // Revalidation is non-critical to user submission
+    }
     return { success: true, data };
   } catch (err: unknown) {
+    console.error("[submitOfferAction CRITICAL ERROR]", err);
     if (err instanceof z.ZodError) {
       return { error: err.issues.map((e) => e.message).join(", ") };
     }
-    return { error: "An unexpected error occurred while submitting your offer." };
+    return { error: err instanceof Error ? err.message : "An unexpected error occurred while submitting your offer." };
   }
 }
