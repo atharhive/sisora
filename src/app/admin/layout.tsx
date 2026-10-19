@@ -30,8 +30,10 @@ export default async function AdminLayout({
     redirect("/admin/login");
   }
 
+  const userEmail = cookieStore.get("sisora_admin_user")?.value || "admin@sisora.si";
+
   return (
-    <AdminShell user={{ name: "Administrator", email: "admin@sisora.si" }}>
+    <AdminShell user={{ name: "Administrator", email: userEmail }}>
       {children}
     </AdminShell>
   );

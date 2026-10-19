@@ -120,6 +120,17 @@ export async function POST(req: NextRequest) {
 
     response.cookies.set(cookieOptions as any);
 
+    // Also store user email for the session
+    response.cookies.set({
+      name: "sisora_admin_user",
+      value: adminEmail,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      ...(rememberDevice ? { maxAge: 60 * 60 * 24 * 30 } : {}),
+    });
+
     return response;
   } catch (err: any) {
     console.error("Login route error:", err);
