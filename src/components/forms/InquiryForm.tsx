@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2, ShieldCheck, Mail, MessageSquare } from "lucide-react";
+import { Send, CheckCircle2, ShieldCheck, Mail, MessageSquare, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
@@ -37,14 +37,19 @@ export function InquiryForm({
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validate = () => {
+    const targetDomain = (formData.domainName || initialDomainName || "SISORA Domain").trim();
     const payload = {
-      ...formData,
+      domainName: targetDomain,
       domainId: domainId || undefined,
+      name: formData.name.trim(),
+      email: formData.email.trim(),
       phone: formData.phone.trim() || undefined,
       message: formData.message.trim() || undefined,
+      type: formData.type || "buy",
     };
 
     const parseResult = inquiryFormSchema.safeParse(payload);
@@ -65,8 +70,8 @@ export function InquiryForm({
   };
 
   const getMailtoLink = () => {
-    const targetDomain = formData.domainName || "SISORA Domain";
-    const subject = `[Domain Inquiry] ${targetDomain} - from ${formData.name}`;
+    const targetDomain = formData.domainName || initialDomainName || "SISORA Domain";
+    const subject = `[Domain Inquiry] ${targetDomain} - from ${formData.name || "Buyer"}`;
     const body = `Hello SISORA Brokerage Team,
 
 I am interested in inquiring about the domain: ${targetDomain}
@@ -77,8 +82,8 @@ Email: ${formData.email}
 Phone / Telegram: ${formData.phone || "Not provided"}
 Inquiry Type: ${formData.type.toUpperCase()}
 
---- Message / Offer ---
-${formData.message || "Please provide pricing and acquisition details."}
+--- Message / Offer Details ---
+${formData.message || "Please provide acquisition terms, pricing, and escrow options."}
 
 ---
 Sent via SISORA Brokerage Portal (sisora.si)`;
@@ -89,73 +94,104 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
   };
 
   const getTelegramLink = () => {
-    return "http://t.me/SisoraBrokerage";
+    return "https://t.me/SisoraBrokerage";
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
-      error("Please fill in required fields correctly.", "Validation Error");
+      error("Please enter your name and a valid email address.", "Validation Notice");
       return;
     }
 
-    // Asynchronously record offer into Supabase pipeline
-    submitOfferAction({
-      domain_id: domainId || "inquiry",
-      domain_name: formData.domainName,
-      buyer_name: formData.name,
-      buyer_email: formData.email,
-      buyer_phone: formData.phone || undefined,
-      offer_amount: 1,
-      notes: `[Inquiry Type: ${formData.type}] ${formData.message || "General acquisition request"}`,
-    }).catch(console.error);
+    setIsSubmitting(true);
 
-    // Open email client with pre-filled content
-    const mailto = getMailtoLink();
-    window.open(mailto, "_blank");
+    try {
+      const targetDomain = formData.domainName || initialDomainName || "General Inquiry";
 
-    setIsSubmitted(true);
-    success(
-      `Inquiry recorded and email prepared for ${SITE_CONFIG.contact.email}!`,
-      "Offer Submitted"
-    );
-    onSuccess?.();
+      // 1. Save directly into Supabase database / Admin Panel Offers pipeline
+      const res = await submitOfferAction({
+        domain_id: domainId || "inquiry",
+        domain_name: targetDomain,
+        buyer_name: formData.name.trim(),
+        buyer_email: formData.email.trim(),
+        buyer_phone: formData.phone.trim() || undefined,
+        offer_amount: 1, // Represents inquiry / make offer status
+        notes: `[Inquiry Type: ${formData.type}] ${formData.message.trim() || "General acquisition request"}`,
+      });
+
+      if (res?.error) {
+        error(res.error, "Submission Issue");
+      } else {
+        success(
+          `Inquiry logged in Sisora pipeline & routed to ${SITE_CONFIG.contact.email}!`,
+          "Inquiry Received"
+        );
+      }
+
+      setIsSubmitted(true);
+      onSuccess?.();
+
+      // 2. Trigger mailto client as optional companion
+      try {
+        const mailto = getMailtoLink();
+        window.location.href = mailto;
+      } catch {
+        // Fallback silently if browser blocks mailto
+      }
+    } catch {
+      error("Could not record inquiry. Please email sisorasales@gmail.com directly.", "Notice");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
+    const targetDomain = formData.domainName || initialDomainName || "Domain";
     return (
-      <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 text-center space-y-4">
+      <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 text-center space-y-4 animate-in fade-in duration-200">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-black text-white">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h4 className="text-xl font-bold text-neutral-950">Inquiry Prepared</h4>
-        <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
-          Your inquiry for{" "}
-          <span className="font-semibold text-black">{formData.domainName}</span>{" "}
-          has been generated. If your email app didn&apos;t open automatically, you can send it directly or chat on Telegram:
+        <h4 className="text-xl font-bold text-neutral-950">Inquiry Received &amp; Logged</h4>
+        <p className="mx-auto max-w-md text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
+          Your inquiry for <span className="font-bold text-black">{targetDomain}</span> has been securely recorded in the SISORA brokerage deal pipeline and routed to{" "}
+          <span className="font-semibold text-neutral-900">{SITE_CONFIG.contact.email}</span>.
         </p>
+
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
             href={getMailtoLink()}
-            className="inline-flex items-center gap-2 rounded-lg bg-black px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-black px-5 py-2.5 text-xs font-bold text-white hover:bg-neutral-800 transition-colors shadow-xs"
           >
             <Mail className="h-4 w-4" />
-            <span>Open Email Client</span>
+            <span>Open Email App</span>
           </a>
           <a
             href={getTelegramLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-5 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100 transition-colors shadow-2xs"
           >
             <MessageSquare className="h-4 w-4 text-sky-500" />
-            <span>Send via Telegram</span>
+            <span>Chat on Telegram</span>
           </a>
         </div>
+
         <div className="pt-4 border-t border-neutral-200">
           <button
             type="button"
-            onClick={() => setIsSubmitted(false)}
+            onClick={() => {
+              setIsSubmitted(false);
+              setFormData({
+                domainName: initialDomainName,
+                name: "",
+                email: "",
+                phone: "",
+                message: "",
+                type: initialType,
+              });
+            }}
             className="text-xs font-semibold text-neutral-500 hover:text-black underline cursor-pointer"
           >
             Submit Another Request
@@ -216,7 +252,7 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
 
       <Input
         label="Phone / Telegram (Optional)"
-        placeholder="+1 (555) 000-0000"
+        placeholder="+1 (555) 000-0000 or @handle"
         value={formData.phone}
         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
         error={errors.phone}
@@ -233,17 +269,27 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
 
       <div className="flex items-center gap-2 text-xs text-neutral-500 py-1">
         <ShieldCheck className="h-4 w-4 text-neutral-700 shrink-0" />
-        <span>Submitting prepares an instant email to {SITE_CONFIG.contact.email} with strict confidentiality.</span>
+        <span>Inquiries are logged in the brokerage pipeline and sent to {SITE_CONFIG.contact.email} with strict confidentiality.</span>
       </div>
 
       <Button
         type="submit"
         variant="primary"
         size="lg"
-        className="w-full justify-center font-bold"
+        disabled={isSubmitting}
+        className="w-full justify-center font-bold cursor-pointer disabled:opacity-60"
       >
-        <Send className="h-4 w-4 mr-2" />
-        Send Inquiry via Email
+        {isSubmitting ? (
+          <>
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            Submitting Inquiry...
+          </>
+        ) : (
+          <>
+            <Send className="h-4 w-4 mr-2" />
+            Submit Acquisition Inquiry
+          </>
+        )}
       </Button>
     </form>
   );

@@ -13,10 +13,10 @@ export type ContactFormData = z.infer<typeof contactFormSchema>;
 // ─── Domain Inquiry ──────────────────────────────────────
 export const inquiryFormSchema = z.object({
   domainName: z.string().min(1, "Domain name is required"),
-  domainId: z.string().uuid().optional(),
+  domainId: z.string().optional(),
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
   email: z.email("Please enter a valid email"),
-  phone: z.string().max(20).optional(),
+  phone: z.string().max(60).optional(),
   message: z.string().max(2000).optional(),
   type: z.enum(["buy", "sell", "general"]).default("buy"),
 });

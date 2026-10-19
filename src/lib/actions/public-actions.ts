@@ -33,9 +33,32 @@ export async function submitOfferAction(input: {
       return { success: true, message: "Offer submitted successfully (demo mode)." };
     }
 
+    const isUuid = (val?: string) =>
+      typeof val === "string" &&
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
+
+    let resolvedDomainId: string | null = null;
+
+    if (isUuid(validated.domain_id)) {
+      resolvedDomainId = validated.domain_id;
+    } else {
+      // Attempt lookup by domain_name or slug in Supabase domains table
+      const targetName = (validated.domain_name || validated.domain_id).replace(/\.si$/i, "").trim().toLowerCase();
+      const { data: dom } = await supabase
+        .from("domains")
+        .select("id")
+        .or(`name.ilike.${targetName}.si,slug.ilike.${targetName}`)
+        .limit(1)
+        .maybeSingle();
+
+      if (dom?.id && isUuid(dom.id)) {
+        resolvedDomainId = dom.id;
+      }
+    }
+
     const { data, error } = await supabase.from("offers").insert({
-      domain_id: validated.domain_id,
-      domain_name: validated.domain_name || null,
+      domain_id: resolvedDomainId,
+      domain_name: validated.domain_name || validated.domain_id,
       buyer_name: validated.buyer_name,
       buyer_email: validated.buyer_email,
       buyer_phone: validated.buyer_phone || null,
