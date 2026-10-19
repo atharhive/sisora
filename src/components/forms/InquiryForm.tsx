@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { inquiryFormSchema } from "@/lib/validators";
 import { SITE_CONFIG } from "@/lib/data";
+import { submitOfferAction } from "@/lib/actions/public-actions";
 
 export interface InquiryFormProps {
   domainName?: string;
@@ -98,14 +99,25 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
       return;
     }
 
+    // Asynchronously record offer into Supabase pipeline
+    submitOfferAction({
+      domain_id: domainId || "inquiry",
+      domain_name: formData.domainName,
+      buyer_name: formData.name,
+      buyer_email: formData.email,
+      buyer_phone: formData.phone || undefined,
+      offer_amount: 1,
+      notes: `[Inquiry Type: ${formData.type}] ${formData.message || "General acquisition request"}`,
+    }).catch(console.error);
+
     // Open email client with pre-filled content
     const mailto = getMailtoLink();
     window.open(mailto, "_blank");
 
     setIsSubmitted(true);
     success(
-      `Opening email to ${SITE_CONFIG.contact.email}. Please review and hit send!`,
-      "Email Ready"
+      `Inquiry recorded and email prepared for ${SITE_CONFIG.contact.email}!`,
+      "Offer Submitted"
     );
     onSuccess?.();
   };

@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Globe,
-  MessageSquare,
-  Send,
-  FileText,
+  SlidersHorizontal,
+  BadgeDollarSign,
+  Award,
   Settings,
   LogOut,
   X,
@@ -28,6 +28,24 @@ const navItems = [
     name: "Domains",
     href: "/admin/domains",
     icon: Globe,
+    exact: false,
+  },
+  {
+    name: "Filters & Taxonomy",
+    href: "/admin/filters",
+    icon: SlidersHorizontal,
+    exact: false,
+  },
+  {
+    name: "Offers & Inquiries",
+    href: "/admin/offers",
+    icon: BadgeDollarSign,
+    exact: false,
+  },
+  {
+    name: "Track Record",
+    href: "/admin/track-record",
+    icon: Award,
     exact: false,
   },
   {
@@ -80,7 +98,7 @@ export function Sidebar() {
         <button
           type="button"
           onClick={() => setSidebarOpen(false)}
-          className="lg:hidden p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+          className="lg:hidden p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
           aria-label="Close menu"
         >
           <X className="w-5 h-5" />
@@ -90,7 +108,7 @@ export function Sidebar() {
       {/* Navigation Links */}
       <div className="flex-1 py-5 px-3 space-y-1 overflow-y-auto">
         <div className="px-3 pb-2 text-[11px] font-semibold tracking-wider text-neutral-500 uppercase">
-          Menu
+          Management Console
         </div>
         {navItems.map((item) => {
           const active = isItemActive(item.href, item.exact);
@@ -139,7 +157,7 @@ export function Sidebar() {
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm text-neutral-400 hover:text-rose-400 hover:bg-neutral-800/80 transition-colors font-medium text-left"
+          className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm text-neutral-400 hover:text-rose-400 hover:bg-neutral-800/80 transition-colors font-medium text-left cursor-pointer"
         >
           <LogOut className="w-4 h-4 shrink-0" />
           <span>Sign Out</span>
@@ -158,13 +176,10 @@ export function Sidebar() {
       {/* Mobile Drawer */}
       {sidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
-          {/* Overlay */}
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
             onClick={() => setSidebarOpen(false)}
           />
-
-          {/* Drawer content */}
           <div className="relative w-72 max-w-[85vw] h-full shadow-2xl z-10 animate-in slide-in-from-left duration-200">
             {navContent}
           </div>
