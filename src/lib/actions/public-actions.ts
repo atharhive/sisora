@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
+import { sendInquiryNotificationEmail } from "@/lib/email";
 
 const offerSchema = z.object({
   domain_id: z.string().min(1, "Domain ID is required"),
@@ -70,6 +71,20 @@ export async function submitOfferAction(input: {
     if (error) {
       console.error("Offer submission DB error:", error);
       return { error: "Failed to record your offer. Please reach out via our contact channels." };
+    }
+
+    // Trigger broker notification email asynchronously (with Reply-To set to buyer)
+    try {
+      await sendInquiryNotificationEmail({
+        domain_name: validated.domain_name || validated.domain_id,
+        buyer_name: validated.buyer_name,
+        buyer_email: validated.buyer_email,
+        buyer_phone: validated.buyer_phone,
+        offer_amount: validated.offer_amount,
+        notes: validated.notes,
+      });
+    } catch (emailErr) {
+      console.warn("Failed to dispatch email notification:", emailErr);
     }
 
     revalidatePath("/admin/offers");

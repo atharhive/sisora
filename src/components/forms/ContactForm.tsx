@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2, Mail, MessageSquare } from "lucide-react";
+import { Send, CheckCircle2, Mail, MessageSquare, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { contactFormSchema } from "@/lib/validators";
 import { SITE_CONFIG } from "@/lib/data";
+import { submitOfferAction } from "@/lib/actions/public-actions";
 
 const SUBJECT_OPTIONS = [
   { value: "Domain Acquisition Inquiry", label: "Domain Acquisition Inquiry" },
@@ -36,6 +37,7 @@ export function ContactForm({ onSuccess, className }: ContactFormProps) {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validate = () => {
@@ -84,25 +86,39 @@ Sent via SISORA Contact Form (sisora.si)`;
   };
 
   const getTelegramLink = () => {
-    return "http://t.me/SisoraBrokerage";
+    return "https://t.me/SisoraBrokerage";
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
       error("Please check the form fields.", "Validation Error");
       return;
     }
 
-    const mailto = getMailtoLink();
-    window.open(mailto, "_blank");
+    setIsSubmitting(true);
+    try {
+      await submitOfferAction({
+        domain_id: "contact-inquiry",
+        domain_name: `Contact: ${formData.subject}`,
+        buyer_name: formData.name.trim(),
+        buyer_email: formData.email.trim(),
+        buyer_phone: formData.phone.trim() || undefined,
+        offer_amount: 1,
+        notes: `[Subject: ${formData.subject}] ${formData.message.trim()}`,
+      });
 
-    setIsSubmitted(true);
-    success(
-      `Opening email client to ${SITE_CONFIG.contact.email}. Please review and hit send!`,
-      "Email Ready"
-    );
-    onSuccess?.();
+      setIsSubmitted(true);
+      success(
+        `Message delivered to ${SITE_CONFIG.contact.email} and recorded in our pipeline!`,
+        "Message Sent"
+      );
+      onSuccess?.();
+    } catch {
+      error("Could not send message. Please email sisorasales@gmail.com directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -111,11 +127,10 @@ Sent via SISORA Contact Form (sisora.si)`;
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-black text-white">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h4 className="text-xl font-bold text-neutral-950">Email Prepared</h4>
-        <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
-          Your message has been formatted for{" "}
-          <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>.
-          If your email client didn&apos;t open automatically, send directly or chat on Telegram:
+        <h4 className="text-xl font-bold text-neutral-950">Message Sent Successfully</h4>
+        <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed font-normal">
+          Your inquiry regarding <span className="font-bold text-black">{formData.subject}</span> has been dispatched to{" "}
+          <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>. Our brokerage team will reply directly to your email address shortly.
         </p>
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
@@ -202,10 +217,20 @@ Sent via SISORA Contact Form (sisora.si)`;
         type="submit"
         variant="primary"
         size="lg"
-        className="w-full justify-center font-bold"
+        disabled={isSubmitting}
+        className="w-full justify-center font-bold cursor-pointer disabled:opacity-60"
       >
-        <Send className="h-4 w-4 mr-2" />
-        Send Message via Email
+        {isSubmitting ? (
+          <>
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            Sending Message...
+          </>
+        ) : (
+          <>
+            <Send className="h-4 w-4 mr-2" />
+            Send Message
+          </>
+        )}
       </Button>
     </form>
   );

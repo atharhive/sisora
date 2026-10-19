@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, ShieldCheck, ArrowRight, Mail, MessageSquare } from "lucide-react";
+import { CheckCircle2, ShieldCheck, ArrowRight, Mail, MessageSquare, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { sellSubmissionSchema } from "@/lib/validators";
 import { SITE_CONFIG } from "@/lib/data";
+import { submitOfferAction } from "@/lib/actions/public-actions";
 
 export interface SellDomainFormProps {
   onSuccess?: () => void;
@@ -27,6 +28,7 @@ export function SellDomainForm({ onSuccess, className }: SellDomainFormProps) {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validate = () => {
@@ -80,25 +82,40 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
   };
 
   const getTelegramLink = () => {
-    return "http://t.me/SisoraBrokerage";
+    return "https://t.me/SisoraBrokerage";
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
       error("Please check the form fields.", "Validation Error");
       return;
     }
 
-    const mailto = getMailtoLink();
-    window.open(mailto, "_blank");
+    setIsSubmitting(true);
+    try {
+      const cleanPrice = parseFloat(formData.askingPrice.replace(/[^0-9.]/g, "")) || 1;
+      await submitOfferAction({
+        domain_id: "seller-submission",
+        domain_name: formData.domainName.trim(),
+        buyer_name: formData.ownerName.trim(),
+        buyer_email: formData.email.trim(),
+        buyer_phone: formData.phone.trim() || undefined,
+        offer_amount: cleanPrice,
+        notes: `[Domain Seller Submission] Asking Price: ${formData.askingPrice || "Open to offers"}\n${formData.description.trim()}`,
+      });
 
-    setIsSubmitted(true);
-    success(
-      `Opening email client to ${SITE_CONFIG.contact.email}. Please review and hit send!`,
-      "Email Ready"
-    );
-    onSuccess?.();
+      setIsSubmitted(true);
+      success(
+        `Listing submission recorded & dispatched to ${SITE_CONFIG.contact.email}!`,
+        "Submission Received"
+      );
+      onSuccess?.();
+    } catch {
+      error("Could not record submission. Please email sisorasales@gmail.com directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -107,11 +124,11 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-black text-white">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h4 className="text-xl font-bold text-neutral-950">Domain Submission Ready</h4>
-        <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
-          Your listing submission for{" "}
-          <span className="font-semibold text-black">{formData.domainName}</span>{" "}
-          has been generated for <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>.
+        <h4 className="text-xl font-bold text-neutral-950">Domain Submission Received</h4>
+        <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed font-normal">
+          Your listing request for{" "}
+          <span className="font-bold text-black">{formData.domainName}</span>{" "}
+          has been routed to our team at <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>. We will review your asset and reply directly to your email.
         </p>
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
@@ -213,10 +230,20 @@ Submitted via SISORA Sell Domain Portal (sisora.si)`;
         type="submit"
         variant="primary"
         size="lg"
-        className="w-full justify-center font-bold"
+        disabled={isSubmitting}
+        className="w-full justify-center font-bold cursor-pointer disabled:opacity-60"
       >
-        <span>Submit Domain via Email</span>
-        <ArrowRight className="h-4 w-4 ml-2" />
+        {isSubmitting ? (
+          <>
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            <span>Submitting Asset...</span>
+          </>
+        ) : (
+          <>
+            <span>Submit Domain for Brokerage</span>
+            <ArrowRight className="h-4 w-4 ml-2" />
+          </>
+        )}
       </Button>
     </form>
   );

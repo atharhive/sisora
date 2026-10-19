@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Shield, ArrowRight, Mail, MessageSquare } from "lucide-react";
+import { CheckCircle2, Shield, ArrowRight, Mail, MessageSquare, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { buyingRequestSchema } from "@/lib/validators";
 import { SITE_CONFIG } from "@/lib/data";
+import { submitOfferAction } from "@/lib/actions/public-actions";
 
 export interface BuyingRequestFormProps {
   onSuccess?: () => void;
@@ -26,6 +27,7 @@ export function BuyingRequestForm({ onSuccess, className }: BuyingRequestFormPro
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validate = () => {
@@ -78,25 +80,40 @@ Submitted via SISORA Investor Portal (sisora.si)`;
   };
 
   const getTelegramLink = () => {
-    return "http://t.me/SisoraBrokerage";
+    return "https://t.me/SisoraBrokerage";
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) {
       error("Please check the form fields.", "Validation Error");
       return;
     }
 
-    const mailto = getMailtoLink();
-    window.open(mailto, "_blank");
+    setIsSubmitting(true);
+    try {
+      const cleanBudget = parseFloat(formData.budget.replace(/[^0-9.]/g, "")) || 1;
+      await submitOfferAction({
+        domain_id: "acquisition-mandate",
+        domain_name: "Acquisition Mandate Request",
+        buyer_name: formData.name.trim(),
+        buyer_email: formData.email.trim(),
+        buyer_phone: formData.phone.trim() || undefined,
+        offer_amount: cleanBudget,
+        notes: `[Acquisition Mandate] Budget: ${formData.budget || "Flexible"}\n${formData.requirements.trim()}`,
+      });
 
-    setIsSubmitted(true);
-    success(
-      `Opening email client to ${SITE_CONFIG.contact.email}. Please review and hit send!`,
-      "Email Ready"
-    );
-    onSuccess?.();
+      setIsSubmitted(true);
+      success(
+        `Mandate received & dispatched to ${SITE_CONFIG.contact.email}!`,
+        "Request Received"
+      );
+      onSuccess?.();
+    } catch {
+      error("Could not record request. Please email sisorasales@gmail.com directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -105,10 +122,10 @@ Submitted via SISORA Investor Portal (sisora.si)`;
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-black text-white">
           <CheckCircle2 className="h-6 w-6" />
         </div>
-        <h4 className="text-xl font-bold text-neutral-950">Acquisition Request Ready</h4>
-        <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed">
-          Your confidential acquisition criteria has been formatted for{" "}
-          <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>.
+        <h4 className="text-xl font-bold text-neutral-950">Acquisition Request Received</h4>
+        <p className="mx-auto max-w-md text-sm text-neutral-600 leading-relaxed font-normal">
+          Your confidential acquisition criteria has been logged in our pipeline and dispatched to{" "}
+          <span className="font-semibold text-black">{SITE_CONFIG.contact.email}</span>. Our desk will review your mandate and reply directly to your email address.
         </p>
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
@@ -201,10 +218,20 @@ Submitted via SISORA Investor Portal (sisora.si)`;
         type="submit"
         variant="primary"
         size="lg"
-        className="w-full justify-center font-bold"
+        disabled={isSubmitting}
+        className="w-full justify-center font-bold cursor-pointer disabled:opacity-60"
       >
-        <span>Send Acquisition Request via Email</span>
-        <ArrowRight className="h-4 w-4 ml-2" />
+        {isSubmitting ? (
+          <>
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            <span>Submitting Mandate...</span>
+          </>
+        ) : (
+          <>
+            <span>Submit Acquisition Mandate</span>
+            <ArrowRight className="h-4 w-4 ml-2" />
+          </>
+        )}
       </Button>
     </form>
   );

@@ -349,7 +349,19 @@ export default function OffersAdminPage() {
                         )}
                       </td>
 
-                      <td className="p-4 pr-6 text-right space-x-1.5">
+                      <td className="p-4 pr-6 text-right space-x-1.5 whitespace-nowrap">
+                        <a
+                          href={`mailto:${encodeURIComponent(o.buyer_email)}?subject=${encodeURIComponent(
+                            `SISORA Brokerage: Regarding your inquiry on ${o.domain_name || "Domain"}`
+                          )}&body=${encodeURIComponent(
+                            `Hi ${o.buyer_name},\n\nThank you for reaching out to SISORA regarding ${o.domain_name || "the domain"}.\n\nWe have received your inquiry:\n- Domain: ${o.domain_name || "Domain"}\n- Amount / Terms: $${Number(o.offer_amount).toLocaleString()} USD\n\nPlease let us know if you would like to initiate escrow or if you have any questions.\n\nBest regards,\nSISORA Domain Brokerage\nsisorasales@gmail.com`
+                          )}`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black hover:bg-neutral-800 text-white text-[11px] font-bold transition-all shadow-2xs"
+                          title={`Send email directly to ${o.buyer_email}`}
+                        >
+                          <Mail className="w-3.5 h-3.5 text-neutral-300" />
+                          <span>Reply</span>
+                        </a>
                         <button
                           onClick={() => handleOpenEditModal(o)}
                           className="p-2 rounded-xl text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors cursor-pointer"
@@ -494,22 +506,36 @@ export default function OffersAdminPage() {
                 />
               </div>
 
-              <div className="flex justify-end gap-2.5 pt-4 border-t border-neutral-100">
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-full border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer shadow-md"
-                >
-                  {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-                  <span>{modalMode === "add" ? "Record Offer" : "Update Offer"}</span>
-                </button>
+              <div className="flex items-center justify-between gap-2.5 pt-4 border-t border-neutral-100">
+                {form.buyer_email ? (
+                  <a
+                    href={`mailto:${encodeURIComponent(form.buyer_email)}?subject=${encodeURIComponent(
+                      `SISORA Brokerage: Regarding your inquiry on ${form.domain_name || "Domain"}`
+                    )}`}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-neutral-300 text-xs font-bold text-neutral-850 hover:bg-neutral-100 transition-colors"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-neutral-600" />
+                    <span>Email Buyer Directly</span>
+                  </a>
+                ) : <div />}
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(false)}
+                    className="px-4 py-2 rounded-full border border-neutral-200 text-xs font-bold text-neutral-600 hover:bg-neutral-50 cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-black text-xs font-bold text-white hover:bg-neutral-800 disabled:opacity-60 cursor-pointer shadow-md"
+                  >
+                    {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                    <span>{modalMode === "add" ? "Record Offer" : "Update Offer"}</span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>

@@ -131,14 +131,6 @@ Sent via SISORA Brokerage Portal (sisora.si)`;
 
       setIsSubmitted(true);
       onSuccess?.();
-
-      // 2. Trigger mailto client as optional companion
-      try {
-        const mailto = getMailtoLink();
-        window.location.href = mailto;
-      } catch {
-        // Fallback silently if browser blocks mailto
-      }
     } catch {
       error("Could not record inquiry. Please email sisorasales@gmail.com directly.", "Notice");
     } finally {
