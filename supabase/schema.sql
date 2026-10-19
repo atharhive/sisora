@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS public.track_record_settings (
     id TEXT PRIMARY KEY DEFAULT 'singleton',
     headline TEXT DEFAULT 'Domain Brokerage Experience',
     subheadline TEXT DEFAULT 'Founded by Domingo, Sisora connects domain investors and facilitates professional negotiations in the .si domain market.',
-    founder_authority_headline TEXT DEFAULT 'Domingos Domain Industry Authority',
+    founder_authority_headline TEXT DEFAULT 'Domingo''s Domain Industry Authority',
     founder_authority_bio TEXT DEFAULT 'Domingo is one of the most active dealmakers in the secondary domain market, having closed multiple LLL.com transactions, CVCV.coms, single-word .coms, and LLL.ai assets before founding Sisora to lead the .si market.',
     footnote TEXT DEFAULT 'These represent Domingo’s previous brokerage transactions. More deals will be added as Sisora grows.',
     cta_partner_url TEXT DEFAULT 'https://x.com/DomingoDomain',
@@ -279,7 +279,7 @@ VALUES (
     'singleton',
     'Domain Brokerage Experience',
     'Founded by Domingo, Sisora connects domain investors and facilitates professional negotiations in the .si domain market.',
-    'Domingos Domain Industry Authority',
+    'Domingo''s Domain Industry Authority',
     'Domingo is one of the most active dealmakers in the secondary domain market, having closed multiple LLL.com transactions, CVCV.coms, single-word .coms, and LLL.ai assets before founding Sisora to lead the .si market.',
     'These represent Domingo’s previous brokerage transactions. More deals will be added as Sisora grows.',
     'https://x.com/DomingoDomain'
@@ -306,18 +306,18 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Money.si',
+    'money',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'fintech-wealth' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = true LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Fintech', 'Money', 'Super Intelligence', 'Category Killer']::TEXT[],
     NULL,
-    ,
+    'make_offer',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Premier global financial asset commanding instant authority for fintech, wealth management, banking, or digital payment rails.',
     8920
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -329,18 +329,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Pay.si',
+    'pay',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'fintech-payments' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = true LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Fintech', 'Payments', 'Super Intelligence', 'Category Killer']::TEXT[],
     NULL,
-    ,
+    'make_offer',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Tier-1 category-defining financial technology brand for payments, neo-banking, cross-border settlement, or digital wallet ecosystems.',
     9240
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -352,18 +352,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Licence.si',
+    'licence',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'corporate-enterprise' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Software Licensing', 'Legal Tech', 'Compliance', 'Enterprise']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'High-authority corporate domain for software licensing, legal compliance, fintech verification, or international accreditation portals.',
     6840
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -375,18 +375,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Gentle.si',
+    'gentle',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['AI Assistant', 'Wellness', 'Organic', 'Luxury Brand']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Clean, calming one-word brand ideal for consumer wellness, AI companion assistants, organic products, or luxury lifestyle ventures.',
     4720
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -398,18 +398,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Translate.si',
+    'translate',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'super-intelligence-ai' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['AI Translation', 'Language Tech', 'Super Intelligence', 'Localization']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Premium dictionary keyword for artificial intelligence translation engines, global localization platforms, or neural speech tech.',
     5890
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -421,18 +421,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Toronto.si',
+    'toronto',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 100000) AND (max_price IS NULL OR max_price >= 100000) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Toronto', 'Canada', 'Metro', 'Geo', 'Super Intelligence']::TEXT[],
     100000,
-    ,
+    'fixed_price',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Ultra-premium geographic capital brand for Canada''s financial powerhouse, major tech hub, and cultural capital on the .SI extension.',
     8240
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -444,18 +444,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Determined.si',
+    'determined',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 13750) AND (max_price IS NULL OR max_price >= 13750) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Brand', 'Leadership', 'Enterprise', 'Super Intelligence']::TEXT[],
     13750,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Powerful, evocative dictionary brand representing grit, conviction, artificial intelligence agency, and high-performance execution.',
     4120
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -467,18 +467,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Humility.si',
+    'humility',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 13750) AND (max_price IS NULL OR max_price >= 13750) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Virtue', 'Brand', 'Leadership', 'Super Intelligence']::TEXT[],
     13750,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Virtue-defining dictionary asset suitable for leadership institutes, ethical AI governance, human-centric tech, or foundation platforms.',
     3890
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -490,18 +490,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Persevere.si',
+    'persevere',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 13750) AND (max_price IS NULL OR max_price >= 13750) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Brand', 'Resilience', 'Health', 'Super Intelligence']::TEXT[],
     13750,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Authoritative English verb domain embodying endurance, athletic performance, mental health, deep-tech research, and resilience.',
     3760
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -513,18 +513,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Disciplined.si',
+    'disciplined',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'corporate-enterprise' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 13750) AND (max_price IS NULL OR max_price >= 13750) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Enterprise', 'Finance', 'Trading', 'Super Intelligence']::TEXT[],
     13750,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Category-defining corporate term for institutional asset management, systematic trading, operational excellence, or elite coaching.',
     4050
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -536,18 +536,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Straight.si',
+    'straight',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Finance', 'Direct', 'Brand', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Punchy, multi-purpose English dictionary keyword ideal for fintech payments, direct-to-consumer commerce, dental health, or logistics.',
     5120
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -559,18 +559,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Deta.si',
+    'deta',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 4995) AND (max_price IS NULL OR max_price >= 4995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', 'Cloud', 'Developer Tools', 'Tech', 'Super Intelligence']::TEXT[],
     4995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Ultra-liquid 4-letter CVCV brand asset with massive developer recognition in personal cloud, compute infrastructure, and modern software.',
     6420
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -582,18 +582,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Wilson.si',
+    'wilson',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 14999) AND (max_price IS NULL OR max_price >= 14999) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Surname', 'Brand', 'Heritage', 'Super Intelligence']::TEXT[],
     14999,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Tier-1 global surname and heritage brand asset. Universal authority for consumer goods, luxury manufacturing, legal, or advisory firms.',
     4680
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -605,18 +605,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'SmartReach.si',
+    'smartreach',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'two-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'two-word' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = true LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Two-Word', 'Marketing', 'Outreach', 'SaaS', 'Super Intelligence']::TEXT[],
     NULL,
-    ,
+    'make_offer',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'High-intent B2B SaaS brand for AI sales engagement, multichannel outreach, marketing automation, or customer acquisition technology.',
     6890
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -628,18 +628,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'SecureLab.si',
+    'securelab',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'two-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'two-word' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = true LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Two-Word', 'Cybersecurity', 'Infosec', 'Crypto', 'Super Intelligence']::TEXT[],
     NULL,
-    ,
+    'make_offer',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Institutional-grade digital asset for cybersecurity research, penetration testing, smart contract auditing, or cryptographic infrastructure.',
     7210
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -651,18 +651,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Corrupted.si',
+    'corrupted',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = true LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Gaming', 'Entertainment', 'Cyber', 'Super Intelligence']::TEXT[],
     NULL,
-    ,
+    'make_offer',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Impactful, culturally loaded dictionary asset commanding attention in gaming studios, cyberpunk IP, streetwear, or security auditing.',
     5430
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -674,18 +674,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Either.si',
+    'either',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 4995) AND (max_price IS NULL OR max_price >= 4995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Decision', 'Fintech', 'Consumer', 'Super Intelligence']::TEXT[],
     4995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Concise English dictionary keyword representing choice, binary options, A/B testing, decision intelligence, or modern fintech.',
     4320
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -697,18 +697,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Conver.si',
+    'conver',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'brand-lifestyle' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 2995) AND (max_price IS NULL OR max_price >= 2995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Domain Hack', 'Conversion', 'SaaS', 'Super Intelligence']::TEXT[],
     2995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Brilliant natural domain hack forming ''Conversi'' (Conversation / Conversion) for conversational AI agents, chatbots, and CRO platforms.',
     5180
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -720,18 +720,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Molecule.si',
+    'molecule',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'super-intelligence-ai' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 49999) AND (max_price IS NULL OR max_price >= 49999) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Biotech', 'Science', 'Pharma', 'AI', 'Super Intelligence']::TEXT[],
     49999,
-    ,
+    'fixed_price',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Elite scientific dictionary asset commanding instant authority for AI drug discovery, computational biology, materials science, or chemistry.',
     8320
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -743,18 +743,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'Operation.si',
+    'operation',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'one-word' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'corporate-enterprise' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 49999) AND (max_price IS NULL OR max_price >= 49999) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['Enterprise', 'Logistics', 'Cloud Ops', 'Super Intelligence']::TEXT[],
     49999,
-    ,
+    'fixed_price',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Universal corporate noun for enterprise workflow management, IT operations, cloud orchestration, surgical tech, or defense logistics.',
     8140
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -766,18 +766,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NDF.si',
+    'ndf',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (NDF) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2100
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -789,18 +789,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FDN.si',
+    'fdn',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (FDN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2137
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -812,18 +812,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LPD.si',
+    'lpd',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LPD) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2174
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -835,18 +835,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'GTN.si',
+    'gtn',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (GTN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2211
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -858,18 +858,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'DFN.si',
+    'dfn',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (DFN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2248
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -881,18 +881,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FGN.si',
+    'fgn',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (FGN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2285
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -904,18 +904,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NDP.si',
+    'ndp',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (NDP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2322
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -927,18 +927,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NRE.si',
+    'nre',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (NRE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2359
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -950,18 +950,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HPL.si',
+    'hpl',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (HPL) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2396
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -973,18 +973,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LDP.si',
+    'ldp',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LDP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2433
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -996,18 +996,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HDP.si',
+    'hdp',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (HDP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2470
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1019,18 +1019,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'KDN.si',
+    'kdn',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (KDN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2507
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1042,18 +1042,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LRE.si',
+    'lre',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LRE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2544
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1065,18 +1065,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NPT.si',
+    'npt',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (NPT) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2581
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1088,18 +1088,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HBN.si',
+    'hbn',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (HBN) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2618
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1111,18 +1111,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MDF.si',
+    'mdf',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (MDF) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2655
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1134,18 +1134,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NDE.si',
+    'nde',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (NDE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2692
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1157,18 +1157,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'PNE.si',
+    'pne',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (PNE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2729
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1180,18 +1180,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FNP.si',
+    'fnp',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (FNP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2766
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1203,18 +1203,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'ZRE.si',
+    'zre',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (ZRE) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2803
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1226,18 +1226,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LHR.si',
+    'lhr',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LHR) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2840
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1249,18 +1249,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'RNP.si',
+    'rnp',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (RNP) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2877
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1272,18 +1272,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HTR.si',
+    'htr',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (HTR) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2914
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1295,18 +1295,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'RFB.si',
+    'rfb',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (RFB) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2951
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1318,18 +1318,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FTD.si',
+    'ftd',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (FTD) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     2988
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1341,18 +1341,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'TLR.si',
+    'tlr',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (TLR) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3025
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1364,18 +1364,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LGH.si',
+    'lgh',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LGH) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3062
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1387,18 +1387,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LHG.si',
+    'lhg',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LHG) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3099
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1410,18 +1410,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'PNB.si',
+    'pnb',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (PNB) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3136
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1433,18 +1433,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'KNH.si',
+    'knh',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (KNH) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3173
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1456,18 +1456,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LHK.si',
+    'lhk',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LHK) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3210
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1479,18 +1479,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FPK.si',
+    'fpk',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (FPK) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3247
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1502,18 +1502,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LPO.si',
+    'lpo',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'lll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'liquid-3-letter' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['LLL', '3-Letter', 'Super Intelligence', 'Liquid Acronym']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Liquid 3-letter .SI acronym asset (LPO) with strong liquidity and global institutional appeal. Secured via Escrow.com & Atom.com.',
     3284
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1525,18 +1525,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'BEDA.si',
+    'beda',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (BEDA) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     1900
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1548,18 +1548,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MEDE.si',
+    'mede',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (MEDE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     1943
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1571,18 +1571,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MEKE.si',
+    'meke',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (MEKE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     1986
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1594,18 +1594,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LEKE.si',
+    'leke',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (LEKE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2029
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1617,18 +1617,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'DAPA.si',
+    'dapa',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (DAPA) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2072
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1640,18 +1640,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HEPE.si',
+    'hepe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (HEPE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2115
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1663,18 +1663,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FOFA.si',
+    'fofa',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FOFA) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2158
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1686,18 +1686,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'SOTE.si',
+    'sote',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (SOTE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2201
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1709,18 +1709,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HEBO.si',
+    'hebo',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (HEBO) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2244
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1732,18 +1732,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'TEBO.si',
+    'tebo',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (TEBO) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2287
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1755,18 +1755,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MOCE.si',
+    'moce',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (MOCE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2330
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1778,18 +1778,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'BAPU.si',
+    'bapu',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (BAPU) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2373
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1801,18 +1801,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'BEFE.si',
+    'befe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (BEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2416
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1824,18 +1824,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'BEGI.si',
+    'begi',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (BEGI) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2459
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1847,18 +1847,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'DODI.si',
+    'dodi',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (DODI) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2502
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1870,18 +1870,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FACI.si',
+    'faci',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FACI) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2545
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1893,18 +1893,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FAFE.si',
+    'fafe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2588
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1916,18 +1916,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FENE.si',
+    'fene',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FENE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2631
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1939,18 +1939,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FESO.si',
+    'feso',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FESO) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2674
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1962,18 +1962,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FIGE.si',
+    'fige',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FIGE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2717
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -1985,18 +1985,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FOCE.si',
+    'foce',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FOCE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2760
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2008,18 +2008,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FOFE.si',
+    'fofe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FOFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2803
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2031,18 +2031,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'FOGE.si',
+    'foge',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (FOGE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2846
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2054,18 +2054,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'GAFE.si',
+    'gafe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (GAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2889
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2077,18 +2077,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'GEBE.si',
+    'gebe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (GEBE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2932
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2100,18 +2100,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'GEFO.si',
+    'gefo',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (GEFO) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2975
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2123,18 +2123,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'GOFA.si',
+    'gofa',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (GOFA) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3018
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2146,18 +2146,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'GOGE.si',
+    'goge',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (GOGE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3061
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2169,18 +2169,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HACE.si',
+    'hace',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (HACE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3104
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2192,18 +2192,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HAFE.si',
+    'hafe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (HAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3147
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2215,18 +2215,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HEDE.si',
+    'hede',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (HEDE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3190
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2238,18 +2238,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HEFE.si',
+    'hefe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (HEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3233
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2261,18 +2261,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'HEGE.si',
+    'hege',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (HEGE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3276
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2284,18 +2284,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'KECE.si',
+    'kece',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (KECE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3319
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2307,18 +2307,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'KICE.si',
+    'kice',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (KICE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3362
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2330,18 +2330,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LEFE.si',
+    'lefe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (LEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3405
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2353,18 +2353,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'LEFO.si',
+    'lefo',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (LEFO) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3448
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2376,18 +2376,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MEBE.si',
+    'mebe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (MEBE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3491
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2399,18 +2399,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MEFI.si',
+    'mefi',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (MEFI) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3534
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2422,18 +2422,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MIFE.si',
+    'mife',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (MIFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3577
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2445,18 +2445,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'ROFA.si',
+    'rofa',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (ROFA) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3620
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2468,18 +2468,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'TOCI.si',
+    'toci',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (TOCI) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3663
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2491,18 +2491,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'PIFE.si',
+    'pife',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (PIFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3706
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2514,18 +2514,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'POCE.si',
+    'poce',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (POCE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3749
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2537,18 +2537,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'COCE.si',
+    'coce',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (COCE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     3792
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2560,18 +2560,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NIGE.si',
+    'nige',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (NIGE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     1935
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2583,18 +2583,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'PAFO.si',
+    'pafo',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (PAFO) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     1978
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2606,18 +2606,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'PEGE.si',
+    'pege',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (PEGE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2021
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2629,18 +2629,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NAFE.si',
+    'nafe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (NAFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2064
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2652,18 +2652,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'NEFE.si',
+    'nefe',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'cvcv' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = 'cvcv-brand' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = false AND (min_price IS NULL OR min_price <= 24995) AND (max_price IS NULL OR max_price >= 24995) ORDER BY min_price DESC NULLS LAST LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['CVCV', '4-Letter', 'Brandable', 'Super Intelligence']::TEXT[],
     24995,
-    ,
+    'fixed_price',
     false,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Rare 4-letter CVCV pattern (NEFE) with pure vocalic harmony and international recall. Verified for immediate acquisition.',
     2107
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2675,18 +2675,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'CD.si',
+    'cd',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = '2-letter-premium' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = true LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['2-Letter', 'LL', 'Super Intelligence', 'Ultra-Liquid']::TEXT[],
     NULL,
-    ,
+    'make_offer',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Ultra-rare 2-letter .SI domain asset (CD). High institutional liquidity, compact branding, and worldwide recognition.',
     5640
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
@@ -2698,18 +2698,18 @@ INSERT INTO public.domains (
 INSERT INTO public.domains (
     name, slug, extension, type_id, category_id, valuation_id, tags, price, pricing_mode, featured, status, description, total_visitors
 ) VALUES (
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-     + str.replace(/'/g, ) + ,
-    (SELECT id FROM public.domain_types WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
-    (SELECT id FROM public.domain_categories WHERE slug =  + str.replace(/'/g, ) +  LIMIT 1),
+    'MF.si',
+    'mf',
+    '.si',
+    (SELECT id FROM public.domain_types WHERE slug = 'll' LIMIT 1),
+    (SELECT id FROM public.domain_categories WHERE slug = '2-letter-premium' LIMIT 1),
     (SELECT id FROM public.valuation_categories WHERE is_make_offer = true LIMIT 1),
-    ARRAY[ + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + , + str.replace(/'/g, ) + ]::TEXT[],
+    ARRAY['2-Letter', 'LL', 'Super Intelligence', 'Ultra-Liquid']::TEXT[],
     NULL,
-    ,
+    'make_offer',
     true,
-    available,
-     + str.replace(/'/g, ) + ,
+    'available',
+    'Ultra-rare 2-letter .SI domain asset (MF). High liquidity financial acronym, frontier technology, and global venture branding.',
     5210
 ) ON CONFLICT (name) DO UPDATE SET
     slug = EXCLUDED.slug,
