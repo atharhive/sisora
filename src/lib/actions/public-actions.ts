@@ -51,7 +51,7 @@ export async function submitOfferAction(input: {
 
     revalidatePath("/admin/offers");
     return { success: true, data };
-  } catch (err: any) {
+  } catch (err: unknown) {
     if (err instanceof z.ZodError) {
       return { error: err.issues.map((e) => e.message).join(", ") };
     }

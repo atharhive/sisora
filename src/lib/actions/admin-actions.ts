@@ -18,7 +18,7 @@ import domainsData from "@/data/domains.json";
 import siteConfigData from "@/data/site-config.json";
 
 // Helper to log audit actions
-async function logAudit(action: string, entityType: string, entityId?: string, details?: any) {
+async function logAudit(action: string, entityType: string, entityId?: string, details?: Record<string, unknown>) {
   try {
     const admin = createAdminClient();
     if (!admin) return;
@@ -278,7 +278,20 @@ export async function getAllDomains(): Promise<DbDomain[]> {
     return data as DbDomain[];
   } catch {
     // Return static JSON fallback format mapped to DbDomain
-    return (domainsData as any[]).map((d) => ({
+    return (domainsData as unknown as Array<{
+      id: string;
+      name: string;
+      slug: string;
+      extension?: string;
+      tags?: string[];
+      price?: number | null;
+      priceType?: string;
+      featured?: boolean;
+      description?: string;
+      totalVisitors?: number;
+      category: string;
+      domainType: string;
+    }>).map((d) => ({
       id: d.id,
       name: d.name,
       slug: d.slug,
@@ -310,7 +323,7 @@ export async function saveDomain(domainData: Partial<DbDomain>) {
     domainData.slug ||
     cleanName.toLowerCase().replace(/\.si$/i, "").replace(/[^a-z0-9]+/g, "-");
 
-  const payload: any = {
+  const payload: Record<string, unknown> = {
     name: cleanName.endsWith(".si") ? cleanName : `${cleanName}.si`,
     slug,
     extension: domainData.extension || ".si",
@@ -400,7 +413,7 @@ export async function saveOffer(offerData: Partial<Offer>) {
   const supabase = createAdminClient();
   if (!supabase) return { error: "Supabase not configured" };
 
-  const payload: any = {
+  const payload: Record<string, unknown> = {
     domain_id: offerData.domain_id,
     domain_name: offerData.domain_name || null,
     buyer_name: offerData.buyer_name,
@@ -431,7 +444,7 @@ export async function updateOfferStatus(id: string, status: string, notes?: stri
   const supabase = createAdminClient();
   if (!supabase) return { error: "Supabase not configured" };
 
-  const updatePayload: any = {
+  const updatePayload: Record<string, unknown> = {
     status,
     updated_at: new Date().toISOString(),
   };
@@ -637,7 +650,12 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     if (error || !data) throw error || new Error("No data");
     return data as SiteSettings;
   } catch {
-    const cfg = siteConfigData as any;
+    const cfg = siteConfigData as unknown as {
+      contact?: { email?: string; phone?: string; telegram?: string; location?: string; address?: string };
+      social?: { twitter?: string; linkedin?: string };
+      brokerageTerms?: { commission?: string; exclusivity?: string };
+      stats?: Array<{ highlight: string; label: string }>;
+    };
     return {
       id: "singleton",
       contact_email: cfg.contact?.email || "sisorasales@gmail.com",

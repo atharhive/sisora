@@ -5,8 +5,7 @@ export function createClient() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Return dummy client if env is not configured yet
-    return null as any;
+    return null;
   }
 
   return createBrowserClient(supabaseUrl, supabaseAnonKey);
