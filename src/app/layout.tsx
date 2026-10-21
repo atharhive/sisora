@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
@@ -5,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/Toast";
 import { Analytics } from "@vercel/analytics/next";
+import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,6 +60,9 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </ToastProvider>
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         <Analytics />
       </body>
     </html>

@@ -146,6 +146,32 @@ CREATE TABLE IF NOT EXISTS public.audit_logs (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- 12. SITE VISITS & VISITOR ANALYTICS
+CREATE TABLE IF NOT EXISTS public.site_visits (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    ip_address TEXT,
+    country_code TEXT,
+    country_name TEXT,
+    city TEXT,
+    region TEXT,
+    path TEXT NOT NULL,
+    domain_name TEXT,
+    domain_slug TEXT,
+    referrer TEXT,
+    source TEXT,
+    device_type TEXT DEFAULT 'desktop',
+    browser TEXT,
+    os TEXT,
+    screen_resolution TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_site_visits_created_at ON public.site_visits (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_site_visits_path ON public.site_visits (path);
+CREATE INDEX IF NOT EXISTS idx_site_visits_domain_slug ON public.site_visits (domain_slug);
+CREATE INDEX IF NOT EXISTS idx_site_visits_country ON public.site_visits (country_code);
+CREATE INDEX IF NOT EXISTS idx_site_visits_source ON public.site_visits (source);
+
 -- ==============================================================================
 -- ROW LEVEL SECURITY (RLS) POLICIES
 -- ==============================================================================
@@ -160,6 +186,7 @@ ALTER TABLE public.track_record_deals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.track_record_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.audit_logs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.site_visits ENABLE ROW LEVEL SECURITY;
 
 -- Clean existing policies
 DO $$
@@ -198,6 +225,7 @@ CREATE POLICY "Public can view active track categories" ON public.track_record_c
 CREATE POLICY "Public can view track record deals" ON public.track_record_deals FOR SELECT USING (true);
 CREATE POLICY "Public can view track record settings" ON public.track_record_settings FOR SELECT USING (true);
 CREATE POLICY "Public can view site settings" ON public.site_settings FOR SELECT USING (true);
+CREATE POLICY "Public can log site visits" ON public.site_visits FOR INSERT WITH CHECK (true);
 
 -- Authenticated Admin Policies (Full Access)
 CREATE POLICY "Admin full access domain_types" ON public.domain_types FOR ALL TO authenticated USING (true) WITH CHECK (true);
@@ -210,6 +238,7 @@ CREATE POLICY "Admin full access track_deals" ON public.track_record_deals FOR A
 CREATE POLICY "Admin full access track_settings" ON public.track_record_settings FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Admin full access site_settings" ON public.site_settings FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Admin full access audit_logs" ON public.audit_logs FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin full access site_visits" ON public.site_visits FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- Service Role Bypass (Ensures Next.js Server actions can operate cleanly)
 ALTER TABLE public.domain_types FORCE ROW LEVEL SECURITY;

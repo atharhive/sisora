@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   ArrowLeft,
   ChevronRight,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdmin } from "./AdminContext";
@@ -26,6 +27,14 @@ const navItems = [
     href: "/admin",
     icon: LayoutDashboard,
     exact: true,
+  },
+  {
+    name: "Traffic & Analytics",
+    href: "/admin/analytics",
+    icon: BarChart3,
+    exact: false,
+    badge: "Live",
+    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   },
   {
     name: "Domain Catalog",

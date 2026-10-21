@@ -12,6 +12,7 @@ import {
   Plus,
   ArrowUpRight,
   ArrowLeft,
+  BarChart3,
 } from "lucide-react";
 import {
   getAllDomains,
@@ -88,6 +89,15 @@ export default async function AdminDashboardPage() {
             >
               <BadgeDollarSign className="w-3.5 h-3.5 text-neutral-600" />
               <span>Inquiries ({newOffers} New)</span>
+            </Link>
+
+            <Link
+              href="/admin/analytics"
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-4 sm:px-5 py-2 sm:py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-50 transition-all shadow-2xs group"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <BarChart3 className="w-3.5 h-3.5 text-neutral-600 group-hover:text-black transition-colors" />
+              <span>Visitor Analytics</span>
             </Link>
           </div>
         </div>
@@ -198,8 +208,33 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* 3. FOUR COMMAND HUBS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      {/* 3. COMMAND HUBS */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5">
+        {/* Hub 0: Traffic & Visitor Analytics */}
+        <Link
+          href="/admin/analytics"
+          className="group rounded-2xl p-4 sm:p-5 bg-white border border-neutral-200/80 hover:border-black hover:shadow-md transition-all flex flex-col justify-between space-y-3"
+        >
+          <div className="space-y-2.5">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-colors flex items-center justify-center">
+              <BarChart3 className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5">
+                <h4 className="text-sm font-bold text-neutral-900">Traffic &amp; Analytics</h4>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              </div>
+              <p className="mt-1 text-xs text-neutral-500 leading-relaxed">
+                Live visitor telemetry, country origins, buyer search demand, and referrer paths.
+              </p>
+            </div>
+          </div>
+          <div className="pt-2.5 border-t border-neutral-100 flex items-center justify-between text-xs font-bold text-neutral-900">
+            <span>View Telemetry</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" />
+          </div>
+        </Link>
+
         {/* Hub 1: Domain Manager */}
         <Link
           href="/admin/domains"
