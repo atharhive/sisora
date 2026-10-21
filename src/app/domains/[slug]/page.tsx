@@ -12,9 +12,12 @@ import {
   FileCheck2,
 } from "lucide-react";
 import { getDomainBySlug, DOMAINS, SITE_CONFIG, getDomainType } from "@/lib/data";
+import { getPublicDomainBySlug, getPublicDomains } from "@/lib/data-server";
 import { formatPrice } from "@/lib/utils";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { Button } from "@/components/ui/Button";
+
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -22,7 +25,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const domain = getDomainBySlug(slug) || {
+  const domain = (await getPublicDomainBySlug(slug)) || {
     name: `${slug.toLowerCase()}.si`,
     description: `Acquire the premium domain ${slug.toLowerCase()}.si on SISORA.`,
   };
@@ -35,16 +38,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// Generate static params for all domains in domains.json
+// Generate static params for all domains
 export async function generateStaticParams() {
-  return DOMAINS.map((d) => ({
+  const domains = await getPublicDomains();
+  return domains.map((d) => ({
     slug: d.slug,
   }));
 }
 
 export default async function DomainDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const foundDomain = getDomainBySlug(slug);
+  const foundDomain = await getPublicDomainBySlug(slug);
 
   // If not in sample list, construct a graceful dynamic representation
   const domain = foundDomain || {

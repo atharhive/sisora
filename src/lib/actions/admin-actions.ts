@@ -342,10 +342,24 @@ export async function saveDomain(domainData: Partial<DbDomain>) {
     updated_at: new Date().toISOString(),
   };
 
+  let targetId = domainData.id && !domainData.id.startsWith("d-") ? domainData.id : null;
+  if (!targetId) {
+    // Check if domain already exists in DB by slug or clean name
+    const { data: existing } = await supabase
+      .from("domains")
+      .select("id")
+      .or(`slug.eq.${slug},name.ilike.${payload.name}`)
+      .limit(1)
+      .maybeSingle();
+    if (existing?.id) {
+      targetId = existing.id;
+    }
+  }
+
   let res;
-  if (domainData.id && !domainData.id.startsWith("d-")) {
-    res = await supabase.from("domains").update(payload).eq("id", domainData.id).select().single();
-    await logAudit("UPDATE_DOMAIN", "domains", domainData.id, payload);
+  if (targetId) {
+    res = await supabase.from("domains").update(payload).eq("id", targetId).select().single();
+    await logAudit("UPDATE_DOMAIN", "domains", targetId, payload);
   } else {
     res = await supabase.from("domains").insert(payload).select().single();
     await logAudit("CREATE_DOMAIN", "domains", res.data?.id, payload);
@@ -353,11 +367,17 @@ export async function saveDomain(domainData: Partial<DbDomain>) {
 
   if (res.error) return { error: res.error.message };
 
-  revalidatePath("/admin");
-  revalidatePath("/admin/domains");
-  revalidatePath("/buy-domains");
-  revalidatePath(`/domains/${slug}`);
-  revalidatePath("/");
+  try {
+    revalidatePath("/admin");
+    revalidatePath("/admin/domains");
+    revalidatePath("/buy-domains");
+    revalidatePath(`/domains/${slug}`);
+    revalidatePath("/domains/[slug]", "page");
+    revalidatePath("/", "page");
+    revalidatePath("/");
+  } catch (revalErr) {
+    console.warn("Path revalidation notice:", revalErr);
+  }
   return { data: res.data };
 }
 

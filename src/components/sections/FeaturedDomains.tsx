@@ -57,9 +57,9 @@ export interface FeaturedDomainsProps {
 }
 
 export function FeaturedDomains({ domains }: FeaturedDomainsProps) {
-  // Use passed domains if provided and non-empty, otherwise use exact PDF featured list
+  // Use passed domains if provided and non-empty, otherwise use fallback featured list
   const displayDomains =
-    domains && domains.length >= 4
+    domains && domains.length > 0
       ? domains.slice(0, 4)
       : FEATURED_SI_DOMAINS;
 

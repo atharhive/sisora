@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import {
   BadgeDollarSign,
@@ -26,6 +26,10 @@ import {
   Send,
   AlertTriangle,
   Check,
+  Tag,
+  Briefcase,
+  Layers,
+  RotateCcw,
 } from "lucide-react";
 import {
   getAllOffers,
@@ -38,6 +42,25 @@ import {
 } from "@/lib/actions/admin-actions";
 import { Offer, DbDomain, OfferStatus } from "@/types/database";
 import { useToast } from "@/components/ui/Toast";
+
+type OfferQueryType = "all" | "buyer_offer" | "seller_submission" | "buying_mandate" | "contact_message";
+
+function getOfferQueryType(offer: Offer): "buyer_offer" | "seller_submission" | "buying_mandate" | "contact_message" {
+  const notes = offer.notes || "";
+  const domainId = offer.domain_id || "";
+  const domainName = offer.domain_name || "";
+
+  if (domainId === "seller-submission" || notes.includes("[Domain Seller Submission]")) {
+    return "seller_submission";
+  }
+  if (domainId === "acquisition-mandate" || notes.includes("[Acquisition Mandate]")) {
+    return "buying_mandate";
+  }
+  if (domainId === "contact-inquiry" || domainName.startsWith("Contact:") || notes.startsWith("[Subject:")) {
+    return "contact_message";
+  }
+  return "buyer_offer";
+}
 
 const STATUS_BADGES: Record<OfferStatus, { bg: string; text: string; label: string }> = {
   new: { bg: "bg-amber-50 border-amber-200/80 text-amber-800", text: "text-amber-800", label: "New Inquiry" },
@@ -109,6 +132,8 @@ export default function OffersAdminPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [typeFilter, setTypeFilter] = useState<OfferQueryType>("all");
+  const [pricingFilter, setPricingFilter] = useState<"all" | "cash" | "on_request">("all");
   const [testingEmail, setTestingEmail] = useState(false);
 
   // Edit / Add modal states
@@ -168,14 +193,71 @@ export default function OffersAdminPage() {
   const newCount = offers.filter((o) => o.status === "new").length;
   const escrowCount = offers.filter((o) => o.status === "in_escrow").length;
 
-  const filteredOffers = offers.filter((o) => {
-    const matchesSearch =
-      (o.domain_name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-      o.buyer_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      o.buyer_email.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === "all" || o.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+  // Real-time counts across query types
+  const typeCounts = useMemo(() => {
+    const counts = {
+      all: offers.length,
+      buyer_offer: 0,
+      seller_submission: 0,
+      buying_mandate: 0,
+      contact_message: 0,
+    };
+    for (const o of offers) {
+      const t = getOfferQueryType(o);
+      if (t in counts) {
+        counts[t] += 1;
+      }
+    }
+    return counts;
+  }, [offers]);
+
+  // Comprehensive multi-criteria filtering
+  const filteredOffers = useMemo(() => {
+    return offers.filter((o) => {
+      // 1. Query type filter
+      const qType = getOfferQueryType(o);
+      if (typeFilter !== "all" && qType !== typeFilter) {
+        return false;
+      }
+
+      // 2. Pricing filter (cash offer vs price on request)
+      const isCash = Number(o.offer_amount) > 1;
+      if (pricingFilter === "cash" && !isCash) return false;
+      if (pricingFilter === "on_request" && isCash) return false;
+
+      // 3. Status filter
+      if (statusFilter !== "all" && o.status !== statusFilter) {
+        return false;
+      }
+
+      // 4. Search query (matches domain, buyer, email, or notes)
+      const q = searchQuery.toLowerCase().trim();
+      if (q) {
+        const matchesDomain = (o.domain_name || "").toLowerCase().includes(q);
+        const matchesBuyer = (o.buyer_name || "").toLowerCase().includes(q);
+        const matchesEmail = (o.buyer_email || "").toLowerCase().includes(q);
+        const matchesNotes = (o.notes || "").toLowerCase().includes(q);
+        if (!matchesDomain && !matchesBuyer && !matchesEmail && !matchesNotes) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }, [offers, typeFilter, pricingFilter, statusFilter, searchQuery]);
+
+  const isFiltered =
+    typeFilter !== "all" ||
+    pricingFilter !== "all" ||
+    statusFilter !== "all" ||
+    searchQuery.trim().length > 0;
+
+  const handleResetFilters = () => {
+    setTypeFilter("all");
+    setPricingFilter("all");
+    setStatusFilter("all");
+    setSearchQuery("");
+  };
 
   const handleOpenAddModal = () => {
     setModalMode("add");
@@ -436,35 +518,97 @@ export default function OffersAdminPage() {
         </div>
       </div>
 
-      {/* 3. SEARCH & STATUS FILTER BAR */}
-      <div className="p-3 bg-white rounded-2xl border border-neutral-200/80 shadow-xs flex flex-col sm:flex-row items-center gap-3">
+      {/* 3. QUERY TYPE FILTER TABS */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 -mb-1 scrollbar-none">
+        {[
+          { id: "all" as const, label: "All Inquiries", icon: Layers, count: typeCounts.all },
+          { id: "buyer_offer" as const, label: "Buyer Offers", icon: BadgeDollarSign, count: typeCounts.buyer_offer },
+          { id: "seller_submission" as const, label: "Seller Listings", icon: Tag, count: typeCounts.seller_submission },
+          { id: "buying_mandate" as const, label: "Buyer Mandates", icon: Briefcase, count: typeCounts.buying_mandate },
+          { id: "contact_message" as const, label: "Contact Messages", icon: Mail, count: typeCounts.contact_message },
+        ].map((tab) => {
+          const Icon = tab.icon;
+          const isActive = typeFilter === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setTypeFilter(tab.id)}
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                isActive
+                  ? "bg-black text-white shadow-xs"
+                  : "bg-white text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-neutral-200/80"
+              }`}
+            >
+              <Icon className={`w-3.5 h-3.5 ${isActive ? "text-neutral-200" : "text-neutral-400"}`} />
+              <span>{tab.label}</span>
+              <span
+                className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  isActive ? "bg-neutral-800 text-neutral-200" : "bg-neutral-100 text-neutral-600"
+                }`}
+              >
+                {tab.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 4. SEARCH, PRICING & STATUS FILTER BAR */}
+      <div className="p-3 bg-white rounded-2xl border border-neutral-200/80 shadow-xs flex flex-col md:flex-row items-center gap-2.5">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by target domain, buyer name, or email..."
+            placeholder="Search by target domain, buyer name, email, or message notes..."
             className="w-full pl-10 pr-4 py-2.5 bg-neutral-50 hover:bg-neutral-100/70 focus:bg-white border border-neutral-200/80 rounded-xl text-xs font-medium text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black transition-all"
           />
         </div>
 
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3.5 py-2.5 bg-neutral-50 hover:bg-neutral-100/70 border border-neutral-200/80 rounded-xl text-xs font-bold text-neutral-700 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer shrink-0"
-        >
-          <option value="all">All Statuses ({offers.length})</option>
-          <option value="new">New Inquiries</option>
-          <option value="reviewing">In Review</option>
-          <option value="countered">Counter-Offered</option>
-          <option value="accepted">Accepted</option>
-          <option value="in_escrow">In Escrow</option>
-          <option value="declined">Declined</option>
-        </select>
+        <div className="flex items-center gap-2 w-full md:w-auto flex-wrap sm:flex-nowrap">
+          {/* Pricing Model Filter */}
+          <select
+            value={pricingFilter}
+            onChange={(e) => setPricingFilter(e.target.value as "all" | "cash" | "on_request")}
+            className="flex-1 md:flex-initial px-3 py-2.5 bg-neutral-50 hover:bg-neutral-100/70 border border-neutral-200/80 rounded-xl text-xs font-bold text-neutral-700 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer shrink-0"
+            title="Filter by pricing model"
+          >
+            <option value="all">All Pricing Modes</option>
+            <option value="cash">Stated Cash Offers ($)</option>
+            <option value="on_request">Price on Request / Open</option>
+          </select>
+
+          {/* Deal Status Filter */}
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="flex-1 md:flex-initial px-3.5 py-2.5 bg-neutral-50 hover:bg-neutral-100/70 border border-neutral-200/80 rounded-xl text-xs font-bold text-neutral-700 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer shrink-0"
+          >
+            <option value="all">All Statuses ({offers.length})</option>
+            <option value="new">New Inquiries</option>
+            <option value="reviewing">In Review</option>
+            <option value="countered">Counter-Offered</option>
+            <option value="accepted">Accepted</option>
+            <option value="in_escrow">In Escrow</option>
+            <option value="declined">Declined</option>
+          </select>
+
+          {/* Reset Filters button */}
+          {isFiltered && (
+            <button
+              onClick={handleResetFilters}
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-neutral-200 bg-neutral-100 hover:bg-neutral-200/70 text-neutral-700 text-xs font-bold transition-all cursor-pointer shrink-0"
+              title="Reset all filters"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset</span>
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* 4. OFFERS LEDGER TABLE */}
+      {/* 5. OFFERS LEDGER TABLE */}
       <div className="bg-white rounded-3xl border border-neutral-200/80 overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-20 text-center">
@@ -472,15 +616,26 @@ export default function OffersAdminPage() {
             <p className="text-xs text-neutral-500 font-mono">Loading offer pipeline...</p>
           </div>
         ) : filteredOffers.length === 0 ? (
-          <div className="p-16 text-center text-xs text-neutral-500">
-            No offers match your search criteria.
+          <div className="p-16 text-center space-y-2">
+            <p className="text-xs text-neutral-500 font-medium">
+              No inquiries match your current filter criteria.
+            </p>
+            {isFiltered && (
+              <button
+                onClick={handleResetFilters}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200/80 text-neutral-800 text-xs font-bold transition-all cursor-pointer"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>Clear All Filters</span>
+              </button>
+            )}
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs min-w-[760px]">
               <thead className="bg-neutral-50 border-b border-neutral-200/70 text-neutral-400 font-bold uppercase tracking-wider text-[10px]">
                 <tr>
-                  <th className="p-4 pl-6">Target Asset</th>
+                  <th className="p-4 pl-6">Target Asset &amp; Type</th>
                   <th className="p-4">Offer Amount</th>
                   <th className="p-4">Buyer Identity</th>
                   <th className="p-4">Status</th>
@@ -491,15 +646,39 @@ export default function OffersAdminPage() {
               <tbody className="divide-y divide-neutral-100">
                 {filteredOffers.map((o) => {
                   const badge = STATUS_BADGES[o.status] || STATUS_BADGES.new;
+                  const qType = getOfferQueryType(o);
                   return (
                     <tr key={o.id} className="hover:bg-neutral-50/70 transition-colors">
                       <td className="p-4 pl-6">
                         <span className="font-extrabold text-neutral-950 text-sm tracking-tight block">
                           {o.domain_name || "Unassigned"}
                         </span>
-                        <span className="text-[10px] text-neutral-400 font-mono">
-                          .SI Brokerage
-                        </span>
+                        <div className="flex items-center gap-1.5 mt-1">
+                          {qType === "seller_submission" && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200/80">
+                              <Tag className="w-2.5 h-2.5" />
+                              <span>Seller Listing</span>
+                            </span>
+                          )}
+                          {qType === "buying_mandate" && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200/80">
+                              <Briefcase className="w-2.5 h-2.5" />
+                              <span>Buyer Mandate</span>
+                            </span>
+                          )}
+                          {qType === "contact_message" && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-neutral-100 text-neutral-700 border border-neutral-200">
+                              <Mail className="w-2.5 h-2.5" />
+                              <span>Contact Query</span>
+                            </span>
+                          )}
+                          {qType === "buyer_offer" && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/80">
+                              <BadgeDollarSign className="w-2.5 h-2.5" />
+                              <span>{Number(o.offer_amount) > 1 ? "Cash Offer" : "Domain Inquiry"}</span>
+                            </span>
+                          )}
+                        </div>
                       </td>
 
                       <td className="p-4">
@@ -918,6 +1097,11 @@ export default function OffersAdminPage() {
                   onChange={(e) => setForm({ ...form, domain_id: e.target.value })}
                   className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm font-bold text-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black cursor-pointer"
                 >
+                  {!domains.some((d) => d.id === form.domain_id) && form.domain_name && (
+                    <option value={form.domain_id || ""}>
+                      {form.domain_name} ({form.domain_id === "seller-submission" ? "Seller Listing" : form.domain_id === "acquisition-mandate" ? "Buyer Mandate" : form.domain_id === "contact-inquiry" ? "Contact Query" : "Custom Asset"})
+                    </option>
+                  )}
                   {domains.map((d) => (
                     <option key={d.id} value={d.id}>
                       {d.name} {d.price ? `($${d.price.toLocaleString()})` : "(Make Offer)"}
